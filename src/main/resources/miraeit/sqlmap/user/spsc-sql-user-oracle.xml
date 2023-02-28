@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="spsc.user">
+
+	<typeAlias  alias="NewLoginVO" type="net.miraeit.user.model.LoginVO"/>
+    <typeAlias  alias="FindUserListRequest" type="net.miraeit.user.model.FindUserListRequest"/>
+    <typeAlias  alias="FindUserListResponse" type="net.miraeit.user.model.FindUserListResponse"/>
+    <typeAlias  alias="CreateUserRequest" type="net.miraeit.user.model.CreateUserRequest"/>
+	<typeAlias  alias="UpdateUserRequest" type="net.miraeit.user.model.UpdateUserRequest"/>
+	<typeAlias  alias="DeleteUserRequest" type="net.miraeit.user.model.DeleteUserRequest"/>
+
+	<sql id="spsc.user.select.user.list.from">
+		FROM      LETTNEMPLYRINFO       EMP
+		   LEFT OUTER JOIN    TB_ORG_CURRENT           ORG ON EMP.ORGNZT_ID = ORG.ORG_CD
+		WHERE     EMP.USER_NM       LIKE '%' || #userNm# || '%'
+	        AND   ORG.FULL_ORG_NM   LIKE '%' || #fullOrgNm# || '%'
+	</sql>
+
+	<!-- 일반 로그인 / 'EgovLoginUsr_SQL_Oracle.xml'.'loginDAO.actionLogin' 참고 -->
+	<!-- parameterClass 선언 안해줬는데 이상 없군 -->
+	<select id="spsc.user.select.user" resultClass="NewLoginVO">
+		SELECT 		EMP.EMPLYR_ID      	 	id
+			 , 		EMP.USER_NM      	    username
+			 ,      EMP.ORGNZT_ID     	 	orgId
+			 ,      ORG.ORG_NM     	 		orgNm
+			 ,      ORG.ORG_TYPE            orgType
+			 ,      ORG.PARENT_ORG_CD       parentOrgCd
+			 , 		EMP.GROUP_ID  			authGroupId
+			 , 		GRP.GROUP_NM  			authGroupNm
+	         , 		ORG.MNG_YN				mngYn
+		FROM 		LETTNEMPLYRINFO 		EMP
+		    LEFT OUTER JOIN 	TB_ORG_CURRENT			ORG ON EMP.ORGNZT_ID = ORG_CD
+			LEFT OUTER JOIN 	LETTNAUTHORGROUPINFO 	GRP ON EMP.GROUP_ID = GRP.GROUP_ID
+		WHERE 		EMP.EMPLYR_ID = #id#
+											AND 		EMP.emplyr_sttus_code = 'C'
+			<isNotEmpty property="password">AND 		EMP.password = #password#</isNotEmpty>
+	</select>
+
+	<!-- 사용자 목록 조회 -->
+	<select id="spsc.user.select.user.list" parameterClass="FindUserListRequest" resultClass="FindUserListResponse">
+		<include refid="spsc.cmm.page.header"/>
+			SELECT    	EMP.EMPLYR_ID         id
+				 ,    	EMP.ORGNZT_ID         orgId
+				 ,    	ORG.ORG_NM            orgNm
+				 ,    	ORG.FULL_ORG_NM       fullOrgNm
+				 ,    	EMP.USER_NM           userNm
+				 ,    	EMP.USER_TY           userTy
+				 ,    	EMP.EMAIL_ADRES       email
+				 ,    	EMP.GROUP_ID          authGroupId
+				 ,    	EMP.EMPLYR_STTUS_CODE stateCd
+				 ,      TO_CHAR(EMP.SBSCRB_DE, 'yyyy-MM-dd')   createdDate
+				 ,   	EMP.JIKGUB_CD         jikgubCd
+				 ,   	EMP.JIKGUB_NM         jikgubNm
+				 ,   	EMP.JIKGUN_CD         jikgunCd
+				 ,   	EMP.JIKGUN_NM         jikgunNm
+				 ,   	EMP.POS_CD            posCd
+				 ,   	EMP.JIKMU_CD          jikmuCd
+				 ,   	EMP.JIKMU_NM          jikmuNm
+			<include refid="spsc.user.select.user.list.from"/>
+			ORDER BY EMP.USER_NM
+		<include refid="spsc.cmm.page.tail"/>
+	</select>
+
+	 <select id="spsc.user.select.user.list.count" parameterClass="FindUserListRequest" resultClass="java.lang.Integer">
+		SELECT    COUNT(EMP.EMPLYR_ID)
+		<include refid="spsc.user.select.user.list.from"/>
+	</select>
+
+	<insert id="spsc.user.insert.user" parameterClass="CreateUserRequest">
+		INSERT INTO LETTNEMPLYRINFO (	EMPLYR_ID
+		                             ,	ORGNZT_ID
+		                             ,	USER_NM
+		                             , 	PASSWORD
+		                             , 	GROUP_ID
+		                             ,	EMPLYR_STTUS_CODE
+		                             ,	SBSCRB_DE)
+				VALUES				(	#id#
+									 , 	#orgId#
+									 , 	#userNm#
+									 ,	#password#
+									 ,	#authGroupId#
+									 , 	'P'
+									 ,	sysdate)
+	</insert>
+
+	<update id="spsc.user.update.user" parameterClass="UpdateUserRequest">
+		UPDATE 		LETTNEMPLYRINFO
+			SET		GROUP_ID = #authGroupId#
+				<isNotEmpty property="password">
+				,	PASSWORD = #password#
+				</isNotEmpty>
+		WHERE		EMPLYR_ID = #id#
+	</update>
+
+	<delete id="spsc.user.delete.user" parameterClass="DeleteUserRequest">
+		DELETE FROM     LETTNEMPLYRINFO
+		WHERE           EMPLYR_ID = #id#
+	</delete>
+</sqlMap>

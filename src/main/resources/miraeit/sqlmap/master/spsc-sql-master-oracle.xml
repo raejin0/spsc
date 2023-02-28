@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="spsc.master">
+
+	<insert id="spsc.master.post.template" parameterClass="MasterTemplatePostRequest">
+		<selectKey keyProperty="mstLawId" resultClass="Integer">
+			SELECT    mstLawId.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_MST_LAW_TPL  (
+						MST_LAW_ID
+					,   OPT_TIME_YEAR
+					,   OPT_TIME_HALF
+					,   ENACT_DT
+					,   NOTE
+		)	VALUES 	(
+						#mstLawId#
+					,   #optTimeYear#
+					,   #optTimeHalf#
+					,   TO_DATE(#enactDt#, 'YYYY-MM-DD')
+					,   #note#
+		)
+	</insert>
+
+	<select id="spsc.master.get.mstlawid" resultClass="MasterInside" parameterClass="MasterTemplatePostRequest">
+		SELECT MST_LAW_ID                              mstLawId
+		FROM 	TB_MST_LAW_TPL
+		WHERE   OPT_TIME_YEAR = #optTimeYear#
+		AND     OPT_TIME_HALF = #optTimeHalf#
+	</select>
+
+	<select id="spsc.master.get.template" resultClass="MasterTemplateGetResponse" parameterClass="MasterInside">
+		SELECT MST_LAW_ID                              mstLawId
+			,  OPT_TIME_YEAR                           optTimeYear
+			,  OPT_TIME_HALF                           optTimeHalf
+			,  TO_CHAR(ENACT_DT,'YYYY-MM-DD')          enactDt
+			,  NOTE                                    note
+		FROM 	TB_MST_LAW_TPL
+		WHERE   OPT_TIME_YEAR = #optTimeYear#
+		AND     OPT_TIME_HALF = #optTimeHalf#
+	</select>
+
+	<select id="spsc.master.get.mains" resultClass="MasterMainListByLawId" parameterClass="MasterInside">
+		SELECT  LAW_MAIN_ID     lawMainId
+			,   LAW_MAIN_NO     lawMainNo
+			,   LAW_MAIN_NM     lawMainNm
+			,   DIS_CLA_CODE    disClaCode
+		FROM TB_MST_LAW_MAIN
+		WHERE MST_LAW_ID = #mstLawId#
+	</select>
+
+	<select id="spsc.master.get.sub.id" resultClass="Integer" parameterClass="Integer">
+		SELECT  LAW_SUB_ID      lawSubId
+		FROM TB_MST_LAW_SUB
+		WHERE LAW_MAIN_ID = #lawMainId#
+	</select>
+
+	<!-- spsc.master.get.applied.period 와 spsc.master.get.latest.template.id 의 정렬 조건이 같아야 한다.-->
+	<select id="spsc.master.get.applied.period" resultClass="AppliedPeriod">
+		SELECT      OPT_TIME_YEAR       optTimeYear
+				,   OPT_TIME_HALF       optTimeHalf
+		FROM TB_MST_LAW_TPL
+		ORDER BY OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC
+	</select>
+
+	<!-- spsc.master.get.applied.period 와 spsc.master.get.latest.template.id 의 정렬 조건이 같아야 한다.-->
+	<select id="spsc.master.get.latest.template.id" resultClass="Integer">
+		SELECT 	MST_LAW_ID          mstLawId
+		FROM (  SELECT  *
+				FROM TB_MST_LAW_TPL
+				ORDER BY OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC
+		) WHERE ROWNUM = 1
+	</select>
+
+	<update id="spsc.master.patch.template" parameterClass="MasterTemplatePatchRequest">
+		UPDATE TB_MST_LAW_TPL
+		SET     ENACT_DT = TO_DATE(#enactDt#, 'YYYY-MM-DD')
+			,   NOTE = #note#
+			,   MOD_DT = SYSDATE
+		WHERE MST_LAW_ID = #mstLawId#
+	</update>
+
+	<delete id="spsc.master.delete.template" parameterClass="Integer">
+		DELETE TB_MST_LAW_TPL
+		WHERE MST_LAW_ID = #mstLawId#
+	</delete>
+
+	<select id="spsc.master.get.mainIdByLawId" resultClass="Integer" parameterClass="Integer">
+		SELECT LAW_MAIN_ID      lawMainId
+		FROM TB_MST_LAW_MAIN
+		WHERE MST_LAW_ID = #mstLawId#
+	</select>
+
+	<select id="spsc.master.get.mainSubInfo" resultClass="MasterMainSubInfoGetResponse" parameterClass="Integer">
+		SELECT      TMLS.LAW_SUB_ID         lawSubId
+				,   TMLS.LAW_SUB_NO         lawSubNo
+				,   TMLS.LAW_SUB_NM         lawSubNm
+				,   TMLS.LAW_SUB_ETC        lawSubEtc
+				,   TMLS.LAW_SUB_SORT       lawSubSort
+		FROM TB_MST_LAW_MAIN TMLM
+		LEFT OUTER JOIN TB_MST_LAW_SUB TMLS on TMLM.LAW_MAIN_ID = TMLS.LAW_MAIN_ID
+		WHERE TMLM.LAW_MAIN_ID = #lawMainId#
+		ORDER BY LAW_SUB_SORT
+	</select>
+
+	<select id="spsc.master.get.subSort" resultClass="MasterInside" parameterClass="Integer">
+		SELECT      LAW_SUB_ID       lawSubId
+				,   LAW_SUB_SORT     lawSubSort
+		FROM TB_MST_LAW_SUB
+		WHERE LAW_MAIN_ID = #lawMainId#
+	</select>
+
+	<select id="spsc.master.get.textSort" resultClass="MasterInside" parameterClass="Integer">
+		SELECT      LAW_CTTS_ID       lawCttsId
+				,   LAW_CTTS_SORT     lawCttsSort
+		FROM TB_MST_LAW_TEXT
+		WHERE LAW_SUB_ID = #lawSubId#
+	</select>
+
+	<select id="spsc.master.get.implementationSort" resultClass="MasterInside" parameterClass="Integer">
+		SELECT      LAW_IMPL_ID       lawImplId
+				,   LAW_IMPL_SORT     lawImplSort
+		FROM TB_MST_LAW_IMPL
+		WHERE LAW_CTTS_ID = #lawCttsId#
+	</select>
+
+	<update id="spsc.master.patch.subSort" parameterClass="MasterInside">
+		UPDATE TB_MST_LAW_SUB
+		SET LAW_SUB_SORT = #lawSubSort#
+		WHERE LAW_SUB_ID = #lawSubId#
+	</update>
+
+	<update id="spsc.master.patch.textSort" parameterClass="MasterInside">
+		UPDATE TB_MST_LAW_TEXT
+		SET LAW_CTTS_SORT = #lawCttsSort#
+		WHERE LAW_CTTS_ID = #lawCttsId#
+	</update>
+
+	<update id="spsc.master.patch.implementationSort" parameterClass="MasterInside">
+		UPDATE TB_MST_LAW_IMPL
+		SET LAW_IMPL_SORT = #lawImplSort#
+		WHERE LAW_IMPL_ID = #lawImplId#
+	</update>
+
+	<select id="spsc.master.get.textListBySubId" resultClass="MasterTextListBySubId" parameterClass="Integer">
+		SELECT      LAW_CTTS_ID     lawCttsId
+				,   TEXT            text
+				,   LAW_CTTS_SORT   lawCttsSort
+		FROM TB_MST_LAW_TEXT
+		WHERE LAW_SUB_ID = #lawSubId#
+		ORDER BY LAW_CTTS_SORT
+	</select>
+
+	<select id="spsc.master.get.implListByTextId" resultClass="MasterImplListByTextId" parameterClass="Integer">
+		SELECT      LAW_IMPL_ID         lawImplId
+				,   ITM_REQR            itmReqr
+				,   ITM_ATTN            itmAttn
+				,   ITM_CHK             itmChk
+				,   IMPL_PROD           implProd
+				,   IMPL_PROD_CD        implProdCd
+				,   LAW_IMPL_SORT       lawImplSort
+		FROM TB_MST_LAW_IMPL
+		WHERE LAW_CTTS_ID = #lawCttsId#
+		ORDER BY LAW_IMPL_SORT
+	</select>
+
+	<select id="spsc.master.get.mainDepartmentList" resultClass="MainDepartmentList" parameterClass="Integer">
+		SELECT      MNG_ORG_CD   						mngOrgCd
+				,   FN_ORG_NM(MNG_ORG_CD,MST_LAW_ID)    mngOrgNm
+		FROM TB_MST_LAW_IMPL_MNG
+		WHERE LAW_IMPL_ID = #lawImplId#
+	</select>
+
+	<select id="spsc.master.get.executionDepartmentList" resultClass="ExecutionDepartmentList" parameterClass="Integer">
+		SELECT      TMIO.ORG_CD         orgCd
+				,   T.ORG_NM            orgNm
+                ,   T.FULL_ORG_NM       fullOrgNm
+		FROM TB_MST_IMPL_ORG    TMIO
+		LEFT OUTER JOIN TB_ORG T on TMIO.ORG_CD = T.ORG_CD
+								and t.mst_law_id = (
+									SELECT DISTINCT		MAN.MST_LAW_ID
+									FROM				TB_MST_LAW_IMPL		IMP
+															JOIN			TB_MST_LAW_TEXT		TXT	ON IMP.LAW_CTTS_ID = TXT.LAW_CTTS_ID
+															JOIN			TB_MST_LAW_SUB		SUB	ON	TXT.LAW_SUB_ID = SUB.LAW_SUB_ID
+															JOIN			TB_MST_LAW_MAIN		MAN	ON	SUB.LAW_MAIN_ID = MAN.LAW_MAIN_ID
+									WHERE				IMP.LAW_IMPL_ID = #lawImplId#
+								)
+		WHERE LAW_IMPL_ID = #lawImplId#
+	</select>
+
+	<select id="spsc.master.get.temple.statuteList" resultClass="StatuteList" parameterClass="Integer">
+		SELECT      TMLRD.LAW_REL_DTL_ID        lawRelDtlId
+				,   TMLRD.LAW_REL_ATC           lawRelAtc
+				,   TMLRD.LAW_REL_ATC_SUB       lawRelAtcSub
+				,   TMLR.LAW_REL_ID             lawRelId
+				,   TMLR.LAW_REL_NM             lawRelNm
+		FROM TB_MST_LAW_REL_MAP TMLRM
+		LEFT OUTER JOIN TB_MST_LAW_REL_DTL TMLRD    ON  TMLRM.LAW_REL_DTL_ID = TMLRD.LAW_REL_DTL_ID
+		LEFT OUTER JOIN TB_MST_LAW_REL TMLR         ON  TMLRD.LAW_REL_ID = TMLR.LAW_REL_ID
+		WHERE TMLRM.LAW_IMPL_ID = #lawImplId#
+	</select>
+
+	<insert id="spsc.master.post.main" parameterClass="MasterMainPostRequest">
+        <selectKey keyProperty="lawMainId" resultClass="Integer">
+            SELECT    lawMainId.NEXTVAL FROM DUAL
+        </selectKey>
+		INSERT INTO TB_MST_LAW_MAIN (
+					LAW_MAIN_ID
+				,   LAW_MAIN_NO
+				,   LAW_MAIN_NM
+				,   MST_LAW_ID
+				,   DIS_CLA_CODE
+				)
+		SELECT      #lawMainId#
+				,	#lawMainNo#
+				,	#lawMainNm#
+				,	#mstLawId#
+				,	#disClaCode#
+		FROM DUAL
+	</insert>
+
+	<select id="spsc.master.check.post.mainNo" resultClass="Integer" parameterClass="MasterMainPostRequest">
+		SELECT      LAW_MAIN_NO
+		FROM TB_MST_LAW_MAIN
+		WHERE 	LAW_MAIN_NO = #lawMainNo#
+		AND     MST_LAW_ID = #mstLawId#
+	</select>
+
+	<select id="spsc.master.check.patch.mainNo" resultClass="Integer" parameterClass="MasterMainPatchRequest">
+		SELECT  LAW_MAIN_NO
+		FROM    TB_MST_LAW_MAIN    MAIN
+		WHERE 	MAIN.LAW_MAIN_NO = #lawMainNo#
+		AND     MAIN.MST_LAW_ID = ( SELECT SUB.MST_LAW_ID
+									FROM TB_MST_LAW_MAIN SUB
+									WHERE SUB.LAW_MAIN_ID = #lawMainId#)
+		AND     MAIN.LAW_MAIN_NO != (SELECT SUB.LAW_MAIN_NO
+									FROM TB_MST_LAW_MAIN SUB
+									WHERE SUB.LAW_MAIN_ID = #lawMainId#)
+	</select>
+
+	<update id="spsc.master.patch.main" parameterClass="MasterMainPatchRequest">
+		UPDATE  TB_MST_LAW_MAIN
+		SET     LAW_MAIN_NO = #lawMainNo#
+			,   LAW_MAIN_NM = #lawMainNm#
+			,   DIS_CLA_CODE = #disClaCode#
+		WHERE   LAW_MAIN_ID = #lawMainId#
+	</update>
+
+	<insert id="spsc.master.post.sub" parameterClass="MasterSubPostRequest">
+		<selectKey keyProperty="lawSubId" resultClass="Integer">
+			SELECT    lawSubId.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_MST_LAW_SUB(
+					LAW_SUB_ID
+				,   LAW_SUB_NO
+				,   LAW_SUB_NM
+				,   LAW_MAIN_ID
+				,   LAW_SUB_ETC
+				,   LAW_SUB_SORT
+		) SELECT    #lawSubId#
+				,   #lawSubNo#
+				,   #lawSubNm#
+				,   #lawMainId#
+				,   #lawSubEtc#
+				,   #lawSubSort#
+		FROM DUAL
+	</insert>
+
+	<select id="spsc.master.check.post.subNo" resultClass="Integer" parameterClass="MasterSubPostRequest">
+		SELECT 	LAW_SUB_NO
+		FROM 	TB_MST_LAW_SUB
+		WHERE 	LAW_MAIN_ID = #lawMainId#
+		AND     LAW_SUB_NO = #lawSubNo#
+	</select>
+
+	<update id="spsc.master.patch.sub" parameterClass="MasterSubPatchRequest">
+		UPDATE  TB_MST_LAW_SUB
+		SET     LAW_SUB_NO = #lawSubNo#
+			,   LAW_SUB_ETC = #lawSubEtc#
+			,   LAW_SUB_NM = #lawSubNm#
+		WHERE   LAW_SUB_ID = #lawSubId#
+	</update>
+
+	<select id="spsc.master.check.patch.subNo" resultClass="Integer" parameterClass="MasterSubPatchRequest">
+		SELECT  LAW_SUB_NO
+		FROM    TB_MST_LAW_SUB MAIN
+		WHERE   MAIN.LAW_SUB_NO = #lawSubNo#
+		AND     MAIN.LAW_MAIN_ID = (SELECT SUB.LAW_MAIN_ID
+									FROM TB_MST_LAW_SUB SUB
+									WHERE SUB.LAW_SUB_ID = #lawSubId#)
+		AND     MAIN.LAW_SUB_NO != (SELECT SUB.LAW_SUB_NO
+									FROM TB_MST_LAW_SUB SUB
+									WHERE SUB.LAW_SUB_ID = #lawSubId#)
+	</select>
+
+	<insert id="spsc.master.post.text" parameterClass="MasterTextPostRequest">
+		<selectKey keyProperty="lawCttsId" resultClass="Integer">
+			SELECT    lawCttsId.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_MST_LAW_TEXT(
+					LAW_CTTS_ID
+				,   LAW_SUB_ID
+				,   LAW_CTTS_SORT
+				,   TEXT
+		)  SELECT   #lawCttsId#
+				,   #lawSubId#
+				,   #lawCttsSort#
+				,   #text#
+		FROM DUAL
+	</insert>
+
+	<update id="spsc.master.patch.text" parameterClass="MasterTextPatchRequest">
+		UPDATE  TB_MST_LAW_TEXT
+		SET     TEXT = #text#
+		WHERE   LAW_CTTS_ID = #lawCttsId#
+	</update>
+
+	<insert id="spsc.master.post.implementation" parameterClass="MasterImplPostRequest">
+		<selectKey keyProperty="lawImplId" resultClass="Integer">
+			SELECT    lawImplId.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_MST_LAW_IMPL(
+					LAW_IMPL_ID
+				,   ITM_REQR
+				,   ITM_ATTN
+				,   ITM_CHK
+				,   IMPL_PROD
+				,   IMPL_PROD_CD
+				,   LAW_CTTS_ID
+				,   LAW_IMPL_SORT
+		)  VALUES (
+					#lawImplId#
+				,   #itmReqr#
+				,   #itmAttn#
+				,   #itmChk#
+				,   #implProd#
+				,   #implProdCd#
+				,   #lawCttsId#
+				,   #lawImplSort#
+		)
+	</insert>
+
+	<delete id="spsc.master.delete.implementation.map" parameterClass="Integer">
+		DELETE TB_MST_LAW_REL_MAP
+		WHERE LAW_IMPL_ID = #lawImplId#
+	</delete>
+
+	<insert id="spsc.master.post.related.map" parameterClass="MasterInside">
+		INSERT INTO TB_MST_LAW_REL_MAP (
+						LAW_IMPL_ID
+					,   LAW_REL_DTL_ID
+		)
+		VALUES (
+						#lawImplId#
+					,   #lawRelDtlId#
+		)
+	</insert>
+
+	<update id="spsc.master.patch.implementation" parameterClass="MasterImplPostRequest">
+		UPDATE  TB_MST_LAW_IMPL
+		SET     ITM_REQR = #itmReqr#
+			,	ITM_ATTN = #itmAttn#
+			,	ITM_CHK = #itmChk#
+			,	IMPL_PROD = #implProd#
+			,	IMPL_PROD_CD = #implProdCd#
+			,	LAW_CTTS_ID = #lawCttsId#
+		WHERE   LAW_IMPL_ID = #lawImplId#
+	</update>
+
+	<delete id="spsc.master.delete.implementation.mng.map" parameterClass="Integer">
+		DELETE 	TB_MST_LAW_IMPL_MNG
+		WHERE 	LAW_IMPL_ID = #lawImplId#
+		AND 	MST_LAW_ID = FN_LATEST_TPL_ID()
+	</delete>
+
+	<insert id="spsc.master.post.mng.map" parameterClass="MasterInside">
+		INSERT INTO TB_MST_LAW_IMPL_MNG (
+						LAW_IMPL_ID
+					,   MNG_ORG_CD
+					,   MST_LAW_ID
+		)
+		VALUES (
+						#lawImplId#
+					,   #mngOrgCd#
+					,   FN_LATEST_TPL_ID()
+		)
+	</insert>
+
+	<delete id="spsc.master.delete.implementation.org.map" parameterClass="Integer">
+		DELETE 	TB_MST_IMPL_ORG
+		WHERE 	LAW_IMPL_ID = #lawImplId#
+		AND 	MST_LAW_ID = FN_LATEST_TPL_ID()
+	</delete>
+
+    <delete id="spsc.master.delete.impl.item" parameterClass="Integer">
+        DELETE	TB_IMPL_ITEM
+		WHERE	ITEM_ID IN (
+					SELECT		ITEM_ID
+					FROM		TB_IMPL_ITEM
+					WHERE		LAW_IMPL_ID = #lawImplId#
+							AND	MST_LAW_ID	= FN_LATEST_TPL_ID()
+				)
+    </delete>
+    <delete id="spsc.master.delete.impl.item.by.orgCd" parameterClass="Integer">
+        DELETE	TB_IMPL_ITEM
+		WHERE	ITEM_ID IN (
+					SELECT		ITEM_ID
+					FROM		TB_IMPL_ITEM
+					WHERE		LAW_IMPL_ID = #lawImplId#
+							AND	MST_LAW_ID	= FN_LATEST_TPL_ID()
+							AND	ORG_CD NOT IN (
+									SELECT	ORG_CD
+									FROM	TB_MST_IMPL_ORG
+									WHERE	LAW_IMPL_ID = #lawImplId#
+								)
+				)
+    </delete>
+
+	<insert id="spsc.master.post.org.map" parameterClass="MasterInside">
+		INSERT INTO TB_MST_IMPL_ORG (
+						LAW_IMPL_ID
+					,   ORG_CD
+					,   MST_LAW_ID
+		)
+		VALUES (
+						#lawImplId#
+					,   #orgCd#
+					,   FN_LATEST_TPL_ID()
+		)
+	</insert>
+
+	<update id="spsc.master.post.impl.item" parameterClass="MasterInside">
+		MERGE INTO TB_IMPL_ITEM
+		USING DUAL ON (
+					ORG_CD = #orgCd#
+			AND     LAW_IMPL_ID = #lawImplId#
+			AND     MST_LAW_ID = FN_LATEST_TPL_ID()
+		)
+		WHEN NOT MATCHED THEN
+		INSERT (
+					ITEM_ID
+				,   ORG_CD
+				,   IMPL_STATE
+				,   LAW_IMPL_ID
+				,   IMPL_FILE_ID
+				,   POINT_OUT_FILE_ID
+				,   MST_LAW_ID
+		) VALUES (  #itemId#
+				,   #orgCd#
+				,   'X'
+				,   #lawImplId#
+				,   #implFileId#
+				,   #pointOutFileId#
+				,   FN_LATEST_TPL_ID()
+		)
+	</update>
+
+	<select id="spsc.master.post.impl.item.id" resultClass="Integer">
+		SELECT itemId.NEXTVAL itemId
+		FROM DUAL
+	</select>
+
+	<insert id="spsc.master.post.file" parameterClass="MasterInside">
+		<selectKey keyProperty="atchFileId" resultClass="Integer">
+			SELECT fileId.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO LETTNFILE	(ATCH_FILE_ID, CREAT_DT, USE_AT)
+		VALUES 			(#atchFileId#, SYSDATE, 'Y')
+	</insert>
+
+	<select id="spsc.master.get.statute" resultClass="MasterStatuteGetResponse">
+		SELECT      LAW_REL_ID      lawRelId
+				,   LAW_REL_NM      lawRelNm
+		FROM TB_MST_LAW_REL
+		ORDER BY LAW_REL_NM
+	</select>
+
+	<select id="spsc.master.get.article" parameterClass="Integer" resultClass="MasterArticleGetResponse">
+		SELECT      LAW_REL_DTL_ID      lawRelDtlId
+				,   LAW_REL_ATC         lawRelAtc
+				,   LAW_REL_ATC_SUB     lawRelAtcSub
+				,   LAW_REL_TEXT        lawRelText
+				,   LAW_REL_ID          lawRelId
+		FROM TB_MST_LAW_REL_DTL
+		WHERE LAW_REL_ID = #lawRelId#
+		ORDER BY    LAW_REL_ATC, LAW_REL_ATC_SUB NULLS FIRST
+	</select>
+
+	<delete id="spsc.master.delete.implementation" parameterClass="Integer">
+		DELETE TB_MST_LAW_IMPL
+		WHERE LAW_IMPL_ID = #lawImplId#
+	</delete>
+
+	<delete id="spsc.master.delete.text" parameterClass="Integer">
+		DELETE TB_MST_LAW_TEXT
+		WHERE LAW_CTTS_ID = #lawCttsId#
+	</delete>
+
+	<delete id="spsc.master.delete.sub" parameterClass="Integer">
+		DELETE TB_MST_LAW_SUB
+		WHERE LAW_SUB_ID = #lawSubId#
+	</delete>
+
+	<delete id="spsc.master.delete.main" parameterClass="Integer">
+		DELETE TB_MST_LAW_MAIN
+		WHERE LAW_MAIN_ID = #lawMainId#
+	</delete>
+
+	<insert id="spsc.master.post.statute" parameterClass="MasterStatutePostRequest">
+		<selectKey keyProperty="lawRelId" resultClass="Integer">
+			SELECT lawRelId.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_MST_LAW_REL(
+					LAW_REL_ID
+				,   LAW_REL_NM
+		) SELECT    #lawRelId#
+				,   #lawRelNm#
+		FROM DUAL
+	</insert>
+
+	<update id="spsc.master.patch.statute" parameterClass="MasterStatutePatchRequest">
+		UPDATE TB_MST_LAW_REL
+		SET LAW_REL_NM = #lawRelNm#
+		WHERE LAW_REL_ID = #lawRelId#
+	</update>
+
+	<delete id="spsc.master.delete.statute" parameterClass="MasterStatuteDeleteRequest">
+		DELETE TB_MST_LAW_REL
+		WHERE LAW_REL_ID = #lawRelId#
+	</delete>
+
+    <insert id="spsc.master.post.article" parameterClass="MasterArticlePostRequest">
+        INSERT INTO TB_MST_LAW_REL_DTL(
+                        LAW_REL_DTL_ID
+                    ,   LAW_REL_ATC
+	                ,   LAW_REL_ATC_SUB
+                    ,   LAW_REL_TEXT
+                    ,   LAW_REL_ID
+        ) SELECT        lawRelDtlId.NEXTVAL
+                    ,   #lawRelAtc#
+                    ,   #lawRelAtcSub#
+                    ,   #lawRelText#
+                    ,   #lawRelId#
+        FROM DUAL
+    </insert>
+
+    <update id="spsc.master.patch.article" parameterClass="MasterArticlePatchRequest">
+        UPDATE  TB_MST_LAW_REL_DTL
+        SET     LAW_REL_ATC = #lawRelAtc#
+	        ,   LAW_REL_ATC_SUB = #lawRelAtcSub#
+            ,   LAW_REL_TEXT = #lawRelText#
+        WHERE   LAW_REL_DTL_ID = #lawRelDtlId#
+    </update>
+
+    <select id="spsc.master.get.article.map" parameterClass="Integer" resultClass="Integer">
+        SELECT  LAW_REL_DTL_ID      lawRelDtlId
+        FROM    TB_MST_LAW_REL_MAP
+        WHERE   LAW_REL_DTL_ID = #lawRelDtlId#
+    </select>
+
+	<delete id="spsc.master.delete.article.map" parameterClass="Integer">
+		DELETE TB_MST_LAW_REL_MAP
+		WHERE LAW_REL_DTL_ID = #lawRelDtlId#
+	</delete>
+
+	<delete id="spsc.master.delete.article" parameterClass="Integer">
+		DELETE TB_MST_LAW_REL_DTL
+		WHERE LAW_REL_DTL_ID = #lawRelDtlId#
+	</delete>
+
+	<insert id="spsc.master.copy.main" parameterClass="MasterInside">
+		<selectKey keyProperty="lawMainId" resultClass="Integer">
+			SELECT lawMainId.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_MST_LAW_MAIN (
+						LAW_MAIN_ID
+					, 	LAW_MAIN_NO
+					, 	LAW_MAIN_NM
+					, 	MST_LAW_ID
+					, 	DIS_CLA_CODE
+		)
+		SELECT 			#lawMainId#
+					, 	LAW_MAIN_NO
+					, 	LAW_MAIN_NM
+					, 	#mstLawId#
+					, 	DIS_CLA_CODE
+		FROM TB_MST_LAW_MAIN
+		WHERE LAW_MAIN_ID = #copyLawMainId#
+	</insert>
+
+	<insert id="spsc.master.copy.sub" parameterClass="MasterInside">
+		<selectKey keyProperty="lawSubId" resultClass="Integer">
+			SELECT lawSubId.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_MST_LAW_SUB(
+						LAW_SUB_ID
+					,   LAW_SUB_NO
+					,   LAW_MAIN_ID
+					,   LAW_SUB_ETC
+					,   LAW_SUB_NM
+		)
+		SELECT          #lawSubId#
+					,   LAW_SUB_NO
+					,   #lawMainId#
+					,   LAW_SUB_ETC
+					,   LAW_SUB_NM
+		FROM TB_MST_LAW_SUB
+		WHERE LAW_SUB_ID = #copyLawSubId#
+	</insert>
+
+	<insert id="spsc.master.copy.text" parameterClass="MasterInside">
+		<selectKey keyProperty="lawCttsId" resultClass="Integer">
+			SELECT lawCttsId.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_MST_LAW_TEXT(
+						LAW_CTTS_ID
+					,   LAW_SUB_ID
+					,   TEXT
+		) SELECT        #lawCttsId#
+					,   #lawSubId#
+					,   TEXT
+		FROM    TB_MST_LAW_TEXT
+		WHERE LAW_CTTS_ID = #copyLawCttsId#
+	</insert>
+
+	<insert id="spsc.master.copy.implementation" parameterClass="MasterInside">
+		<selectKey keyProperty="lawImplId" resultClass="Integer">
+			SELECT lawImplId.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_MST_LAW_IMPL(
+						LAW_IMPL_ID
+					,   ITM_REQR
+					,   ITM_ATTN
+					,   IMPL_PROD
+					,   IMPL_PROD_CD
+					,   LAW_CTTS_ID
+		) SELECT        #lawImplId#
+					,   ITM_REQR
+					,   ITM_ATTN
+					,   IMPL_PROD
+					,   IMPL_PROD_CD
+					,   #lawCttsId#
+		FROM TB_MST_LAW_IMPL
+		WHERE LAW_IMPL_ID = #copyLawImplId#
+	</insert>
+
+	<insert id="spsc.master.copy.organization" parameterClass="MasterInside">
+		INSERT INTO TB_MST_IMPL_ORG(
+						LAW_IMPL_ID
+					,   ORG_CD
+		) SELECT        #lawImplId#
+					,   ORG_CD
+		FROM TB_MST_IMPL_ORG
+		WHERE LAW_IMPL_ID = #copyLawImplId#
+	</insert>
+
+	<insert id="spsc.master.copy.management" parameterClass="MasterInside">
+		INSERT INTO TB_MST_LAW_IMPL_MNG(
+						LAW_IMPL_ID
+					,   MNG_ORG_CD
+		) SELECT        #lawImplId#
+					,   MNG_ORG_CD
+		FROM TB_MST_LAW_IMPL_MNG
+		WHERE LAW_IMPL_ID = #copyLawImplId#
+	</insert>
+
+	<select id="spsc.master.get.article.detail" resultClass="MasterArticleDetailGetResponse">
+		SELECT      TMLR.LAW_REL_ID         lawRelId
+				,   TMLR.LAW_REL_NM         lawRelNm
+				,   TMLRD.LAW_REL_DTL_ID    lawRelDtlId
+				,   TMLRD.LAW_REL_ATC       lawRelAtc
+				,   TMLRD.LAW_REL_TEXT      lawRelText
+		FROM TB_MST_LAW_REL TMLR
+		LEFT OUTER JOIN TB_MST_LAW_REL_DTL TMLRD    ON  TMLR.LAW_REL_ID = TMLRD.LAW_REL_ID
+													AND TMLRD.USE_YN = 'Y'
+		WHERE TMLR.USE_YN = 'Y'
+		ORDER BY TMLR.LAW_REL_NM,TMLRD.LAW_REL_ATC
+	</select>
+
+	<select id="spsc.master.get.last.temple.check" parameterClass="MasterInside" resultClass="Integer">
+		SELECT TMLT.MST_LAW_ID
+		FROM TB_MST_LAW_TPL TMLT
+		LEFT JOIN TB_MST_LAW_MAIN TMLM  ON  TMLT.MST_LAW_ID = TMLM.MST_LAW_ID
+		LEFT JOIN TB_MST_LAW_SUB TMLS   ON  TMLM.LAW_MAIN_ID = TMLS.LAW_MAIN_ID
+		LEFT JOIN TB_MST_LAW_TEXT T     ON  TMLS.LAW_SUB_ID = T.LAW_SUB_ID
+		LEFT JOIN TB_MST_LAW_IMPL TMLI  ON T.LAW_CTTS_ID = TMLI.LAW_CTTS_ID
+		WHERE TMLT.MST_LAW_ID = FN_LATEST_TPL_ID()
+		<isNotEmpty property="mstLawId" prepend="AND">
+			TMLM.MST_LAW_ID = #mstLawId#
+		</isNotEmpty>
+		<isNotEmpty property="lawMainId" prepend="AND">
+			TMLM.LAW_MAIN_ID = #lawMainId#
+		</isNotEmpty>
+		<isNotEmpty property="lawSubId" prepend="AND">
+			TMLS.LAW_SUB_ID = #lawSubId#
+		</isNotEmpty>
+		<isNotEmpty property="lawCttsId" prepend="AND">
+			T.LAW_CTTS_ID = #lawCttsId#
+		</isNotEmpty>
+		GROUP BY TMLT.MST_LAW_ID
+	</select>
+
+	<select id="spsc.master.find.law.sub.sort" parameterClass="Integer" resultClass="Integer">
+		SELECT				LAW_SUB_SORT
+		FROM				TB_MST_LAW_SUB
+		WHERE				LAW_SUB_ID = #lawSubId#
+	</select>
+
+	<select id="spsc.master.find.law.ctts.sort" parameterClass="Integer" resultClass="Integer">
+		SELECT				LAW_CTTS_SORT
+		FROM				TB_MST_LAW_TEXT
+		WHERE				LAW_CTTS_ID = #lawCttsId#
+	</select>
+
+	<select id="spsc.master.find.law.impl.sort" parameterClass="Integer" resultClass="Integer">
+		SELECT				LAW_IMPL_SORT
+		FROM				TB_MST_LAW_IMPL
+		WHERE				LAW_IMPL_ID = #lawImplId#
+	</select>
+</sqlMap>

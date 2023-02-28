@@ -1,0 +1,303 @@
+{
+	"success": true,
+	"data": {
+		"request": {
+			"orgCd": "안전품질실",
+			"optTimeYear": "2022",
+			"optTimeHalf": "F",
+			"disasterType": ""
+		},
+		"optTimeYear": "2022",
+		"optTimeHalf": "F",
+		"progressOnDepartment": {
+			"department": {
+				"orgCd": "안전품질실",
+				"orgNm": "안전품질실 상반기"
+			},
+			"progress": 55.76
+		},
+		"lawMainList": [
+			{
+				"lawMain": {
+					"lawMainId": 1,
+					"lawMainNo": 4,
+					"lawMainNm": "안전보건관리체계의 구축 및 이행조치"
+				},
+				"lawSubList": [
+					{
+						"lawSub": {
+							"lawSubId": 1,
+							"lawSubNo": 1,
+							"lawSubNm": null,
+							"lawSubEtc": "비고"
+						},
+						"textList": [
+							{
+								"lawSubText": {
+									"lawCttsId": 1,
+									"text": "사업장의 안전ㆍ보건에 관한 목표와 경영방침을 설정"
+								},
+								"implList": [
+									{
+										"lawImplId": 1,
+										"itmReqr": "안전보건에 관한 목표 수립",
+										"itmAttn": "안전경영책임계획, 사업소 안전보건목표 수립 ",
+										"itmChk": null,
+										"implProd": "전년12월~3월",
+										"implProdCd": null,
+										"mainDepartmentLists": [{
+											"orgCd": "발전운영실",
+											"orgNm": "발전운영실"
+										}],
+										"executionDepartmentLists": [
+											{
+												"orgCd": "7002",
+												"orgNm": "감사팀"
+											},
+											{
+												"orgCd": "7003",
+												"orgNm": "(서울)총무부"
+											},
+											{
+												"orgCd": "7616",
+												"orgNm": "정보보안팀"
+											}
+										],
+										"statuteLists": [{
+											"lawRelId": 1,
+											"lawRelNm": "관련법령1",
+											"lawRelDtlId": "1",
+											"lawRelAtc": "1호"
+										}],
+										"statuteEquipmentsList": [{
+											"statute": {
+												"lawRelId": 1,
+												"lawRelNm": "관련법령1",
+												"lawRelDtlId": "1",
+												"lawRelAtc": "1호"
+											},
+											"equipments": [{
+												"equipmentId": 1,
+												"equipmentNm": "장비1"
+											}, {
+												"equipmentId": 2,
+												"equipmentNm": "장비2"
+											}]
+										}, {
+											"statute": {
+												"lawRelId": 2,
+												"lawRelNm": "관련법령2",
+												"lawRelDtlId": "2",
+												"lawRelAtc": "2호"
+											},
+											"equipments": [{
+												"equipmentId": 3,
+												"equipmentNm": "장비3"
+											}, {
+												"equipmentId": 4,
+												"equipmentNm": "장비4"
+											}]
+										}],
+										"attachments": {
+											"implFiles": [{
+												"name": "첨부파일1",
+												"url": "첨부주소1",
+												"type": "F"
+											}, {
+												"name": "첨부파일2",
+												"url": "첨부주소2",
+												"type": "F"
+											}],
+											"implLinks": [{
+												"name": "첨부링크1",
+												"url": "첨부주소1",
+												"type": "L"
+											}, {
+												"name": "첨부파일2",
+												"url": "첨부주소2",
+												"type": "L"
+											}],
+											"pointedFiles": [{
+												"name": "첨부파일3",
+												"url": "첨부주소3",
+												"type": "F"
+											}, {
+												"name": "첨부파일4",
+												"url": "첨부주소4",
+												"type": "F"
+											}],
+											"pointedLinks": [{
+												"name": "첨부링크3",
+												"url": "첨부주소3",
+												"type": "L"
+											}, {
+												"name": "첨부링크4",
+												"url": "첨부주소4",
+												"type": "L"
+											}]
+										}
+									},
+									{
+										"lawImplId": 2,
+										"itmReqr": "본사 및 각 사업소 자체 경영방침 수립",
+										"itmAttn": " 자체 경영방침 수립여부, 경영방침 게시",
+										"itmChk": "안전경영책임계획 수립(전사 및 사업소)\n사무실 내 경영방침 게시",
+										"implProd": "매년 1월",
+										"implProdCd": null,
+										"mainDepartmentLists": [],
+										"executionDepartmentLists": [],
+										"statuteLists": [],
+										"statuteEquipmentsList": [{
+											"statute": {
+												"lawRelId": 1,
+												"lawRelNm": "관련법령1",
+												"lawRelDtlId": "1",
+												"lawRelAtc": "1호"
+											},
+											"equipments": [{
+												"equipmentId": 1,
+												"equipmentNm": "장비1"
+											}, {
+												"equipmentId": 2,
+												"equipmentNm": "장비2"
+											}]
+										}]
+									}
+								]
+							}
+						]
+					},
+					{
+						"lawSub": {
+							"lawSubId": 2,
+							"lawSubNo": 2,
+							"lawSubNm": null,
+							"lawSubEtc": null
+						},
+						"textList": [
+							{
+								"lawSubText": {
+									"lawCttsId": 2,
+									"text": "안전ㆍ보건에 관한 업무를 총괄ㆍ관리하는 전담 조직 구성"
+								},
+								"implList": [
+									{
+										"lawImplId": 3,
+										"itmReqr": "안전ㆍ보건 업무를 총괄ㆍ관리하는 전담조직 구성",
+										"itmAttn": "안전ㆍ보건을 담당하는 전담조직 구성여부",
+										"itmChk": "안전ㆍ보건 총괄ㆍ관리 조직도",
+										"implProd": "수시",
+										"implProdCd": null,
+										"mainDepartmentLists": [],
+										"executionDepartmentLists": [],
+										"statuteLists": []
+									}
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				"lawMain": {
+					"lawMainId": 2,
+					"lawMainNo": 5,
+					"lawMainNm": "안전ㆍ보건 관계 법령에 따른 의무이행여부 점검"
+				},
+				"lawSubList": [
+					{
+						"lawSub": {
+							"lawSubId": 3,
+							"lawSubNo": 3,
+							"lawSubNm": null,
+							"lawSubEtc": null
+						},
+						"textList": [
+							{
+								"lawSubText": {
+									"lawCttsId": 3,
+									"text": "유해ㆍ위험요인을 확인하여 개선하는 업무절차 마련\n유해ㆍ위험요인의 확인 및 개선이 이루어지는지 1회/반기 점검"
+								},
+								"implList": [
+									{
+										"lawImplId": 4,
+										"itmReqr": "정기위험성평가 실시",
+										"itmAttn": "정기위험성평가, 위험성평가 교육",
+										"itmChk": "정기위험성평가 시행계획\n정기위험성평가 시행문서\n정기위험성평가 시행관련 교육증빙서류",
+										"implProd": "5월",
+										"implProdCd": null,
+										"mainDepartmentLists": [],
+										"executionDepartmentLists": [],
+										"statuteLists": []
+									},
+									{
+										"lawImplId": 5,
+										"itmReqr": "위험성평가에 대한 사전조사",
+										"itmAttn": "안전보건정보에 대한 사전 조사\n                  - 작업표준, 작업절차 \n                  - 기계ㆍ기구, 설비 등의 사양, 물질안전보건자료의 유해ㆍ위험요인\n                  - 공정 흐름 및 작업 주변 환경 ",
+										"itmChk": "위험성평가 실시에 따른 사전조사 증빙서류",
+										"implProd": "5월",
+										"implProdCd": null,
+										"mainDepartmentLists": [],
+										"executionDepartmentLists": [],
+										"statuteLists": []
+									},
+									{
+										"lawImplId": 6,
+										"itmReqr": "위험성평가 작성",
+										"itmAttn": "위험성평가 실시, 위험성평가 실시에 따른 조치",
+										"itmChk": "위험성평가 실시 증빙서류\n위험성평가 개선조치실적",
+										"implProd": "5월",
+										"implProdCd": null,
+										"mainDepartmentLists": [],
+										"executionDepartmentLists": [],
+										"statuteLists": []
+									},
+									{
+										"lawImplId": 7,
+										"itmReqr": "위험성평가 결과 공유",
+										"itmAttn": "교육, TBM, 결과게시 등",
+										"itmChk": "위험성평가 결과 및 공유 문서",
+										"implProd": "수시",
+										"implProdCd": null,
+										"mainDepartmentLists": [],
+										"executionDepartmentLists": [],
+										"statuteLists": []
+									}
+								]
+							}
+						]
+					},
+					{
+						"lawSub": {
+							"lawSubId": 4,
+							"lawSubNo": 4,
+							"lawSubNm": null,
+							"lawSubEtc": null
+						},
+						"textList": [
+							{
+								"lawSubText": {
+									"lawCttsId": 4,
+									"text": "유해ㆍ위험요인의 개선 및 재해 예방을 위해 필요한 예산 편성 및 집행"
+								},
+								"implList": [
+									{
+										"lawImplId": 8,
+										"itmReqr": "유해ㆍ위험요인의 개선을 위한 예산 편성",
+										"itmAttn": null,
+										"itmChk": "유해ㆍ위험요인 개선을 위한 예산 편성 및 집행여부",
+										"implProd": "수시",
+										"implProdCd": null,
+										"mainDepartmentLists": [],
+										"executionDepartmentLists": [],
+										"statuteLists": []
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+}

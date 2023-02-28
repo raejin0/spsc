@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- 프로퍼티 정보 설정 -->
+	<bean name="propertiesService" class="egovframework.rte.fdl.property.impl.EgovPropertyServiceImpl" destroy-method="destroy">
+		<property name="properties">
+	        <map>
+	        	<entry key="pageUnit" value="10"/>
+	        	<entry key="pageSize" value="10"/>
+
+		        <!-- 파일 업로드/다운로드 -->
+	        	<entry key="posblAtchFileSize" value="5242880"/>
+<!--				  local 개발용-->
+				<entry key="Globals.fileStorePath" value="c:/file_directory/"/>                 <!--local 개발용-->
+				<!--<entry key="Globals.fileStorePath" value="/data4/kcpgdev/attachments/"/>--> <!-- 중부발전 개발서버 -->
+		        <!--<entry key="Globals.fileStorePath" value="/data4/kcpg/attachments/"/>-->    <!-- 중부발전 운영서버 -->
+
+		        <!-- excel download -->
+		        <entry key="law.download.excel.filename" value="관련법령.xlsx"/>
+		        <entry key="excel.filename.encoding.input" value="KSC5601"/>
+		        <entry key="excel.filename.encoding.output" value="8859_1"/>
+
+
+	        	<entry key="Globals.addedOptions" value="false"/>
+
+		        <!-- jwt -->
+		        <entry key="jwt.header" value="Authorization"/>
+		        <entry key="jwt.secret" value="S09NSVBPLWluc3BlY3Rpb24tc3lzdGVtLWZvci1mdWxmaWxsbWVudC1vZi1zYWZldHktYW5kLWhlYWx0aC1KV1Qtc2VjcmV0LWtleS1ieS1taXJhZWl0LWluLTIwMjIK"/>
+		        <entry key="jwt.token-validity-in-seconds" value="21600"/> <!-- echo 'KOMIPO-inspection-system-for-fulfillment-of-safety-and-health-JWT-secret-key-by-miraeit-in-2022' | base64-->
+
+				<entry key="multipart.encoding.post.input" value="8859_1"/>
+				<entry key="multipart.encoding.post.output" value="UTF-8"/>
+
+				<entry key="spsc.admin.id" value="admin"/>
+
+		        <!-- 인사정보 연계 암호화 -->
+		        <entry key="spsc.link.personnel.password" value="komipo#12"/>
+
+
+		        <!-- mail properties -->
+		        <entry key="mail.sort" value="local"/>
+<!--		        <entry key="mail.sort" value="jb"/>
+		        <entry key="mail.jb.sort" value="test"/>-->
+<!--		        <entry key="mail.jb.sort" value="real"/>-->
+
+
+                <!-- mail 로컬 테스트용 -->
+		        <entry key="mail.local.from" value="miraeit.mail@gmail.com"/>
+		        <entry key="mail.local.password" value="rtjlxjxfodqiiuce"/>
+		        <entry key="mail.local.host" value="smtp.gmail.com"/>
+		        <entry key="mail.local.port" value="587"/>
+<!--	        <entry key="mail.local.password" value="metapass#12"/>-->
+
+		        <!-- mail 중부발전  -->
+				<entry key="mail.jb.from" value="komipoweb@komipo.co.kr"/>
+		        <entry key="mail.jb.host" value="mail.komipo.co.kr"/>
+		        <entry key="mail.jb.port" value="25"/>
+		        <entry key="mail.jb.to.test2" value="jhkim1224@komipo.co.kr"/>      <!-- 김정환 차장님 이메일 -->
+		        <entry key="mail.jb.to.test1" value="coolkim@komipo.co.kr"/>        <!-- 김태연 대리님 이메일 -->
+
+		        <!-- Excel upload -->
+		        <entry key="point-out.excel.summary.first.row.number"       value="7"/>
+		        <entry key="point-out.excel.summary.first.cell.number"      value="1"/>
+		        <entry key="point-out.excel.detail.first.row.number"       value="4"/>
+		        <entry key="point-out.excel.detail.first.cell.number"      value="1"/>
+		        <entry key="point-out.excel.detail.column.number.before"     value="8"/>
+		        <entry key="point-out.excel.detail.column.number.after"     value="9"/>
+
+		        <!-- Excel download -->
+		        <!-- local - spsc-->
+		        <entry key="point-out.excel.format.download.atchFileId" value="40642"/>
+		        <entry key="point-out.excel.empty.format.atchFileId"    value="40643"/>
+
+		        <!-- local - spsc_back -->
+		        <!-- <entry key="point-out.excel.format.download.atchFileId" value="21600"/> -->
+		        <!-- <entry key="point-out.excel.empty.format.atchFileId"    value="21601"/> -->
+
+                <!-- 중부 - 개발 -->
+		        <!-- <entry key="point-out.excel.format.download.atchFileId" value="40642"/> -->
+		        <!-- <entry key="point-out.excel.empty.format.atchFileId"    value="40643"/> -->
+
+		        <!-- 중부 - 운영 -->
+		        <!-- <entry key="point-out.excel.format.download.atchFileId" value="40642"/> -->
+		        <!-- <entry key="point-out.excel.empty.format.atchFileId"    value="40643"/> -->
+
+				<entry key="point-out.excel.format.download.fileSn"     value="1"/>
+				<entry key="point-out.excel.empty.format.fileSn"        value="1"/>
+
+		        <entry key="point-out.excel.download.summary.first.row.number"        value="7"/>
+		        <entry key="point-out.excel.download.summary.row.style.height"  value="2000"/>  <!-- 100 -->
+
+		        <entry key="point-out.excel.download.sort"  value="tomcat"/>
+		        <!--<entry key="point-out.excel.download.sort"  value="jeus"/>-->
+
+	        </map>
+		</property>
+	</bean>
+</beans>	

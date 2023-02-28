@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="spsc.cmm.link">
+	<typeAlias  alias="MasterLawTemplate" type="net.miraeit.scheduling.model.semiannual.MasterLawTemplate"/>
+	<typeAlias  alias="MasterLawMain" type="net.miraeit.scheduling.model.semiannual.MasterLawMain"/>
+	<typeAlias  alias="MasterLawSub" type="net.miraeit.scheduling.model.semiannual.MasterLawSub"/>
+	<typeAlias  alias="MasterLawText" type="net.miraeit.scheduling.model.semiannual.MasterLawText"/>
+	<typeAlias  alias="MasterLawImpl" type="net.miraeit.scheduling.model.semiannual.MasterLawImpl"/>
+	<typeAlias  alias="OrgLawRelEquip" type="net.miraeit.scheduling.model.semiannual.OrgLawRelEquip"/>
+	<typeAlias  alias="ImplOrgMap" type="net.miraeit.scheduling.model.semiannual.map.ImplOrgMap"/>
+	<typeAlias  alias="ImplLawDtlMap" type="net.miraeit.scheduling.model.semiannual.map.ImplLawDtlMap"/>
+	<typeAlias  alias="ImplItem" type="net.miraeit.scheduling.model.semiannual.map.ImplItem"/>
+
+	<!-- conditions -->
+
+	<!-- 최근 반기 마스터정보 조회 -->
+	<select id="spsc.scheduling.semiannual.select.last.master.law.template" resultClass="MasterLawTemplate">
+		SELECT			MST_LAW_ID 		    lastMstLawId
+			,			OPT_TIME_YEAR 		optTimeYear
+			,			OPT_TIME_HALF 		optTimeHalf
+		FROM   			TB_MST_LAW_TPL
+		WHERE 			MST_LAW_ID = (SELECT FN_LATEST_TPL_ID() FROM DUAL)
+	</select>
+
+	<!-- 반기 마스터 정보 저장 -->
+	<insert id="spsc.scheduling.semiannual.insert.master.law.template" parameterClass="MasterLawTemplate">
+		INSERT INTO 		TB_MST_LAW_TPL 	( MST_LAW_ID
+											, OPT_TIME_YEAR
+											, OPT_TIME_HALF
+											, ENACT_DT
+											)
+				VALUES 						( #mstLawId#
+											, #optTimeYear#
+											, #optTimeHalf#
+											, SYSDATE
+											)
+	</insert>
+
+	<!-- mstLawId로 법령마스터 대분류 조회, 새로운 mstLawId는 쿼리에서 넣는다. -->
+	<select id="spsc.scheduling.semiannual.select.law.main.by.mst.law.id" parameterClass="MasterLawTemplate" resultClass="MasterLawMain">
+		SELECT  		LAW_MAIN_ID			lastLawMainId
+			,			LAW_MAIN_NO			lawMainNo
+			,			LAW_MAIN_NM			lawMainNm
+			,			MST_LAW_ID			lastMstLawId
+			,           #mstLawId#          mstLawId
+			,			DIS_CLA_CODE		disClaCode
+		FROM  			TB_MST_LAW_MAIN
+		WHERE  			MST_LAW_ID = #lastMstLawId#
+	</select>
+
+	<!-- 법령마스터 대분류 저장 -->
+	<insert id="spsc.scheduling.semiannual.insert.law.main" parameterClass="masterLawMain">
+		<selectKey keyProperty="lawMainId" resultClass="Integer">
+			SELECT	LAWMAINID.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO 	TB_MST_LAW_MAIN ( LAW_MAIN_ID
+										, LAW_MAIN_NO
+										, LAW_MAIN_NM
+										, MST_LAW_ID
+										, DIS_CLA_CODE)
+				VALUES 					( #lawMainId#
+										, #lawMainNo#
+										, #lawMainNm#
+										, #mstLawId#
+										, #disClaCode#)
+	</insert>
+
+	<!-- lastLawMainId로 법령마스터 소분류 조회, 새로운 lawMainId로 쿼리에서 넣는다. -->
+	<select id="spsc.scheduling.semiannual.select.law.sub.by.law.main.id" parameterClass="MasterLawMain" resultClass="MasterLawSub">
+		SELECT   		LAW_SUB_ID			lastLawSubId
+			,			LAW_SUB_NO			lawSubNo
+			,           #lawMainId#         lawMainId
+			,			LAW_MAIN_ID			lastLawMainId
+			,			LAW_SUB_ETC			lawSubEtc
+			,			LAW_SUB_NM			lawSubNm
+			,			LAW_SUB_SORT		lawSubSort
+		FROM   			TB_MST_LAW_SUB
+		WHERE  			LAW_MAIN_ID = #lastLawMainId#
+	</select>
+
+	<!-- 법령마스터 소분류 저장 -->
+	<insert id="spsc.scheduling.semiannual.insert.law.sub" parameterClass="MasterLawSub">
+		<selectKey keyProperty="lawSubId" resultClass="Integer">
+			SELECT LAWSUBID.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_MST_LAW_SUB 	( LAW_SUB_ID
+									, LAW_SUB_NO
+									, LAW_MAIN_ID
+									, LAW_SUB_ETC
+									, LAW_SUB_NM
+									, LAW_SUB_SORT)
+			VALUES					( #lawSubId#
+									, #lawSubNo#
+									, #lawMainId#
+									, #lawSubEtc#
+									, #lawSubNm#
+									, #lawSubSort#)
+	</insert>
+
+	<!-- lawSubId로 법령내용 리스트 조회 -->
+	<select id="spsc.scheduling.semiannual.select.law.text.by.sub.id" parameterClass="MasterLawSub" resultClass="MasterLawText">
+		SELECT			LAW_CTTS_ID			lastLawCttsId
+			, 			LAW_SUB_ID			lastLawSubId
+			,           #lawSubId#          lawSubId
+		    , 			TEXT				text
+		    , 			LAW_CTTS_SORT		lawCttsSort
+		FROM   			TB_MST_LAW_TEXT
+		WHERE 			LAW_SUB_ID = #lastLawSubId#
+	</select>
+
+	<!-- 법령정보 저장 -->
+	<insert id="spsc.scheduling.semiannual.insert.law.text" parameterClass="MasterLawText">
+		<selectKey keyProperty="lawCttsId" resultClass="Integer">
+			SELECT LAWCTTSID.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO 	TB_MST_LAW_TEXT (	LAW_CTTS_ID
+										,	LAW_SUB_ID
+										,	TEXT
+										,	LAW_CTTS_SORT)
+				VALUES 					(	#lawCttsId#
+										,	#lawSubId#
+										,	#text#
+										,	#lawCttsSort#)
+	</insert>
+
+	<!-- lastLawCttsId로 이행정보 조회 -->
+	<select id="spsc.scheduling.semiannual.select.law.impl.by.law.text" parameterClass="MasterLawText" resultClass="MasterLawImpl">
+		SELECT 		LAW_IMPL_ID			lastLawImplId
+			,		ITM_REQR			itmReqr
+			,		ITM_ATTN			itmAttn
+			,		ITM_CHK				itmChk
+			,		IMPL_PROD			implProd
+			,		IMPL_PROD_CD		implProdCd
+			,		LAW_CTTS_ID			lastLawCttsId
+			,		#lawCttsId#			lawCttsId
+			,		LAW_IMPL_SORT		lawImplSort
+		FROM   		TB_MST_LAW_IMPL
+		WHERE       LAW_CTTS_ID = #lastLawCttsId#
+	</select>
+
+	<!-- 이행정보 저장 -->
+	<insert id="spsc.scheduling.semiannual.insert.law.impl" parameterClass="MasterLawImpl">
+		<selectKey keyProperty="lawImplId" resultClass="Integer">
+			SELECT LAWIMPLID.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO 	TB_MST_LAW_IMPL ( LAW_IMPL_ID
+										, ITM_REQR
+										, ITM_ATTN
+										, ITM_CHK
+										, IMPL_PROD
+										, IMPL_PROD_CD
+										, LAW_CTTS_ID
+										, LAW_IMPL_SORT)
+				VALUES 					( #lawImplId#
+										, #itmReqr#
+										, #itmAttn#
+										, #itmChk#
+										, #implProd#
+										, #implProdCd#
+										, #lawCttsId#
+										, #lawImplSort#)
+	</insert>
+
+	<!-- 조직 저장 -->
+	<insert id="spsc.scheduling.semiannual.insert.org" parameterClass="MasterLawTemplate">
+		INSERT INTO 	TB_ORG	( ORG_CD
+						, ORG_NM
+						, ORG_TYPE
+						, PARENT_ORG_CD
+						, BONSA_YN
+						, FIRST_ORG_CD
+						, MNG_YN
+						, USE_YN
+						, EXC_TYPE
+						, EXC_PARENT
+						, MST_LAW_ID
+						, EXC_FIRST_ORG_CD
+						, FULL_ORG_NM
+						, ORG_ORDER_CD
+						, JOJIKJANG
+						, ORG_RANK)
+		SELECT 			ORG_CD
+			,			ORG_NM
+			,			ORG_TYPE
+			,			PARENT_ORG_CD
+			,			BONSA_YN
+			,			FIRST_ORG_CD
+			,			MNG_YN
+			,			USE_YN
+			,			EXC_TYPE
+			,			EXC_PARENT
+			,			#mstLawId#
+			,			EXC_FIRST_ORG_CD
+			,			FULL_ORG_NM
+			,			ORG_ORDER_CD
+			,			JOJIKJANG
+			,			ORG_RANK
+		FROM 			TB_ORG
+		WHERE 			MST_LAW_ID = #lastMstLawId#
+	</insert>
+
+	<!-- lastMstLawId로 '조직 관련법령별 대상설비' 조회 -->
+	<select id="spsc.scheduling.semiannual.select.org.rel.equip" parameterClass="MasterLawTemplate" resultClass="OrgLawRelEquip">
+		SELECT	ORG_LAW_REL_EQUIP_ID    lastOrgLawRelEquipId
+			,	#mstLawId#              mstLawId
+			,	ORG_CD                  orgCd
+			,	LAW_REL_ID              lawRelId
+			,	EQUIP_ID                equipId
+		FROM   	TB_ORG_LAW_REL_EQUIP
+		WHERE   MST_LAW_ID = #lastMstLawId#
+	</select>
+
+	<!-- 조직 관련법령별 대상설비 저장 -->
+	<insert id="spsc.scheduling.semiannual.insert.org.rel.equip" parameterClass="OrgLawRelEquip">
+		<selectKey keyProperty="orgLawRelEquipId" resultClass="Integer">
+			SELECT ORGLAWRELEQUIPID.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO	TB_ORG_LAW_REL_EQUIP	( ORG_LAW_REL_EQUIP_ID
+											, MST_LAW_ID
+											, ORG_CD
+											, LAW_REL_ID
+											, EQUIP_ID)
+			VALUES						    ( #orgLawRelEquipId#
+											, #mstLawId#
+											, #orgCd#
+											, #lawRelId#
+											, #equipId#)
+	</insert>
+
+	<!-- '법령마스터-이행부서 매핑' 조회 -->
+	<select id="spsc.scheduling.semiannual.select.impl.org.by.mst.law.id" parameterClass="Integer" resultClass="ImplOrgMap">
+		SELECT 			LAW_IMPL_ID			lastLawImplId
+			,			MST_LAW_ID			mstLawId
+		    ,			ORG_CD				orgCd
+		FROM   			TB_MST_IMPL_ORG
+		WHERE  			MST_LAW_ID = #mstLawId#
+		ORDER BY 		LAW_IMPL_ID
+	</select>
+
+	<!-- '법령마스터-이행부서 매핑' 저장 -->
+	<insert id="spsc.scheduling.semiannual.insert.impl.org" parameterClass="ImplOrgMap">
+		INSERT INTO 	TB_MST_IMPL_ORG	( 	LAW_IMPL_ID
+										,	ORG_CD
+										,	MST_LAW_ID )
+				VALUES 					(	#lawImplId#
+										,	#orgCd#
+										,	#mstLawId# )
+	</insert>
+
+	<!-- '법령마스터-주관부서 매핑' 조회 -->
+	<select id="spsc.scheduling.semiannual.select.impl.mng.by.mst.law.id" parameterClass="Integer" resultClass="ImplOrgMap">
+		SELECT 			LAW_IMPL_ID			lastLawImplId
+			,			MST_LAW_ID			mstLawId
+		    ,			MNG_ORG_CD			orgCd
+		FROM   			TB_MST_LAW_IMPL_MNG
+		WHERE  			MST_LAW_ID = #mstLawId#
+		ORDER BY 		LAW_IMPL_ID
+	</select>
+
+	<!-- '법령마스터-주관부서 매핑' 저장 -->
+	<insert id="spsc.scheduling.semiannual.insert.impl.mng" parameterClass="ImplOrgMap">
+		INSERT INTO 	TB_MST_LAW_IMPL_MNG	( 	LAW_IMPL_ID
+											,	MNG_ORG_CD
+											,	MST_LAW_ID )
+				VALUES 					    (	#lawImplId#
+											,	#orgCd#
+											,	#mstLawId# )
+	</insert>
+
+	<select id="spsc.scheduling.semiannual.find.impl.law.dtl.map" parameterClass="MasterLawImpl" resultClass="ImplLawDtlMap">
+		SELECT          #lawImplId#             lawImplId
+			,			LAW_REL_DTL_ID			lawRelDtlId
+			,           LAW_IMPL_ID				lastLawImplId
+		FROM  			TB_MST_LAW_REL_MAP
+		WHERE  			LAW_IMPL_ID = #lastLawImplId#
+	</select>
+
+	<!-- '법령마스터-관련법령 각조' 저장 -->
+	<insert id="spsc.scheduling.semiannual.insert.impl.law.dtl.map" parameterClass="ImplLawDtlMap">
+		INSERT INTO 	TB_MST_LAW_REL_MAP (	LAW_IMPL_ID
+											,	LAW_REL_DTL_ID)
+				VALUES 						(	#lawImplId#
+											,	#lawRelDtlId#)
+	</insert>
+
+	<!-- '의무이행사항 작업' 조회 -->
+	<select id="spsc.scheduling.semiannual.select.impl.item.list.by.mst.law.id" parameterClass="Integer" resultClass="ImplItem">
+			SELECT 			ITEM_ID				lastItemId
+				,			ORG_CD				orgCd
+			 	<!--,			IMPL_STATE			implState-->
+				,			LAW_IMPL_ID			lastLawImplId
+			 	<!--,			IMPL_FILE_ID		implFileId-->
+			 	<!--,			POINT_OUT_FILE_ID	pointOutFileId-->
+				,			MST_LAW_ID			lastMstLawId
+			 	<!--,			INSPECT				inspect-->
+			 	<!--,			INSPECT_STATE		inspectState-->
+			 	<!--,			UNIMPL_REASON		unimplReason-->
+			FROM   			TB_IMPL_ITEM
+			WHERE 			MST_LAW_ID = #mstLawId#
+			ORDER BY 		LAW_IMPL_ID
+	</select>
+
+	<insert id="spsc.scheduling.semiannual.insert.impl.item" parameterClass="ImplItem">
+		<selectKey keyProperty="itemId">
+			SELECT ITEMID.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO		TB_IMPL_ITEM		(	ITEM_ID
+											,	ORG_CD
+											<!--,	IMPL_STATE-->
+											,	LAW_IMPL_ID
+											,	IMPL_FILE_ID
+											,	POINT_OUT_FILE_ID
+											,	MST_LAW_ID
+											<!--,	INSPECT-->
+											<!--,	INSPECT_STATE-->
+											<!--,	UNIMPL_REASON-->
+											)
+				VALUES						(	#itemId#
+											,	#orgCd#
+											<!--,	#implState#-->
+											,	#lawImplId#
+											,	#implFileId#
+											,	#pointOutFileId#
+											,	#mstLawId#
+											<!--,	#inspect#-->
+											<!--,	#inspectState#-->
+											<!--,	#unimplReason#-->
+											)
+	</insert>
+</sqlMap>

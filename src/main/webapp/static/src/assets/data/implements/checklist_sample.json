@@ -1,0 +1,748 @@
+{
+  "success": true,
+  "data": {
+    "optTimeYear": "2022",
+    "optTimeHalf": "S",
+    "progressOnDepartment": {
+      "department": {
+        "orgCd": "9205",
+        "orgNm": "전기기술부",
+        "fullOrgNm": "신보령발전본부/발전소/전기기술부",
+        "orgType": 3
+      },
+      "progress": 0
+    },
+    "lawMainImplementsList": [
+      {
+        "lawMain": {
+          "lawMainId": 1,
+          "lawMainNo": 4,
+          "lawMainNm": "안전보건관리체계의 구축 및 이행조치"
+        },
+        "lawSubImplementsList": [
+          {
+            "lawSub": {
+              "lawSubId": 5,
+              "lawSubNo": 5,
+              "lawSubNm": null,
+              "lawSubEtc": null
+            },
+            "statuteImplementsList": [
+              {
+                "statute": {
+                  "lawRelId": null,
+                  "lawRelNm": null,
+                  "lawRelDtlId": null,
+                  "lawRelAtc": null
+                },
+                "implementList": [
+                  {
+                    "content": {
+                      "lawImplId": 10,
+                      "text": "안전보건관리책임자, 관리감독자, 안전보건관리자 업무평가",
+                      "itmReqr": "안전보건관리책임자, 관리감독자, 안전보건관리자 업무평가 기준",
+                      "itmAttn": "업무 수행의 충실성 평가",
+                      "implProd": "반기",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1687",
+                          "orgNm": "중대재해예방부",
+                          "fullOrgNm": null,
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": []
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 21,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  }
+                ],
+                "equipments": []
+              }
+            ]
+          },
+
+
+
+          {
+            "lawSub": {
+              "lawSubId": 9,
+              "lawSubNo": 9,
+              "lawSubNm": null,
+              "lawSubEtc": null
+            },
+            "statuteImplementsList": [
+              {
+                "statute": {
+                  "lawRelId": null,
+                  "lawRelNm": null,
+                  "lawRelDtlId": null,
+                  "lawRelAtc": null
+                },
+                "implementList": [
+                  {
+                    "content": {
+                      "lawImplId": 18,
+                      "text": "도급ㆍ용역ㆍ위탁 계약시 안전,보건을 확보하기 위한 평가기준 마련",
+                      "itmReqr": "도급ㆍ용역ㆍ위탁 계약시 수급업체 안전수준평가",
+                      "itmAttn": "안전관리계약특수조건  [별표3]에 따른 수급업체 평가",
+                      "implProd": "수시",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1687",
+                          "orgNm": "중대재해예방부",
+                          "fullOrgNm": null,
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": []
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 41,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  }
+                ],
+                "equipments": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "lawMain": {
+          "lawMainId": 2,
+          "lawMainNo": 5,
+          "lawMainNm": "안전·보건 관계법령에 따른 의무이행에 필요한 관리상의 조치"
+        },
+        "lawSubImplementsList": [
+          {
+            "lawSub": {
+              "lawSubId": 10,
+              "lawSubNo": 1,
+              "lawSubNm": "안전·보건 관계 법령에 따른 의무를 이행했는지 반기1회 이상 점검",
+              "lawSubEtc": null
+            },
+            "statuteImplementsList": [
+              {
+                "statute": {
+                  "lawRelId": 5,
+                  "lawRelNm": "산업안전보건법",
+                  "lawRelDtlId": 60,
+                  "lawRelAtc": "법 제95조"
+                },
+                "implementList": [
+                  {
+                    "content": {
+                      "lawImplId": 56,
+                      "text": "안전검사",
+                      "itmReqr": "유해ㆍ위험기계 안전검사 실시여부\n",
+                      "itmAttn": "1. 안전검사 미실시, 불합격 대상기계 사용금지\n2. 유해ㆍ위험설비 안전관리 절차서 7.4 (안전검사) 대상 ",
+                      "implProd": "3년이내(최초)\n2년",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1676",
+                          "orgNm": "산업안전실",
+                          "fullOrgNm": "안전경영처/산업안전실",
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": [
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 59,
+                          "lawRelAtc": "법 제93조"
+                        },
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 60,
+                          "lawRelAtc": "법 제95조"
+                        }
+                      ]
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 134,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  }
+                ],
+                "equipments": []
+              },
+              {
+                "statute": {
+                  "lawRelId": 5,
+                  "lawRelNm": "산업안전보건법",
+                  "lawRelDtlId": 59,
+                  "lawRelAtc": "법 제93조"
+                },
+                "implementList": [
+                  {
+                    "content": {
+                      "lawImplId": 56,
+                      "text": "안전검사",
+                      "itmReqr": "유해ㆍ위험기계 안전검사 실시여부\n",
+                      "itmAttn": "1. 안전검사 미실시, 불합격 대상기계 사용금지\n2. 유해ㆍ위험설비 안전관리 절차서 7.4 (안전검사) 대상 ",
+                      "implProd": "3년이내(최초)\n2년",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1676",
+                          "orgNm": "산업안전실",
+                          "fullOrgNm": "안전경영처/산업안전실",
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": [
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 59,
+                          "lawRelAtc": "법 제93조"
+                        },
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 60,
+                          "lawRelAtc": "법 제95조"
+                        }
+                      ]
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 134,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  }
+                ],
+                "equipments": []
+              },
+              {
+                "statute": {
+                  "lawRelId": 5,
+                  "lawRelNm": "산업안전보건법",
+                  "lawRelDtlId": 58,
+                  "lawRelAtc": "법 제85조"
+                },
+                "implementList": [
+                  {
+                    "content": {
+                      "lawImplId": 60,
+                      "text": "안전인증",
+                      "itmReqr": "안전인증대상기계 안전인증 실시 여부 확인\n",
+                      "itmAttn": "1. 안전인증대상기계 등을 설치,이전,구조변경 시 안전인증\n2. 안전인증 받은 유해ㆍ위험기계ㆍ용기에 안전인증표시  \n3. 유해ㆍ위험설비 안전관리 절차서 7.3 (안전인증 확인) 대상            ",
+                      "implProd": "수시",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1676",
+                          "orgNm": "산업안전실",
+                          "fullOrgNm": "안전경영처/산업안전실",
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": [
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 57,
+                          "lawRelAtc": "법 제84조"
+                        },
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 58,
+                          "lawRelAtc": "법 제85조"
+                        }
+                      ]
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 159,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  }
+                ],
+                "equipments": []
+              },
+              {
+                "statute": {
+                  "lawRelId": 5,
+                  "lawRelNm": "산업안전보건법",
+                  "lawRelDtlId": 57,
+                  "lawRelAtc": "법 제84조"
+                },
+                "implementList": [
+                  {
+                    "content": {
+                      "lawImplId": 60,
+                      "text": "안전인증",
+                      "itmReqr": "안전인증대상기계 안전인증 실시 여부 확인\n",
+                      "itmAttn": "1. 안전인증대상기계 등을 설치,이전,구조변경 시 안전인증\n2. 안전인증 받은 유해ㆍ위험기계ㆍ용기에 안전인증표시  \n3. 유해ㆍ위험설비 안전관리 절차서 7.3 (안전인증 확인) 대상            ",
+                      "implProd": "수시",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1676",
+                          "orgNm": "산업안전실",
+                          "fullOrgNm": "안전경영처/산업안전실",
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": [
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 57,
+                          "lawRelAtc": "법 제84조"
+                        },
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 58,
+                          "lawRelAtc": "법 제85조"
+                        }
+                      ]
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 159,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  }
+                ],
+                "equipments": []
+              },
+              {
+                "statute": {
+                  "lawRelId": 5,
+                  "lawRelNm": "산업안전보건법",
+                  "lawRelDtlId": 51,
+                  "lawRelAtc": "법 제65조"
+                },
+                "implementList": [
+                  {
+                    "content": {
+                      "lawImplId": 31,
+                      "text": "도급인의 안전 및 보건에 관한 정보 제공 등",
+                      "itmReqr": "수급인 근로자 산업재해 예방을 위한 정보제공 여부\n",
+                      "itmAttn": "1. 협력기업 안전관리 절차서 5.7에 따른 제공대상 작업 확인\n2. 해당 도급작업 시작 전 수급인에게 내용 제공(문서화하여 제공)",
+                      "implProd": "수시",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1676",
+                          "orgNm": "산업안전실",
+                          "fullOrgNm": "안전경영처/산업안전실",
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": [
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 51,
+                          "lawRelAtc": "법 제65조"
+                        }
+                      ]
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 65,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  }
+                ],
+                "equipments": []
+              },
+              {
+                "statute": {
+                  "lawRelId": 5,
+                  "lawRelNm": "산업안전보건법",
+                  "lawRelDtlId": 46,
+                  "lawRelAtc": "법 제57조"
+                },
+                "implementList": [
+                  {
+                    "content": {
+                      "lawImplId": 82,
+                      "text": "중대재해 발생시 사업주의 조치",
+                      "itmReqr": "산업재해발생시 은폐 금지 및 보고의무\n",
+                      "itmAttn": "작업중지 및 대피, 안전보건조치, 고용노동부장관 보고",
+                      "implProd": "발생시",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1676",
+                          "orgNm": "산업안전실",
+                          "fullOrgNm": "안전경영처/산업안전실",
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": [
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 45,
+                          "lawRelAtc": "법 제54조"
+                        },
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 46,
+                          "lawRelAtc": "법 제57조"
+                        }
+                      ]
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 202,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  }
+                ],
+                "equipments": []
+              },
+              {
+                "statute": {
+                  "lawRelId": 5,
+                  "lawRelNm": "산업안전보건법",
+                  "lawRelDtlId": 45,
+                  "lawRelAtc": "법 제54조"
+                },
+                "implementList": [
+                  {
+                    "content": {
+                      "lawImplId": 82,
+                      "text": "중대재해 발생시 사업주의 조치",
+                      "itmReqr": "산업재해발생시 은폐 금지 및 보고의무\n",
+                      "itmAttn": "작업중지 및 대피, 안전보건조치, 고용노동부장관 보고",
+                      "implProd": "발생시",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1676",
+                          "orgNm": "산업안전실",
+                          "fullOrgNm": "안전경영처/산업안전실",
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": [
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 45,
+                          "lawRelAtc": "법 제54조"
+                        },
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 46,
+                          "lawRelAtc": "법 제57조"
+                        }
+                      ]
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 202,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  }
+                ],
+                "equipments": []
+              },
+              {
+                "statute": {
+                  "lawRelId": 5,
+                  "lawRelNm": "산업안전보건법",
+                  "lawRelDtlId": 37,
+                  "lawRelAtc": "법 제37조"
+                },
+                "implementList": [
+                  {
+                    "content": {
+                      "lawImplId": 59,
+                      "text": "안전보건표지의 설치ㆍ부착",
+                      "itmReqr": "유해하거나 위험한 장소ㆍ시설ㆍ물질에 안전보건표지 설치\n",
+                      "itmAttn": "화학설비, 고소지역, 전기실, 개구부, 밀폐공간 등",
+                      "implProd": "수시",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1676",
+                          "orgNm": "산업안전실",
+                          "fullOrgNm": "안전경영처/산업안전실",
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": [
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 37,
+                          "lawRelAtc": "법 제37조"
+                        }
+                      ]
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 147,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  }
+                ],
+                "equipments": []
+              },
+              {
+                "statute": {
+                  "lawRelId": 5,
+                  "lawRelNm": "산업안전보건법",
+                  "lawRelDtlId": 64,
+                  "lawRelAtc": "법 제119조"
+                },
+                "implementList": [
+                  {
+                    "content": {
+                      "lawImplId": 47,
+                      "text": "석면조사",
+                      "itmReqr": "건축물이나 설비 철거시 석면 함유여부 조사 및 인허가\n",
+                      "itmAttn": "1. 석면의 헤체ㆍ철거시 전문업체 계약\n2. 석면해체ㆍ제거작업 신고서 지방고용노동관서 제출",
+                      "implProd": "수시",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1676",
+                          "orgNm": "산업안전실",
+                          "fullOrgNm": "안전경영처/산업안전실",
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": [
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 64,
+                          "lawRelAtc": "법 제119조"
+                        }
+                      ]
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 114,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  }
+                ],
+                "equipments": []
+              },
+              {
+                "statute": {
+                  "lawRelId": 5,
+                  "lawRelNm": "산업안전보건법",
+                  "lawRelDtlId": 63,
+                  "lawRelAtc": "법 제114조"
+                },
+                "implementList": [
+                  {
+                    "content": {
+                      "lawImplId": 33,
+                      "text": "물질안전보건자료의 게시 및 교육 확인",
+                      "itmReqr": "물질안전보건자료 게시 및 교육여부\n",
+                      "itmAttn": "물질안전보건자료 게시 기준 : 명칭, 그림문자, 신호어, 유해ㆍ위험문구\n예방조치문구, 공급자 정보",
+                      "implProd": "물질변경시\n1년내 교육",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1676",
+                          "orgNm": "산업안전실",
+                          "fullOrgNm": "안전경영처/산업안전실",
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": [
+                        {
+                          "lawRelId": 5,
+                          "lawRelNm": "산업안전보건법",
+                          "lawRelDtlId": 63,
+                          "lawRelAtc": "법 제114조"
+                        }
+                      ]
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 78,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  }
+                ],
+                "equipments": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "lawMain": {
+          "lawMainId": 3,
+          "lawMainNo": 8,
+          "lawMainNm": "원료·제조물 관련 안전·보건관리체계의 구축 및 이행조치"
+        },
+        "lawSubImplementsList": [
+          {
+            "lawSub": {
+              "lawSubId": 15,
+              "lawSubNo": 3,
+              "lawSubNm": null,
+              "lawSubEtc": null
+            },
+            "statuteImplementsList": [
+              {
+                "statute": {
+                  "lawRelId": null,
+                  "lawRelNm": null,
+                  "lawRelDtlId": null,
+                  "lawRelAtc": null
+                },
+                "implementList": [
+                  {
+                    "content": {
+                      "lawImplId": 112,
+                      "text": "유해ㆍ위험설비 주기점검 실적\n유해ㆍ위험요인을 확인한 결과 신고 및 조치방법",
+                      "itmReqr": "유해ㆍ위험설비에 대한 주기점검\n",
+                      "itmAttn": "PSM 대상설비 주기점검 실적",
+                      "implProd": "분기",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1687",
+                          "orgNm": "중대재해예방부",
+                          "fullOrgNm": null,
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": []
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 348,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  },
+                  {
+                    "content": {
+                      "lawImplId": 113,
+                      "text": "시설물 및 유해위험물질의 화재, 폭발, 누출 시 중대시민재해 (지역사회 및 일반인 피해) 발생시 신고체계 및 비상조치 방법",
+                      "itmReqr": "중대시민재해 발생 대비 신고체계 구축\n",
+                      "itmAttn": "PSM 대상설비 안전관리 절차서",
+                      "implProd": "수시",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1687",
+                          "orgNm": "중대재해예방부",
+                          "fullOrgNm": null,
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": []
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 356,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  }
+                ],
+                "equipments": []
+              }
+            ]
+          },
+          {
+            "lawSub": {
+              "lawSubId": 16,
+              "lawSubNo": 4,
+              "lawSubNm": null,
+              "lawSubEtc": null
+            },
+            "statuteImplementsList": [
+              {
+                "statute": {
+                  "lawRelId": null,
+                  "lawRelNm": null,
+                  "lawRelDtlId": null,
+                  "lawRelAtc": null
+                },
+                "implementList": [
+                  {
+                    "content": {
+                      "lawImplId": 114,
+                      "text": "유해ㆍ위험설비 업무처리 절차서",
+                      "itmReqr": "위험시설물 비상 대응지침 수립 여부\n",
+                      "itmAttn": "PSM 대상설비 안전관리 절차서",
+                      "implProd": "수시",
+                      "mainDepartmentsList": [
+                        {
+                          "orgCd": "1687",
+                          "orgNm": "중대재해예방부",
+                          "fullOrgNm": null,
+                          "orgType": 1
+                        }
+                      ],
+                      "statuteList": []
+                    },
+                    "resultList": [
+                      {
+                        "itemId": 364,
+                        "implState": "X",
+                        "inspect": null,
+                        "inspectState": null
+                      }
+                    ]
+                  }
+                ],
+                "equipments": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

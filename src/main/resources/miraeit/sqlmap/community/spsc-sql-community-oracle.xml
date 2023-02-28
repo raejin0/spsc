@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="spsc.community">
+
+	<typeAlias  alias="FindPostListRequest" type="net.miraeit.community.model.FindPostListRequest"/>
+	<typeAlias  alias="FindPostCondition" type="net.miraeit.community.condition.FindPostCondition"/>
+	<typeAlias  alias="FindPostResponse" type="net.miraeit.community.model.FindPostResponse"/>
+	<typeAlias  alias="CreatePostDTO" type="net.miraeit.community.model.CreatePostDTO"/>
+	<typeAlias  alias="DeletePostRequest" type="net.miraeit.community.model.DeletePostRequest"/>
+	<typeAlias  alias="UpdatePostDTO" type="net.miraeit.community.model.UpdatePostDTO"/>
+
+
+	<sql id = "spsc.community.select.post.list.from">
+	   FROM				LETTNBBS
+	   WHERE			BBS_ID = #bbsId#
+		 AND			USE_AT = 'Y'
+		<isEqual prepend="AND" property="searchCnd" compareValue="title">
+		   				NTT_SJ LIKE '%' || #searchWrd# || '%'
+		</isEqual>
+		<isEqual prepend="AND" property="searchCnd" compareValue="content">
+		   				NTT_CN LIKE '%' || #searchWrd# || '%'
+		</isEqual>
+		<isNotEmpty property="beginRegDt">
+			AND			FRST_REGIST_PNTTM >= TO_DATE(#beginRegDt#, 'YYYY-MM-DD')
+		</isNotEmpty>
+		<isNotEmpty property="endRegDt">
+			AND			FRST_REGIST_PNTTM &lt;= TO_DATE(#endRegDt#, 'YYYY-MM-DD') + 1
+		</isNotEmpty>
+	</sql>
+
+	<!-- 참고: BBSManageDAO.selectBoardArticleList	-->
+	<select id="spsc.community.select.post.list" parameterClass="FindPostListRequest" resultClass="FindPostResponse" >
+		<include refid="spsc.cmm.page.header"/>
+					   SELECT  BBS_ID               bbsId,
+						       NTT_ID               nttId,
+							   NTT_SJ               nttSj,
+							   NTT_CN               nttCn,
+							   TO_CHAR(FRST_REGIST_PNTTM, 'yyyy-MM-dd')    createdDate,
+							   TO_CHAR(LAST_UPDT_PNTTM, 'yyyy-MM-dd')      lastModifiedDate,
+								NVL(ATCH_FILE_ID, 0) 		atchFileId,
+								FRST_REGISTER_ID			frstRegisterId,
+							   FRST_REGISTER_ID     createdBy,
+		                       LAST_UPDUSR_ID       lastModifiedBy
+						<include refid="spsc.community.select.post.list.from"/>
+					   ORDER BY NTT_ID DESC
+		<include refid="spsc.cmm.page.tail"/>
+	</select>
+
+	<!-- 참고: BBSManageDAO.selectBoardArticleListCnt	-->
+	<select id="spsc.community.select.post.list.cnt" parameterClass="FindPostListRequest" resultClass="java.lang.Integer" >
+		SELECT      COUNT(NTT_ID)
+		<include refid="spsc.community.select.post.list.from"/>
+	</select>
+
+	<!-- 참고: BBSManageDAO.selectBoardArticle -->
+	<select id="spsc.community.select.post" parameterClass="FindPostCondition" resultClass="FindPostResponse" >
+	   SELECT   BBS_ID               bbsId,
+	            NTT_ID               nttId,
+	            NTT_SJ               nttSj,
+	            NTT_CN               nttCn,
+	            TO_CHAR(FRST_REGIST_PNTTM, 'yyyy-MM-dd')    createdDate,
+	            TO_CHAR(LAST_UPDT_PNTTM, 'yyyy-MM-dd')      lastModifiedDate,
+	            ATCH_FILE_ID         atchFileId,
+				FRST_REGISTER_ID	frstRegisterId,
+				FRST_REGISTER_ID     createdBy,
+				LAST_UPDUSR_ID       lastModifiedBy
+	   FROM LETTNBBS
+	   WHERE BBS_ID = #bbsId#
+	     AND NTT_ID = #nttId#
+	     AND USE_AT = 'Y'
+	</select>
+
+	<insert id="spsc.community.insert.post" parameterClass="CreatePostDTO">
+		<selectKey keyProperty="nttId" resultClass="Integer">
+			SELECT noticeId.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO LETTNBBS(NTT_ID,
+		                     BBS_ID,
+		                     NTT_SJ,
+		                     NTT_CN,
+							 ATCH_FILE_ID,
+							 FRST_REGISTER_ID,
+		                     FRST_REGIST_PNTTM,
+		                     USE_AT)
+				VALUES 		(#nttId#,
+							 #bbsId#,
+							 #nttSj#,
+							 #nttCn#,
+							 #atchFileId#,
+							 #createdBy#,
+							 SYSDATE,
+							 'Y')
+	</insert>
+
+	<delete id="spsc.community.delete.post" parameterClass="DeletePostRequest">
+		DELETE FROM 	LETTNBBS
+		WHERE   		NTT_ID = #nttId#
+			AND 		BBS_ID = #bbsId#
+	</delete>
+
+	<update id="spsc.community.update.post" parameterClass="UpdatePostDTO">
+		UPDATE   	LETTNBBS
+			SET		NTT_SJ          = #nttSj#
+				,	NTT_CN          = #nttCn#
+<!--				,   ATCH_FILE_ID    = #atchFileId#-->
+				,   LAST_UPDUSR_ID  = #userId#
+				,   LAST_UPDT_PNTTM = sysdate
+		WHERE 		BBS_ID = #bbsId#
+			AND		NTT_ID = #nttId#
+	</update>
+</sqlMap>

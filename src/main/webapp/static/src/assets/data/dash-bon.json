@@ -1,0 +1,52 @@
+{
+	"years": [
+		2019,
+		2020,
+		2021,
+		2022
+	],
+	"dataYear": 2020,
+	"entire": 88.34,
+	"orgs": [
+		{
+			"orgName": "기획전략처",
+			"firstHalf": 30.21,
+			"secondHalf": 100
+		},
+		{
+			"orgName": "경영관리처",
+			"firstHalf": 99.37,
+			"secondHalf": 100
+		},
+		{
+			"orgName": "연료자재처",
+			"firstHalf": 80.23,
+			"secondHalf": 100
+		},
+		{
+			"orgName": "정보보안처",
+			"firstHalf": 76.1,
+			"secondHalf": 90.4
+		},
+		{
+			"orgName": "발전환경처",
+			"firstHalf": 99.8,
+			"secondHalf": 90.1
+		},
+		{
+			"orgName": "전원개발처",
+			"firstHalf": 44.6,
+			"secondHalf": 94.99
+		},
+		{
+			"orgName": "해외사업처",
+			"firstHalf": 64.97,
+			"secondHalf": 100
+		},
+		{
+			"orgName": "신재생사업처",
+			"firstHalf": 16.89,
+			"secondHalf": 100
+		}
+	]
+}

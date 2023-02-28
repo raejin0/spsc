@@ -1,0 +1,394 @@
+[
+    {
+		"article": "시행령 제 4조",
+		"articleContent": "안전보건관리체계의 구축 및 이행조치",
+		"targetFacilities": "",
+		"paragraphs": [
+			{
+				"paragraph": "중대재해처벌법 제 4조 1호",
+				"subParagraphs": [
+					{
+						"relatedRaw": "",
+						"implementations": [
+							{
+								"relatedRawParagraph": "-",
+								"rawContent": "사업장의 안전ㆍ보건에 관한 목표와 경영방침을 설정",
+								"duty": "안전보건에 관한 목표 수립",
+								"check": "안전경영책임계획, 사업소 안전보건목표 수립",
+								"period": "전년 12월~3월",
+								"managementDept": "산업안전실",
+								"implementationDept": "안전품질부서",
+								"targetEquipment": "수소, 질소(생산설비), 탄산가스, 냉동제조시설(프레온), 소화약제, 액화질소탱크, 탈질설비, 무수암모니아, CCS 압축액화설비, 공기호흡기 충전함(신보령, 세종), 혼합가스"
+							},
+							{
+								"relatedRawParagraph": "-",
+								"rawContent": "사업장의 안전ㆍ보건에 관한 목표와 경영방침을 설정",
+								"duty": "본사 및 각 사업소 자체 경영방침 수립",
+								"check": "자체 경영방침 수립여부, 경영방침 게시",
+								"period": "매년 1월",
+								"managementDept": "산업안전실",
+								"implementationDept": "안전품질부서, 설비부서",
+								"targetEquipment": ""
+							}
+						]
+					}
+				]
+			},
+			{
+				"paragraph": "중대재해처벌법 제 4조 2호",
+				"subParagraphs": [
+					{
+						"relatedRaw": "",
+						"implementations": [
+							{
+								"relatedRawParagraph": "-",
+								"rawContent": "안전ㆍ보건에 관한 업무를 총괄ㆍ관리하는 전담 조직 구성",
+								"duty": "안전ㆍ보건 업무를 총괄ㆍ관리하는 전담조직 구성",
+								"check": "안전ㆍ보건을 담당하는 전담조직 구성여부 ",
+								"period": "수시",
+								"managementDept": "산업안전실",
+								"implementationDept": "",
+								"targetEquipment": ""
+							}
+						]
+					}
+				]
+			},
+			{
+				"paragraph": "중대재해처벌법 제 4조 3호",
+				"subParagraphs": [
+					{
+						"relatedRaw": "",
+						"implementations": [
+							{
+								"relatedRawParagraph": "-",
+								"rawContent": "ㅇ 유해ㆍ위험요인을 확인하여 개선하는 업무절차 마련\nㅇ 유해ㆍ위험요인의 확인 및 개선이 이루어지는지 1회/반기 점검",
+								"duty": "정기위험성평가 실시",
+								"check": "정기위험성평가, 위험성평가 교육",
+								"period": "5월",
+								"managementDept": "중대재해예방부",
+								"implementationDept": "안전품질부서",
+								"targetEquipment": ""
+							} ,
+							{
+								"relatedRawParagraph": "-",
+								"rawContent": "ㅇ 유해ㆍ위험요인을 확인하여 개선하는 업무절차 마련\nㅇ 유해ㆍ위험요인의 확인 및 개선이 이루어지는지 1회/반기 점검",
+								"duty": "위험성평가에 대한 사전조사",
+								"check": "안전보건정보에 대한 사전 조사\n- 작업표준, 작업절차 \n- 기계ㆍ기구, 설비 등의 사양, 물질안전보건자료의 유해ㆍ위험요인\n- 공정 흐름 및 작업 주변 환경",
+								"period": "5월",
+								"managementDept": "중대재해예방부",
+								"implementationDept": "안전품질부서",
+								"targetEquipment": ""
+							} ,
+							{
+								"relatedRawParagraph": "-",
+								"rawContent": "ㅇ 유해ㆍ위험요인을 확인하여 개선하는 업무절차 마련\nㅇ 유해ㆍ위험요인의 확인 및 개선이 이루어지는지 1회/반기 점검",
+								"duty": "위험성평가 작성",
+								"check": "위험성평가 실시, 위험성평가 실시에 따른 조치",
+								"period": "5월",
+								"managementDept": "중대재해예방부",
+								"implementationDept": "안전품질부서",
+								"targetEquipment": ""
+							} ,
+							{
+								"relatedRawParagraph": "-",
+								"rawContent": "ㅇ 유해ㆍ위험요인을 확인하여 개선하는 업무절차 마련\nㅇ 유해ㆍ위험요인의 확인 및 개선이 이루어지는지 1회/반기 점검",
+								"duty": "위험성평가 결과 공유",
+								"check": "교육, TBM, 결과게시 등",
+								"period": "수시",
+								"managementDept": "중대재해예방부",
+								"implementationDept": "안전품질부서",
+								"targetEquipment": ""
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+    {
+		"article": "시행령 제 5조",
+		"articleContent": "안전ㆍ보건 관계 법령에 따른 의무이행여부 점검",
+		"targetFacilities": "",
+		"paragraphs": [
+			{
+				"paragraph": "중대재해처벌법 제 5조 1호",
+				"subParagraphs": [
+					{
+						"relatedRaw": "산업안전보건법",
+						"implementations": [
+							{
+								"relatedRawParagraph": "법 제 14조",
+								"rawContent": "이사회 보고 및 승인",
+								"duty": "안전경영책임계획 수립 및 이사회 보고",
+								"check": "",
+								"period": "전년 12월~3월",
+								"managementDept": "산업안전실",
+								"implementationDept": "(본사역무)",
+								"targetEquipment": ""
+							},
+							{
+								"relatedRawParagraph": "법 제 23조",
+								"rawContent": "명예산업안전감독관",
+								"duty": "산업재해 예방활동을 위한 명예산업안전감독관 선임여부",
+								"check": "",
+								"period": "수시",
+								"managementDept": "산업안전실",
+								"implementationDept": "안전품질부서",
+								"targetEquipment": ""
+							},
+							{
+								"relatedRawParagraph": "법 제 25조",
+								"rawContent": "안전보건관리규정의 작성",
+								"duty": "안전보건관리규정 작성",
+								"check": "조직 및 직무, 작업장 안전관리, 사고조사 및 대책수립 등",
+								"period": "수시",
+								"managementDept": "산업안전실",
+								"implementationDept": "(본사역무)",
+								"targetEquipment": ""
+							},
+							{
+								"relatedRawParagraph": "법 제 54조, 제 57조",
+								"rawContent": "중대재해 발생시 사업주의 조치",
+								"duty": "산업재해 발생 시 은폐 금지 및 보고의무",
+								"check": "작업중지 및 대피, 안전보건조치, 고용노동부장관 보고",
+								"period": "발생시",
+								"managementDept": "산업안전실",
+								"implementationDept": "전부서",
+								"targetEquipment": ""
+							},
+							{
+								"relatedRawParagraph": "법 제 64조",
+								"rawContent": "도급에 따른 산업재해 예방조치 이행",
+								"duty": "작업장 순회점검",
+								"check": "1주일에 1회 이상 순회점검 시행",
+								"period": "1주",
+								"managementDept": "산업안전실",
+								"implementationDept": "안전품질부서",
+								"targetEquipment": ""
+							},
+							{
+								"relatedRawParagraph": "법 제 64조",
+								"rawContent": "도급에 따른 산업재해 예방조치 이행",
+								"duty": "안전보건교육 실시 확인",
+								"check": "관계수급인이 근로자에게 하는 교육 확인",
+								"period": "수시",
+								"managementDept": "산업안전실",
+								"implementationDept": "안전품질부서",
+								"targetEquipment": ""
+							},
+							{
+								"relatedRawParagraph": "법 제 64조",
+								"rawContent": "도급에 따른 산업재해 예방조치 이행",
+								"duty": "협력기업에 위생시설 사용",
+								"check": "위생시설 설치를 위한 장소 제공, 위생시설 이용 협조",
+								"period": "발생시",
+								"managementDept": "산업안전실",
+								"implementationDept": "안전품질부서",
+								"targetEquipment": ""
+							},
+							{
+								"relatedRawParagraph": "법 제 64조",
+								"rawContent": "도급에 따른 산업재해 예방조치 이행",
+								"duty": "근로자 및 관계수급인 근로자와 안전 및 보건에 관한 점검",
+								"check": "분기 1회 이상 점검 시행",
+								"period": "분기",
+								"managementDept": "산업안전실",
+								"implementationDept": "안전품질부서",
+								"targetEquipment": ""
+							},
+							{
+								"relatedRawParagraph": "법 제 84조, 85조",
+								"rawContent": "안전인증",
+								"duty": "안전인증대상기계 안전인증 실시 여부 확인",
+								"check": "1. 안전인증대상기계 등을 설치,이전,구조변경 시 안전인증 2. 안전인증 받은 유해ㆍ위험기계ㆍ용기에 안전인증표시 3. 유해ㆍ위험설비 안전관리 절차서 7.3 (안전인증 확인) 대상",
+								"period": "수시",
+								"managementDept": "산업안전실",
+								"implementationDept": "전부서",
+								"targetEquipment": ""
+							},
+							{
+								"relatedRawParagraph": "법 제 114조",
+								"rawContent": "물질안전보건자료의 게시 및 교육 확인",
+								"duty": "물질안전보건자료 게시 및 교육여부",
+								"check": "물질안전보건자료 게시 기준 : 명칭, 그림문자, 신호어, 유해ㆍ위험문구, 예방조치문구, 공급자 정보",
+								"period": "물질변경시 1년내 교육",
+								"managementDept": "산업안전실",
+								"implementationDept": "전부서",
+								"targetEquipment": ""
+							}
+						]
+					},
+					{
+						"relatedRaw": "시설물의 안전 및 유지관리에 관한 특별법",
+						"implementations": [
+							{
+								"relatedRawParagraph": "법 제 6조",
+								"rawContent": "시설물의 안전 및 유지관리 계획의 수립ㆍ시행",
+								"duty": "시설물의 안전 및 유지관리계획 수립 및 제출",
+								"check": "",
+								"period": "매년 2월까지",
+								"managementDept": "토건기술부",
+								"implementationDept": "시설관리부",
+								"targetEquipment": ""
+							},
+							{
+								"relatedRawParagraph": "법 제 11조",
+								"rawContent": "안전점검의 실시",
+								"duty": "시설물 정기안전점검 시행",
+								"check": "정기안전점검에 따른 조치사항 이행 및 관련부서 제출",
+								"period": "1회/반기",
+								"managementDept": "토건기술부",
+								"implementationDept": "시설관리부",
+								"targetEquipment": ""
+							}
+						]
+					},
+					{
+						"relatedRaw": "고압가스안전관리법",
+						"implementations": [
+							{
+								"relatedRawParagraph": "법 제 4조",
+								"rawContent": "고압가스의 제조허가",
+								"duty": "고압가스 제조시 허가 여부",
+								"check": "고압가스 제조 사업 개시 신고(신규설비제외)",
+								"period": "수시",
+								"managementDept": "발전운영실, 환경정책실",
+								"implementationDept": "발전운영실, 화학기술부",
+								"targetEquipment": "수소, 질소(생산설비), 탄산가스, 냉동제조시설(프레온), 소화약제, 액화질소탱크, 탈질설비, 무수암모니아, CCS 압축액화설비, 공기호흡기 충전함(신보령, 세종), 혼합가스"
+							},
+							{
+								"relatedRawParagraph": "법 제 11조",
+								"rawContent": "안전관리규정",
+								"duty": "고압가스 안전유지에 관한 규정작성 및 제출여부",
+								"check": "경영방침, 조직관리, 자료관리, 시설관리, 안전교육 등",
+								"period": "수시",
+								"managementDept": "발전운영실, 환경정책실",
+								"implementationDept": "발전운영실, 화학기술부",
+								"targetEquipment": "수소, 질소(생산설비), 탄산가스, 냉동제조시설(프레온), 소화약제, 액화질소탱크, 탈질설비, 무수암모니아, CCS 압축액화설비, 공기호흡기 충전함(신보령, 세종), 혼합가스"
+							}
+						]
+					}
+				]
+			},
+			{
+				"paragraph": "중대재해처벌법 제 5조 3호",
+				"subParagraphs": [
+					{
+						"relatedRaw": "",
+						"implementations": [
+							{
+								"relatedRawParagraph": "-",
+								"rawContent": "안전ㆍ보건 관계 법령에 따른 교육 실시",
+								"duty": "정기안전보건교육 실시",
+								"check": "",
+								"period": "6시간/분기",
+								"managementDept": "산업안전실",
+								"implementationDept": "안전품질부서, 설비부서",
+								"targetEquipment": ""
+							},
+							{
+								"relatedRawParagraph": "-",
+								"rawContent": "안전ㆍ보건 관계 법령에 따른 교육 실시",
+								"duty": "채용시 교육 실시",
+								"check": "",
+								"period": "8시간",
+								"managementDept": "산업안전실",
+								"implementationDept": "안전품질부서, 설비부서",
+								"targetEquipment": ""
+							},
+							{
+								"relatedRawParagraph": "-",
+								"rawContent": "안전ㆍ보건 관계 법령에 따른 교육 실시",
+								"duty": "작업내용변경시 교육실시",
+								"check": "",
+								"period": "2시간",
+								"managementDept": "산업안전실",
+								"implementationDept": "안전품질부서, 설비부서",
+								"targetEquipment": ""
+							},
+							{
+								"relatedRawParagraph": "-",
+								"rawContent": "안전ㆍ보건 관계 법령에 따른 교육 실시",
+								"duty": "특별교육 실시",
+								"check": "",
+								"period": "16시간/년",
+								"managementDept": "산업안전실",
+								"implementationDept": "안전품질부서, 설비부서",
+								"targetEquipment": ""
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"article": "시행령 제 10조",
+		"articleContent": "공중이용시설 안전보건관리체계 구축",
+		"targetFacilities": "본사사옥, 새빛누리 어린이집, 보령 에너지월드, 서울 홍보관",
+		"paragraphs": [
+			{
+				"paragraph": "중대재해처벌법 제 10조 1호",
+				"subParagraphs": [
+					{
+						"relatedRaw": "",
+						"implementations": [
+							{
+								"relatedRawParagraph": "-",
+								"rawContent": "필요한 인력을 갖추어 중대시민재해 예방을 위한 업무 수행",
+								"duty": "공중이용시설 안전관리 업무 수행",
+								"check": "안전관리 업무 수행 인원 배치 및 안전계획 이행",
+								"period": "수시",
+								"managementDept": "중대재해예방부",
+								"implementationDept": "총무부(본사), 지역협력부, 기획홍보부",
+								"targetEquipment": ""
+							}
+						]
+					}
+				]
+			},
+			{
+				"paragraph": "중대재해처벌법 제 10조 2호",
+				"subParagraphs": [
+					{
+						"relatedRaw": "",
+						"implementations": [
+							{
+								"relatedRawParagraph": "-",
+								"rawContent": "중대시민재해 예방을 위한 예산 편성ㆍ집행",
+								"duty": "공중이용시설 중대재해예방을 위한 예산 편성ㆍ집행",
+								"check": "안전시설, 장비 확보, 인력배치",
+								"period": "수시",
+								"managementDept": "중대재해예방부",
+								"implementationDept": "총무부(본사), 지역협력부, 기획홍보부",
+								"targetEquipment": ""
+							}
+						]
+					}
+				]
+			},
+			{
+				"paragraph": "중대재해처벌법 제 10조 3호",
+				"subParagraphs": [
+					{
+						"relatedRaw": "",
+						"implementations": [
+							{
+								"relatedRawParagraph": "-",
+								"rawContent": "공중이용시설 안전점검 계획 수립 및 수행",
+								"duty": "공중이용시설 유지 및 안전점검 계획 수립",
+								"check": "안전관리 지침에 따른 점검 수행 여부 확인",
+								"period": "연초",
+								"managementDept": "중대재해예방부",
+								"implementationDept": "총무부(본사), 지역협력부, 기획홍보부",
+								"targetEquipment": ""
+							}
+						]
+					}
+				]
+			}
+
+		]
+	}
+]

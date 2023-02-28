@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="spsc.organization">
+	<typeAlias alias="PatchOrganizationRequest" type="net.miraeit.organization.model.PatchOrganizationRequest"/>
+	<typeAlias alias="PatchOrganizationResponse" type="net.miraeit.organization.model.PatchOrganizationResponse"/>
+
+	<!-- TB_ORG_CURRENT 조회 -->
+	<select id="spsc.organization.select.organization.current" parameterClass="PatchOrganizationRequest" resultClass="PatchOrganizationResponse">
+		SELECT			ORG_CD			orgCd
+			,			MST_LAW_ID		mstLawId
+		    ,			ORG_TYPE		orgType
+			,			MNG_YN			mngYn
+		FROM    		TB_ORG_CURRENT
+		WHERE  			ORG_CD		=   #orgCd#
+			AND  		MST_LAW_ID 	=   #mstLawId#
+	</select>
+
+	<!-- ___________ 이행부서 수정 __________________ -->
+	<!-- 이행부서 매핑정보 삭제 -->
+	<delete id="spsc.organization.delete.implement.mapping" parameterClass="PatchOrganizationRequest">
+		DELETE FROM TB_MST_IMPL_ORG
+		WHERE  		ORG_CD 		= #orgCd#
+			AND 	MST_LAW_ID 	= #mstLawId#
+	</delete>
+
+	<!-- 이행 작업 삭제 -->
+	<delete id="spsc.organization.delete.implement.item" parameterClass="PatchOrganizationRequest">
+		DELETE FROM TB_IMPL_ITEM
+		WHERE  		ORG_CD 		= #orgCd#
+			AND 	MST_LAW_ID 	= #mstLawId#
+	</delete>
+
+	<!-- TB_ORG 조직유형 수정 -->
+	<update id="spsc.organization.update.orgType" parameterClass="PatchOrganizationRequest">
+		UPDATE 			TB_ORG
+			SET   		ORG_TYPE 	= #orgType#
+		WHERE 			ORG_CD 		= #orgCd#
+			AND 		MST_LAW_ID 	= #mstLawId#
+	</update>
+
+	<!-- TB_ORG_CURRENT 조직유형 수정 -->
+	<update id="spsc.organization.update.orgType.current" parameterClass="PatchOrganizationRequest">
+		UPDATE 			TB_ORG_CURRENT
+			SET   		ORG_TYPE 	= #orgType#
+		WHERE 			ORG_CD 		= #orgCd#
+			AND 		MST_LAW_ID 	= #mstLawId#
+	</update>
+	<!-- /////////// 이행부서 수정 ////////////////// -->
+
+	<!-- ___________ 주관부서 수정 __________________ -->
+	<!-- 주관부서 매핑정보 삭제 -->
+	<delete id="spsc.organization.delete.management.mapping" parameterClass="PatchOrganizationRequest">
+		DELETE FROM TB_MST_LAW_IMPL_MNG
+		WHERE  		MNG_ORG_CD  = #orgCd#
+			AND 	MST_LAW_ID 	= #mstLawId#
+	</delete>
+
+	<!-- TB_ORG 주관부서 여부 수정 -->
+	<update id="spsc.organization.update.mngYn" parameterClass="PatchOrganizationRequest">
+		UPDATE 			TB_ORG
+			SET   		MNG_YN 		= #mngYn#
+		WHERE 			ORG_CD 		= #orgCd#
+			AND 		MST_LAW_ID 	= #mstLawId#
+	</update>
+
+	<!-- TB_ORG_CURRENT 주관부서 여부 수정 -->
+	<update id="spsc.organization.update.mngYn.current" parameterClass="PatchOrganizationRequest">
+		UPDATE 			TB_ORG_CURRENT
+			SET   		MNG_YN 		= #mngYn#
+		WHERE 			ORG_CD 		= #orgCd#
+			AND 		MST_LAW_ID 	= #mstLawId#
+	</update>
+	<!-- /////////// 주관부서 수정 ////////////////// -->
+
+</sqlMap>

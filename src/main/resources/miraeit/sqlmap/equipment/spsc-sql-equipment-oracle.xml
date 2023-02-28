@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="spsc.community">
+	<typeAlias alias="FindEquipmentListResponse" type="net.miraeit.equipment.model.FindEquipmentListResponse"/>
+	<typeAlias alias="FindEquipmentListRequest" type="net.miraeit.equipment.model.FindEquipmentListRequest"/>
+	<typeAlias alias="PostEquipmentRequest" type="net.miraeit.equipment.model.PostEquipmentRequest"/>
+	<typeAlias alias="PostEquipmentResponse" type="net.miraeit.equipment.model.PostEquipmentResponse"/>
+	<typeAlias alias="PatchEquipmentRequest" type="net.miraeit.equipment.model.PatchEquipmentRequest"/>
+	<typeAlias alias="DeleteEquipmentRequest" type="net.miraeit.equipment.model.DeleteEquipmentRequest"/>
+
+	<!-- __________ 목록 조회: 페이징, 검색 ___________-->
+	<sql id = "spsc.equipment.select.equipment.list.from">
+		FROM     	TB_EQUIP
+		WHERE       EQUIP_NM LIKE '%' || #equipNm# || '%'
+	</sql>
+
+	<select id="spsc.equipment.select.equipment.list.count" parameterClass="FindEquipmentListRequest" resultClass="Integer">
+		SELECT      COUNT(EQUIP_ID)
+		<include refid="spsc.equipment.select.equipment.list.from"/>
+	</select>
+
+	<select id="spsc.equipment.select.equipment.list" parameterClass="FindEquipmentListRequest" resultClass="FindEquipmentListResponse">
+		<include refid="spsc.cmm.page.header"/>
+			SELECT		EQUIP_ID 		equipId
+				,		EQUIP_NM 		equipNm
+			<include refid="spsc.equipment.select.equipment.list.from"/>
+			ORDER BY 	EQUIP_NM
+		<include refid="spsc.cmm.page.tail"/>
+	</select>
+	<!-- ////////// 목록 조회: 페이징, 검색 ///////////-->
+
+	<insert id="spsc.equipment.insert.equipment" parameterClass="PostEquipmentRequest">
+		<selectKey keyProperty="equipId" resultClass="Integer">
+			SELECT equipId.nextval from dual
+		</selectKey>
+			INSERT INTO TB_EQUIP 	(EQUIP_ID, EQUIP_NM)
+				VALUES				(#equipId#, #equipNm#)
+	</insert>
+
+	<update id="spsc.equipment.update.equipment" parameterClass="PatchEquipmentRequest">
+		UPDATE 		TB_EQUIP
+			SET  	EQUIP_NM = #equipNm#
+		WHERE 		EQUIP_ID = #equipId#
+	</update>
+
+	<delete id="spsc.equipment.delete.equipment" parameterClass="DeleteEquipmentRequest">
+		DELETE FROM TB_EQUIP
+		WHERE EQUIP_ID = #equipId#
+	</delete>
+
+	<select id="spsc.equipment.select.equipment.count.by.equip.nm" parameterClass="String" resultClass="Integer">
+		SELECT	COUNT(EQUIP_NM)
+		FROM	TB_EQUIP
+		WHERE	EQUIP_NM = #equipNm#
+	</select>
+</sqlMap>

@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="spsc.pointout">
+	<typeAlias alias="PointOutExcelSummary" type="net.miraeit.pointout.model.PointOutExcelSummary"/>
+	<typeAlias alias="PointOutExcelDetail" type="net.miraeit.pointout.model.PointOutExcelDetail"/>
+	<typeAlias alias="PointerOutExcelUploadRequest" type="net.miraeit.pointout.model.request.PointerOutExcelUploadRequest"/>
+	<typeAlias alias="PointOutExcelDownloadRequest" type="net.miraeit.pointout.model.excel.PointOutExcelDownloadRequest"/>
+
+	<sql id="spsc.pointout.summary.select">
+		SELECT				ADV.ADV_ID							ADVID
+			,				ADV.MST_LAW_ID						MSTLAWID
+			,				TPL.OPT_TIME_YEAR					OPTTIMEYEAR
+			,				TPL.OPT_TIME_HALF					OPTTIMEHALF
+			,				ADV.ADV_NO							ADVNO
+			,				ADV.MNG_ORG_CD						MNGORGCD
+			,				ORG.ORG_NM							MNGORGNM
+			,				ORG.FULL_ORG_NM						FULLMNGORGNM
+			,				ADV.CHK_ORG_NM						CHKORGNM
+			,				ADV.CHK_NM							CHKNM
+			,				nvl(ADV.CNT_JUDICIAL_ACT, 0) +
+							nvl(ADV.CNT_STOP_USE, 0) +
+							nvl(ADV.CNT_CORRECT_ORDER, 0) +
+							nvl(ADV.CNT_CORRECT_INSTRUCT, 0) +
+							nvl(ADV.CNT_FINE, 0) +
+							nvl(ADV.CNT_RECMD, 0) +
+							nvl(ADV.CNT_ETC, 0)					CNTTOTALVIOLATION
+			,				nvl(ADV.CNT_JUDICIAL_ACT, 0)		CNTJUDICIALACT
+			,				nvl(ADV.CNT_STOP_USE, 0)			CNTSTOPUSE
+			,				nvl(ADV.CNT_STOP_FACILITY_TOTAL, 0)	CNTSTOPFACILITYTOTAL
+			,				nvl(ADV.CNT_CORRECT_ORDER, 0)		CNTCORRECTORDER
+			,				nvl(ADV.CNT_CORRECT_INSTRUCT, 0)	CNTCORRECTINSTRUCT
+			,				nvl(ADV.CNT_FINE, 0)				CNTFINE
+			,				nvl(ADV.AMT_FINE_TOTAL, 0)			AMTFINETOTAL
+			,				nvl(ADV.CNT_RECMD, 0)				CNTRECMD
+			,				nvl(ADV.CNT_ETC, 0)					CNTETC
+			,				TO_CHAR(ADV.CHK_DT, 'YYYY-MM-DD')	CHKDT
+			,				nvl(ADV.EVD_FILE_ID, 0)				EVDFILEID
+	</sql>
+	<sql id="spsc.pointout.summary.from">
+		FROM				TB_EXT_ORG_ADV		ADV
+			JOIN			TB_MST_LAW_TPL		TPL	ON	ADV.MST_LAW_ID = TPL.MST_LAW_ID
+			JOIN			TB_ORG				ORG	ON	ADV.MNG_ORG_CD = ORG.ORG_CD
+													AND	ADV.MST_LAW_ID = ORG.MST_LAW_ID
+	</sql>
+	<sql id="spsc.pointout.summary.where">
+		WHERE				ADV.MST_LAW_ID = (
+								SELECT	MST_LAW_ID
+								FROM	TB_MST_LAW_TPL
+								WHERE	OPT_TIME_YEAR = #optTimeYear#
+									AND	OPT_TIME_HALF = #optTimeHalf#
+							)
+		<isNotEmpty property="chkDt">
+			AND				TO_DATE(ADV.CHK_DT) = TO_DATE(#chkDt#, 'YYYY-MM-DD')
+		</isNotEmpty>
+	</sql>
+	<select id="spsc.pointout.select.pointout.summary.count" parameterClass="PointOutSummaryRequest" resultClass="Integer">
+		SELECT				COUNT(ADV.ADV_ID)
+		<include refid="spsc.pointout.summary.from"/>
+		<include refid="spsc.pointout.summary.where"/>
+	</select>
+	<select id="spsc.pointout.select.pointout.summary.list" parameterClass="PointOutSummaryRequest" resultClass="PointOutSummary">
+		<include refid="spsc.cmm.page.header"/>
+		<include refid="spsc.pointout.summary.select"/>
+		<include refid="spsc.pointout.summary.from"/>
+		<include refid="spsc.pointout.summary.where"/>
+		ORDER BY			TPL.OPT_TIME_YEAR								DESC
+			,				DECODE(TPL.OPT_TIME_HALF, 'F', 1, 'S', 2, 0)	DESC
+			,				ADV.ADV_ID										DESC
+		<include refid="spsc.cmm.page.tail"/>
+	</select>
+
+	<select id="spsc.pointout.select.pointout.summary.count.by.adv.no" parameterClass="String" resultClass="Integer">
+		SELECT				COUNT(ADV.ADV_ID)
+		<include refid="spsc.pointout.summary.from"/>
+		WHERE				ADV.ADV_NO = #advNo#
+	</select>
+
+	<select id="spsc.pointout.select.pointout.summary.by.id" parameterClass="Integer" resultClass="PointOutSummary">
+		<include refid="spsc.pointout.summary.select"/>
+		<include refid="spsc.pointout.summary.from"/>
+		WHERE				ADV.ADV_ID = #advId#
+	</select>
+
+	<insert id="spsc.pointout.insert.pointout.summary" parameterClass="PointOutSummaryRegRequest">
+		<selectKey keyProperty="advId" resultClass="Integer">
+			SELECT	ADVID.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_EXT_ORG_ADV (
+				ADV_ID
+			,	MST_LAW_ID
+			,	ADV_NO
+			,	MNG_ORG_CD
+			,	CHK_ORG_NM
+			,	CHK_NM
+
+			,	CNT_JUDICIAL_ACT
+			,	CNT_STOP_USE
+			,	CNT_STOP_FACILITY_TOTAL
+			,	CNT_CORRECT_ORDER
+			,	CNT_CORRECT_INSTRUCT
+			,	CNT_FINE
+			,	AMT_FINE_TOTAL
+			,	CNT_RECMD
+			,	CNT_ETC
+			,	CHK_DT
+			,	EVD_FILE_ID
+		) VALUES (
+				#advId#
+			,	(SELECT MST_LAW_ID FROM TB_MST_LAW_TPL WHERE OPT_TIME_YEAR = #optTimeYear# AND OPT_TIME_HALF = #optTimeHalf#)
+			,	#advNo#
+			,	#mngOrgCd#
+			,	#chkOrgNm#
+			,	#chkNm#
+
+			,	0
+			,	0
+			,	0
+			,	0
+			,	0
+			,	0
+			,	0
+			,	0
+			,	0
+			,	TO_DATE(#chkDt#, 'YYYY-MM-DD')
+			,	#evdFileId#
+		)
+	</insert>
+
+	<update id="spsc.pointout.update.pointout.summary" parameterClass="PointOutSummaryModRequest">
+		UPDATE	TB_EXT_ORG_ADV
+		SET		ADV_ID = ADV_ID
+<!--		<isNotEmpty property="chkOrgNm">-->
+			,	CHK_ORG_NM = #chkOrgNm#
+<!--		</isNotEmpty>-->
+<!--		<isNotEmpty property="chkNm">-->
+			,	CHK_NM = #chkNm#
+<!--		</isNotEmpty>-->
+<!--		<isNotEmpty property="chkDt">-->
+			,	CHK_DT = TO_DATE(#chkDt#, 'YYYY-MM-DD')
+<!--		</isNotEmpty>-->
+		WHERE	ADV_ID = #advId#
+	</update>
+
+	<update id="spsc.pointout.update.pointout.summary.sts" parameterClass="PointOutSummary">
+		UPDATE	TB_EXT_ORG_ADV
+		SET		ADV_ID = ADV_ID
+			,	CNT_JUDICIAL_ACT = CNT_JUDICIAL_ACT + #cntJudicialAct#
+			,	CNT_STOP_USE = CNT_STOP_USE + #cntStopUse#
+			,	CNT_STOP_FACILITY_TOTAL = CNT_STOP_FACILITY_TOTAL + #cntStopFacilityTotal#
+			,	CNT_CORRECT_ORDER = CNT_CORRECT_ORDER + #cntCorrectOrder#
+			,	CNT_CORRECT_INSTRUCT = CNT_CORRECT_INSTRUCT + #cntCorrectInstruct#
+			,	CNT_FINE = CNT_FINE + #cntFine#
+			,	AMT_FINE_TOTAL = AMT_FINE_TOTAL + #amtFineTotal#
+			,	CNT_RECMD = CNT_RECMD + #cntRecmd#
+			,	CNT_ETC = CNT_ETC + #cntEtc#
+		WHERE	ADV_ID = #advId#
+	</update>
+
+	<delete id="spsc.pointout.delete.pointout.summary" parameterClass="PointOutSummaryModRequest">
+		DELETE FROM TB_EXT_ORG_ADV WHERE ADV_ID = #advId#
+	</delete>
+
+
+	<sql id="spsc.pointout.detail.select">
+		SELECT				DTL.ADV_DTL_ID						ADVDTLID
+			,				NVL(DTL.ADV_DTL_SN, 0)				ADVDTLSN
+			,				DTL.ADM_CD							ADMCD
+			,				FN_CODENM('ADMCLS', DTL.ADM_CD)		ADMCDNM
+			,				NVL(DTL.CNT_STOP_FACILITY, 0)		CNTSTOPFACILITY
+			,				DTL.AMT_FINE						AMTFINE
+			,				DTL.ADV_DTL_TEXT					ADVDTLTEXT
+			,				DTL.IMPR_PLAN						IMPRPLAN
+			,				DTL.IMPR_RST						IMPRRST
+			,				DTL.ORG_CD							ORGCD
+			,				ORG.ORG_NM							ORGNM
+			,				ORG.FULL_ORG_NM						FULLORGNM
+			,				DTL.MST_LAW_ID						MSTLAWID
+			,				DTL.BEF_FILE_ID						BEFFILEID
+			,				DTL.AFT_FILE_ID						AFTFILEID
+			,				DTL.ADV_ID							ADVID
+	</sql>
+	<sql id="spsc.pointout.detail.from">
+		FROM				TB_EXT_ORG_ADV_DTL			DTL
+			JOIN			TB_ORG						ORG	ON	DTL.ORG_CD = ORG.ORG_CD
+															AND	DTL.MST_LAW_ID = ORG.MST_LAW_ID
+	</sql>
+	<sql id="spsc.pointout.detail.where">
+		WHERE				DTL.ADV_ID = #advId#
+		<isNotEmpty property="admCd">
+			AND				DTL.ADM_CD = #admCd#
+		</isNotEmpty>
+		<isNotEmpty property="orgNm">
+			AND				ORG.FULL_ORG_NM LIKE '%' || #orgNm# || '%'
+		</isNotEmpty>
+		<isNotEmpty property="advDtlText">
+			AND				DTL.ADV_DTL_TEXT LIKE '%' || #advDtlText# || '%'
+		</isNotEmpty>
+	</sql>
+	<select id="spsc.pointout.select.pointout.detail.count" parameterClass="PointOutDetailRequest" resultClass="Integer">
+		SELECT				COUNT(DTL.ADV_DTL_ID)		CNT
+		<include refid="spsc.pointout.detail.from"/>
+		<include refid="spsc.pointout.detail.where"/>
+	</select>
+	<select id="spsc.pointout.select.pointout.detail.list" parameterClass="PointOutDetailRequest" resultClass="PointOutDetail">
+		<include refid="spsc.cmm.page.header"/>
+		<include refid="spsc.pointout.detail.select"/>
+		<include refid="spsc.pointout.detail.from"/>
+		<include refid="spsc.pointout.detail.where"/>
+		<include refid="spsc.cmm.page.tail"/>
+	</select>
+
+	<select id="spsc.pointout.select.pointout.detail.by.id" parameterClass="Integer" resultClass="PointOutDetail">
+		<include refid="spsc.pointout.detail.select"/>
+		<include refid="spsc.pointout.detail.from"/>
+		WHERE				ADV_DTL_ID = #advDtlId#
+		ORDER BY			ADV_DTL_ID DESC
+	</select>
+
+	<insert id="spsc.pointout.insert.pointout.detail" parameterClass="PointOutDetailRegRequest">
+		<selectKey keyProperty="advDtlId" resultClass="Integer">
+			SELECT ADVDTLID.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_EXT_ORG_ADV_DTL (
+				ADV_DTL_ID
+			,	ADV_DTL_SN
+			,	ADM_CD
+			,	CNT_STOP_FACILITY
+			,	AMT_FINE
+			,	ADV_DTL_TEXT
+			,	IMPR_PLAN
+			,	IMPR_RST
+			,	ORG_CD
+			,	MST_LAW_ID
+			,	BEF_FILE_ID
+			,	AFT_FILE_ID
+			,	ADV_ID
+		) VALUES (
+				#advDtlId#
+			,	(SELECT NVL(MAX(ADV_DTL_SN), 1) FROM TB_EXT_ORG_ADV_DTL WHERE ADV_ID = #advId#)
+			,	#admCd#
+			,	#cntStopFacility#
+			,	#amtFine#
+			,	#advDtlText#
+			,	#imprPlan#
+			,	#imprRst#
+			,	#orgCd#
+			,	#mstLawId#
+			,	#befFileId#
+			,	#aftFileId#
+			,	#advId#
+		)
+	</insert>
+
+	<update id="spsc.pointout.update.pointout.detail" parameterClass="PointOutDetailModRequest">
+		UPDATE	TB_EXT_ORG_ADV_DTL
+		SET		ADV_DTL_ID = ADV_DTL_ID
+		<!-- 원하는 것만 골라서 수정할 수 있게 하려 했었는데 빈값으로 수정이 안되어서 체크 다 해제 -->
+<!--		<isNotEmpty property="admCd">-->
+			,	ADM_CD = #admCd#
+<!--		</isNotEmpty>-->
+<!--		<isGreaterThan property="cntStopFacility" compareValue="0">-->
+			,	CNT_STOP_FACILITY = #cntStopFacility#
+<!--		</isGreaterThan>-->
+<!--		<isGreaterThan property="amtFine" compareValue="0">-->
+			,	AMT_FINE = #amtFine#
+<!--		</isGreaterThan>-->
+<!--		<isNotEmpty property="advDtlText">-->
+			,	ADV_DTL_TEXT = #advDtlText#
+<!--		</isNotEmpty>-->
+<!--		<isNotEmpty property="imprPlan">-->
+			,	IMPR_PLAN = #imprPlan#
+<!--		</isNotEmpty>-->
+<!--		<isNotEmpty property="imprRst">-->
+			,	IMPR_RST = #imprRst#
+<!--		</isNotEmpty>-->
+<!--		<isNotEmpty property="orgCd">-->
+			,	ORG_CD = #orgCd#
+<!--		</isNotEmpty>-->
+		WHERE	ADV_DTL_ID = #advDtlId#
+	</update>
+
+	<delete id="spsc.pointout.delete.pointout.detail.by.id" parameterClass="Integer">
+		DELETE FROM TB_EXT_ORG_ADV_DTL WHERE ADV_DTL_ID = #advDtlId#
+	</delete>
+
+	<delete id="spsc.pointout.delete.pointout.detail.by.adv.id" parameterClass="Integer">
+		DELETE FROM TB_EXT_ORG_ADV_DTL WHERE ADV_ID = #advId#
+	</delete>
+
+	<sql id="spsc.pointout.select.pointout.sts.orgtree">
+		SELECT				ORG_CD
+			,				CONNECT_BY_ROOT			ORG_CD AS ROOT
+		FROM				TB_ORG
+		WHERE				MST_LAW_ID = (
+								SELECT	MST_LAW_ID
+								FROM	TB_MST_LAW_TPL
+								WHERE	OPT_TIME_YEAR = #optTimeYear#
+									AND	OPT_TIME_HALF = #optTimeHalf#
+							)
+			AND				FIRST_ORG_CD &lt;> 'A000'
+			AND             FIRST_ORG_CD NOT IN (	SELECT	ORG_CD
+													FROM	TB_ORG
+													WHERE	MST_LAW_ID = (
+																SELECT	MST_LAW_ID
+																FROM	TB_MST_LAW_TPL
+																WHERE	OPT_TIME_YEAR = #optTimeYear#
+																	AND	OPT_TIME_HALF = #optTimeHalf#
+															)
+														AND	PARENT_ORG_CD = 'A000'
+							)
+		CONNECT BY PRIOR	ORG_CD = PARENT_ORG_CD
+		START WITH			ORG_CD = '0000'
+		UNION
+		SELECT				ORG_CD
+			,				CONNECT_BY_ROOT       ORG_CD AS ROOT
+		FROM				TB_ORG
+		WHERE				MST_LAW_ID = (
+								SELECT	MST_LAW_ID
+								FROM	TB_MST_LAW_TPL
+								WHERE	OPT_TIME_YEAR = #optTimeYear#
+									AND	OPT_TIME_HALF = #optTimeHalf#
+							)
+		CONNECT BY PRIOR	ORG_CD = PARENT_ORG_CD
+		START WITH			PARENT_ORG_CD = 'A000'
+	</sql>
+
+	<sql id="spsc.pointout.select.pointout.sts.orgtree.merge">
+		SELECT				*
+		FROM				(	SELECT				ORG_CD
+									,				CONNECT_BY_ROOT			ORG_CD AS ROOT
+								FROM				TB_ORG
+								WHERE				MST_LAW_ID = (
+														SELECT	MST_LAW_ID
+														FROM	TB_MST_LAW_TPL
+														WHERE	OPT_TIME_YEAR = #optTimeYear#
+															AND	OPT_TIME_HALF = 'F'
+													)
+									AND				FIRST_ORG_CD &lt;> 'A000'
+									AND             FIRST_ORG_CD NOT IN (	SELECT	ORG_CD
+																			FROM	TB_ORG
+																			WHERE	MST_LAW_ID = (
+																						SELECT	MST_LAW_ID
+																						FROM	TB_MST_LAW_TPL
+																						WHERE	OPT_TIME_YEAR = #optTimeYear#
+																							AND	OPT_TIME_HALF = 'F'
+																					)
+																				AND	PARENT_ORG_CD = 'A000'
+													)
+								CONNECT BY PRIOR	ORG_CD = PARENT_ORG_CD
+								START WITH			ORG_CD = '0000'
+								UNION
+								SELECT				ORG_CD
+									,				CONNECT_BY_ROOT       ORG_CD AS ROOT
+								FROM				TB_ORG
+								WHERE				MST_LAW_ID = (
+														SELECT	MST_LAW_ID
+														FROM	TB_MST_LAW_TPL
+														WHERE	OPT_TIME_YEAR = #optTimeYear#
+															AND	OPT_TIME_HALF = 'F'
+													)
+								CONNECT BY PRIOR	ORG_CD = PARENT_ORG_CD
+								START WITH			PARENT_ORG_CD = 'A000'
+							)
+		UNION
+		SELECT				*
+		FROM				(	SELECT				ORG_CD
+									,				CONNECT_BY_ROOT			ORG_CD AS ROOT
+								FROM				TB_ORG
+								WHERE				MST_LAW_ID = (
+														SELECT	MST_LAW_ID
+														FROM	TB_MST_LAW_TPL
+														WHERE	OPT_TIME_YEAR = #optTimeYear#
+															AND	OPT_TIME_HALF = 'S'
+													)
+									AND				FIRST_ORG_CD &lt;> 'A000'
+									AND             FIRST_ORG_CD NOT IN (	SELECT	ORG_CD
+																			FROM	TB_ORG
+																			WHERE	MST_LAW_ID = (
+																						SELECT	MST_LAW_ID
+																						FROM	TB_MST_LAW_TPL
+																						WHERE	OPT_TIME_YEAR = #optTimeYear#
+																							AND	OPT_TIME_HALF = 'S'
+																					)
+																				AND	PARENT_ORG_CD = 'A000'
+													)
+								CONNECT BY PRIOR	ORG_CD = PARENT_ORG_CD
+								START WITH			ORG_CD = '0000'
+								UNION
+								SELECT				ORG_CD
+									,				CONNECT_BY_ROOT       ORG_CD AS ROOT
+								FROM				TB_ORG
+								WHERE				MST_LAW_ID = (
+														SELECT	MST_LAW_ID
+														FROM	TB_MST_LAW_TPL
+														WHERE	OPT_TIME_YEAR = #optTimeYear#
+															AND	OPT_TIME_HALF = 'S'
+													)
+								CONNECT BY PRIOR	ORG_CD = PARENT_ORG_CD
+								START WITH			PARENT_ORG_CD = 'A000'
+							)
+	</sql>
+
+	<sql id="spsc.pointout.select.pointout.sts.org.represent">
+		SELECT				'0000'				ORG_CD
+			,				'본사'				ORG_NM
+			,				'01000000000000'	ORG_ORDER_CD
+			,				1					ORG_RANK
+		FROM				DUAL
+		UNION
+		SELECT				ORG_CD
+			,				ORG_NM
+			,				ORG_ORDER_CD
+			,				ORG_RANK
+		FROM				TB_ORG
+		WHERE				MST_LAW_ID = (
+								SELECT	MST_LAW_ID
+								FROM	TB_MST_LAW_TPL
+								WHERE	OPT_TIME_YEAR = #optTimeYear#
+									AND	OPT_TIME_HALF = #optTimeHalf#
+							)
+			AND				PARENT_ORG_CD = 'A000'
+	</sql>
+
+	<sql id="spsc.pointout.select.pointout.sts.org.represent.merge">
+		SELECT				'0000'				ORG_CD
+			,				'본사'				ORG_NM
+			,				'01000000000000'	ORG_ORDER_CD
+			,				1					ORG_RANK
+		FROM				DUAL
+		UNION
+		SELECT				MRG.ORG_CD
+			,				DECODE(SSS.ORG_NM, NULL, SSF.ORG_NM, SSS.ORG_NM)		ORG_NM
+			,				DECODE(
+								SSS.ORG_ORDER_CD, NULL,
+								SSF.ORG_ORDER_CD,
+								SSS.ORG_ORDER_CD
+							)														ORG_ORDER_CD
+			,				DECODE(SSS.ORG_RANK, NULL, SSF.ORG_RANK, SSS.ORG_RANK)	ORG_RANK
+		FROM				(	SELECT DISTINCT		ORG_CD
+								FROM				TB_ORG
+								WHERE				MST_LAW_ID IN (
+														SELECT	MST_LAW_ID
+														FROM	TB_MST_LAW_TPL
+														WHERE	OPT_TIME_YEAR = #optTimeYear#
+													)
+									AND				PARENT_ORG_CD = 'A000'
+							)					MRG
+			LEFT OUTER JOIN	(	SELECT				ORG_CD
+									,				ORG_NM
+									,				ORG_ORDER_CD
+									,				'F'				OPT_TIME_HALF
+									,				ORG_RANK
+								FROM				TB_ORG
+								WHERE				MST_LAW_ID IN (
+														SELECT	MST_LAW_ID
+														FROM	TB_MST_LAW_TPL
+														WHERE	OPT_TIME_YEAR = #optTimeYear#
+															AND	OPT_TIME_HALF = 'F'
+													)
+									AND				PARENT_ORG_CD = 'A000'
+			)									SSF	ON	MRG.ORG_CD = SSF.ORG_CD
+			FULL OUTER JOIN	(	SELECT				ORG_CD
+									,				ORG_NM
+									,				ORG_ORDER_CD
+									,				'S'				OPT_TIME_HALF
+									,				ORG_RANK
+								FROM				TB_ORG
+								WHERE				MST_LAW_ID IN (
+														SELECT	MST_LAW_ID
+														FROM	TB_MST_LAW_TPL
+														WHERE	OPT_TIME_YEAR = #optTimeYear#
+															AND	OPT_TIME_HALF = 'S'
+													)
+									AND				PARENT_ORG_CD = 'A000'
+							)					SSS	ON	MRG.ORG_CD = SSS.ORG_CD
+	</sql>
+
+	<select id="spsc.pointout.select.pointout.sts" parameterClass="OperationPeriod" resultClass="PointOutSTS">
+		WITH ORG_TREE AS (
+		<isNotEmpty property="optTimeHalf">
+			<include refid="spsc.pointout.select.pointout.sts.orgtree"/>
+		</isNotEmpty>
+		<isEmpty property="optTimeHalf">
+			<include refid="spsc.pointout.select.pointout.sts.orgtree.merge"/>
+		</isEmpty>
+		)
+		SELECT				FOG.ORG_CD						ORGCD
+			,				FOG.ORG_NM						ORGNM
+			,				FOG.ORG_NM						FULLORGNM
+			,				COUNT(INR.ADV_DTL_ID)			CNTPOINTOUT
+			,				SUM(NVL(INR.IS_CLEARED, 0))		CNTPOINTCLEAR
+		FROM				(
+		<isNotEmpty property="optTimeHalf">
+			<include refid="spsc.pointout.select.pointout.sts.org.represent"/>
+		</isNotEmpty>
+		<isEmpty property="optTimeHalf">
+			<include refid="spsc.pointout.select.pointout.sts.org.represent.merge"/>
+		</isEmpty>
+							)					FOG
+			LEFT OUTER JOIN	(	SELECT				DTL.ADV_DTL_ID
+									,				OTR.ROOT										ORG_CD
+									,				DECODE(
+														(SELECT COUNT(FILE_SN) FROM LETTNFILEDETAIL WHERE ATCH_FILE_ID = DTL.AFT_FILE_ID),
+														0, 0, 1
+													)							IS_CLEARED
+								FROM				TB_EXT_ORG_ADV_DTL			DTL
+									JOIN			TB_EXT_ORG_ADV				ADV	ON	DTL.ADV_ID = ADV.ADV_ID
+									JOIN			ORG_TREE					OTR	ON	DTL.ORG_CD = OTR.ORG_CD
+								WHERE				ADV.MST_LAW_ID IN (
+														SELECT	MST_LAW_ID
+														FROM	TB_MST_LAW_TPL
+														WHERE	OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf">
+															AND	OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+													)
+							)					INR	ON	FOG.ORG_CD = INR.ORG_CD
+		GROUP BY			FOG.ORG_CD
+			,				FOG.ORG_NM
+			,				FOG.ORG_RANK
+		ORDER BY			FOG.ORG_RANK
+	</select>
+
+	<select id="spsc.point-out.select.summary" parameterClass="String" resultClass="PointOutExcelSummary">
+		SELECT 		ADV_ID						advId
+			,		MST_LAW_ID					mstLawId
+			,		ADV_NO						advNo
+			,		MNG_ORG_CD					mngOrgCd
+			,		CHK_ORG_NM					chkOrgNm
+			,		CHK_NM						chkNm
+			,		CHK_DT						chkDt
+			,		CNT_JUDICIAL_ACT			cntJudicialAct
+			,		CNT_STOP_USE				cntStopUse
+			,		CNT_STOP_FACILITY_TOTAL		cntStopFacilityTotal
+			,		CNT_CORRECT_ORDER			cntCorrectOrder
+			,		CNT_CORRECT_INSTRUCT		cntCorrectInstruct
+			,		CNT_FINE					cntFine
+			,		AMT_FINE_TOTAL				amtFineTotal
+			,		CNT_RECMD					cntRecmd
+			,		CNT_ETC						cntEtc
+			,		EVD_FILE_ID					evdFileId
+		FROM  		TB_EXT_ORG_ADV
+		WHERE  		ADV_NO = #advNo#
+	</select>
+	
+	<!-- 지적/조치사항 총괄 데이터 삽입 -->
+	<insert id="spsc.point-out.xls.insert.summary" parameterClass="PointOutExcelSummary">
+		<selectKey keyProperty="advId" resultClass="Integer">
+			SELECT  ADVDTLID.NEXTVAL advId
+			FROM    DUAL
+		</selectKey>
+		INSERT INTO TB_EXT_ORG_ADV (	ADV_ID
+									, 	MST_LAW_ID
+									, 	ADV_NO
+									, 	MNG_ORG_CD
+									, 	CHK_ORG_NM
+									, 	CHK_NM
+									, 	CHK_DT
+									, 	CNT_JUDICIAL_ACT
+									, 	CNT_STOP_USE
+									, 	CNT_STOP_FACILITY_TOTAL
+									, 	CNT_CORRECT_ORDER
+									, 	CNT_CORRECT_INSTRUCT
+									, 	CNT_FINE
+									, 	AMT_FINE_TOTAL
+									, 	CNT_RECMD
+									, 	CNT_ETC
+									, 	EVD_FILE_ID )
+							VALUES (    #advId#
+									,	#mstLawId#
+									,	#advNo#
+									,   FN_ORG_CD( #mstLawId#, #mngOrgNm#)
+									,	#chkOrgNm#
+									,	#chkNm#
+									,	TO_DATE(#chkDt#, 'YYYY.MM.DD')
+									,	#cntJudicialAct#
+									,	#cntStopUse#
+									,	#cntStopFacilityTotal#
+									,	#cntCorrectOrder#
+									,	#cntCorrectInstruct#
+									,	#cntFine#
+									,	#amtFineTotal#
+									,	#cntRecmd#
+									,	#cntEtc#
+									,	#evdFileId# )
+	</insert>
+
+	<!-- 지적/조치사항 총괄 데이터 갱신 -->
+	<update id="spsc.point-out.xls.update.summary" parameterClass="PointOutExcelSummary">
+		UPDATE 		TB_EXT_ORG_ADV
+			SET 	CHK_ORG_NM				= #chkOrgNm#
+				,   CHK_NM					= #chkNm#
+				,   CHK_DT					= TO_DATE(#chkDt#, 'YYYY.MM.DD')
+				,   CNT_JUDICIAL_ACT		= #cntJudicialAct#
+				,   CNT_STOP_USE			= #cntStopUse#
+				,   CNT_STOP_FACILITY_TOTAL	= #cntStopFacilityTotal#
+				,   CNT_CORRECT_ORDER		= #cntCorrectOrder#
+				,   CNT_CORRECT_INSTRUCT	= #cntCorrectInstruct#
+				,   CNT_FINE				= #cntFine#
+				,   AMT_FINE_TOTAL			= #amtFineTotal#
+				,   CNT_RECMD				= #cntRecmd#
+				,   CNT_ETC					= #cntEtc#
+		WHERE 		ADV_NO = #advNo#
+	</update>
+
+	<insert id="spsc.point-out.xls.insert.detail" parameterClass="PointOutExcelDetail">
+		<!-- todo 동일 쿼리 위에 존재함. parameterClass만 다름-->
+		<selectKey keyProperty="advDtlId" resultClass="Integer">
+			SELECT ADVDTLID.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_EXT_ORG_ADV_DTL (
+				ADV_DTL_ID
+			,	ADV_DTL_SN
+			,	ADM_CD
+			,	CNT_STOP_FACILITY
+			,	AMT_FINE
+			,	ADV_DTL_TEXT
+			,	IMPR_PLAN
+			,	IMPR_RST
+			,	ORG_CD
+			,	MST_LAW_ID
+			,	BEF_FILE_ID
+			,	AFT_FILE_ID
+			,	ADV_ID
+		) VALUES (
+				#advDtlId#
+			,	(SELECT NVL(MAX(ADV_DTL_SN), 1) FROM TB_EXT_ORG_ADV_DTL WHERE ADV_ID = #advId#)
+			,	GET_CODE_BY_CODE_NM(#admNm#)
+			,	#cntStopFacility#
+			,	#amtFine#
+			,	#advDtlText#
+			,	#imprPlan#
+			,	#imprRst#
+			,   #orgCd#
+			,	#mstLawId#
+			,	#befFileId#
+			,	#aftFileId#
+			,	#advId#
+		)
+	</insert>
+
+	<select id="spsc.point-out.xls.selet.detail.list.by.adv.id" parameterClass="Integer" resultClass="PointOutDetail">
+		<include refid="spsc.pointout.detail.select"/>
+		<include refid="spsc.pointout.detail.from"/>
+		WHERE				DTL.ADV_ID = #advId#
+	</select>
+
+	<select id="spsc.point-out.select.mst.law.id" parameterClass="PointerOutExcelUploadRequest" resultClass="Integer">
+		SELECT			MST_LAW_ID 		mstLawId
+		FROM    		TB_MST_LAW_TPL
+		WHERE   		OPT_TIME_YEAR = #optTimeYear#
+			AND 		OPT_TIME_HALF = #optTimeHalf#
+	</select>
+
+	<select id="spsc.point-out.select.summary.list" parameterClass="PointOutExcelDownloadRequest" resultClass="PointOutSummary">
+		<include refid="spsc.pointout.summary.select"/>
+		<include refid="spsc.pointout.summary.from"/>
+		<include refid="spsc.pointout.summary.where"/>
+	</select>
+
+	<select id="spsc.point-out.select.detail.list" parameterClass="PointOutExcelDownloadRequest" resultClass="PointOutSummary">
+		<include refid="spsc.pointout.detail.select"/>
+		<include refid="spsc.pointout.detail.from"/>
+		<include refid="spsc.pointout.detail.where"/>
+	</select>
+</sqlMap>

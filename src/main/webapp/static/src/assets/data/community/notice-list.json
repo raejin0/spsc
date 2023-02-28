@@ -1,0 +1,34 @@
+{
+	"success": true,
+	"data": {
+		"bbsType": "notice",
+		"totalCount": 4,
+		"items": [
+			{
+				"nttId": 1,
+				"title": "공지사항 1",
+				"regDt": "2022-01-01",
+				"attachFile": "FILE.txt"
+			},
+			{
+				"nttId": 2,
+				"title": "공지사항 2",
+				"regDt": "2022-01-01",
+				"attachFile": "FILE.txt"
+			},
+			{
+				"nttId": 3,
+				"title": "공지사항 3",
+				"regDt": "2022-01-01",
+				"attachFile": "FILE.txt"
+			},{
+				"nttId": 4,
+				"title": "공지사항 4",
+				"regDt": "2022-01-01",
+				"attachFile": "FILE.txt"
+			}
+		],
+		"pages": [1,2,3,4,5],
+		"currentPageNo": 1
+	}
+}

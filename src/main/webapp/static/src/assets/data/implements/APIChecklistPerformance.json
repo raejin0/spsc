@@ -1,0 +1,263 @@
+{
+	"success": true,
+	"data": {
+		"progressOnDepartment": {
+			"department": {
+				"orgCd": "9180",
+				"orgNm": "신보령발전본부",
+				"fullOrgNm": "신보령발전본부",
+				"orgType": 1
+			},
+			"progress": 3.45
+		},
+		"lawSubImplementsList": [
+			{
+				"lawSub": {
+					"lawSubId": 5,
+					"lawSubNo": 5,
+					"lawSubNm": "안전보건관리책임자 등의 직무권한 부여 및 평가기준 마련",
+					"lawSubEtc": null
+				},
+				"statuteImplementsList": [
+					{
+						"statute": {
+							"lawRelId": null,
+							"lawRelNm": null
+						},
+						"implementList": [
+							{
+								"content": {
+									"lawImplId": 10,
+									"text": "안전보건관리책임자, 관리감독자, 안전보건관리자 업무평가",
+									"itmReqr": "안전보건관리책임자, 관리감독자, 안전보건관리자 업무평가 기준",
+									"itmAttn": "업무 수행의 충실성 평가",
+									"implProd": "반기",
+									"mainDepartmentsList": [
+										{
+											"orgCd": "1687",
+											"orgNm": "중대재해예방부",
+											"fullOrgNm": null,
+											"orgType": 1
+										}
+									],
+									"statuteList": []
+								},
+								"resultList": [
+									{
+										"itemId": 13,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 150,
+										"pointOutFileId": 575,
+										"department": {
+											"orgCd": "7625",
+											"orgNm": "정보보안팀",
+											"fullOrgNm": "신보령발전본부/경영지원실/정보보안팀",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									},
+									{
+										"itemId": 14,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 151,
+										"pointOutFileId": 576,
+										"department": {
+											"orgCd": "9158",
+											"orgNm": "PWT팀",
+											"fullOrgNm": "신보령발전본부/발전소/현장안전팀",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									},
+									{
+										"itemId": 15,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 152,
+										"pointOutFileId": 577,
+										"department": {
+											"orgCd": "9179",
+											"orgNm": "환경관리부",
+											"fullOrgNm": "신보령발전본부/직할/환경관리부",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									},
+									{
+										"itemId": 16,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 153,
+										"pointOutFileId": 578,
+										"department": {
+											"orgCd": "9198",
+											"orgNm": "연료자재부",
+											"fullOrgNm": "신보령발전본부/경영지원실/연료자재부",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									},
+									{
+										"itemId": 17,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 154,
+										"pointOutFileId": 579,
+										"department": {
+											"orgCd": "9201",
+											"orgNm": "발전운영실",
+											"fullOrgNm": "신보령발전본부/발전소/발전운영실",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									},
+									{
+										"itemId": 18,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 155,
+										"pointOutFileId": 580,
+										"department": {
+											"orgCd": "9202",
+											"orgNm": "보일러기술부",
+											"fullOrgNm": "신보령발전본부/발전소/보일러기술부",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									},
+									{
+										"itemId": 19,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 156,
+										"pointOutFileId": 581,
+										"department": {
+											"orgCd": "9203",
+											"orgNm": "제어기술부",
+											"fullOrgNm": "신보령발전본부/발전소/제어기술부",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									},
+									{
+										"itemId": 20,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 157,
+										"pointOutFileId": 582,
+										"department": {
+											"orgCd": "9204",
+											"orgNm": "화학기술부",
+											"fullOrgNm": "신보령발전본부/발전소/화학기술부",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									},
+									{
+										"itemId": 21,
+										"implState": "V",
+										"inspect": null,
+										"inspectState": "G",
+										"implFileId": 158,
+										"pointOutFileId": 583,
+										"department": {
+											"orgCd": "9205",
+											"orgNm": "전기기술부",
+											"fullOrgNm": "신보령발전본부/발전소/전기기술부",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [
+												{
+													"atchFileId": 158,
+													"fileSn": 1,
+													"name": "SW대가산정_교육이수_자료_김동한_수정.pptx",
+													"url": "381b6db4-06f6-4339-bfd2-55e27d892089",
+													"atchTy": "F"
+												}
+											],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									},
+									{
+										"itemId": 22,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 159,
+										"pointOutFileId": 584,
+										"department": {
+											"orgCd": "9241",
+											"orgNm": "터빈기술부",
+											"fullOrgNm": "신보령발전본부/발전소/터빈기술부",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									}
+								]
+							}
+						],
+						"equipments": null
+					}
+				]
+			}
+		]
+	}
+}

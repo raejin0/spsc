@@ -1,0 +1,221 @@
+{
+	"success": true,
+	"data": {
+		"progressOnDepartment": {
+			"department": {
+				"orgCd": "9180",
+				"orgNm": "신보령발전본부",
+				"fullOrgNm": "신보령발전본부",
+				"orgType": 1
+			},
+			"progress": 3.45
+		},
+		"lawSubImplementsList": [
+			{
+				"lawSub": {
+					"lawSubId": 1,
+					"lawSubNo": 1,
+					"lawSubNm": "사업장의 안전·보건에 관한 목표와 경영방침 설정",
+					"lawSubEtc": "비고"
+				},
+				"statuteImplementsList": [
+					{
+						"statute": {
+							"lawRelId": null,
+							"lawRelNm": null
+						},
+						"implementList": [
+							{
+								"content": {
+									"lawImplId": 1,
+									"text": "사업장의 안전ㆍ보건에 관한 목표와 경영방침을 설정",
+									"itmReqr": "안전보건에 관한 목표 수립",
+									"itmAttn": "안전경영책임계획, 사업소 안전보건목표 수립",
+									"implProd": "전년12월~3월",
+									"mainDepartmentsList": [
+										{
+											"orgCd": "1676",
+											"orgNm": "산업안전실",
+											"fullOrgNm": "안전경영처/산업안전실",
+											"orgType": 1
+										}
+									],
+									"statuteList": []
+								},
+								"resultList": [
+									{
+										"itemId": 2,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 139,
+										"pointOutFileId": 564,
+										"department": {
+											"orgCd": "9182",
+											"orgNm": "안전품질실",
+											"fullOrgNm": "신보령발전본부/직할/안전품질실",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									},
+									{
+										"itemId": 3,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 140,
+										"pointOutFileId": 565,
+										"department": {
+											"orgCd": "9183",
+											"orgNm": "경영기획부",
+											"fullOrgNm": "신보령발전본부/경영지원실/경영기획부",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									},
+									{
+										"itemId": 4,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 141,
+										"pointOutFileId": 566,
+										"department": {
+											"orgCd": "9199",
+											"orgNm": "시설관리부",
+											"fullOrgNm": "신보령발전본부/경영지원실/시설관리부",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									}
+								]
+							},
+							{
+								"content": {
+									"lawImplId": 2,
+									"text": "사업장의 안전ㆍ보건에 관한 목표와 경영방침을 설정",
+									"itmReqr": "본사 및 각 사업소 자체 경영방침 수립",
+									"itmAttn": " 자체 경영방침 수립여부, 경영방침 게시",
+									"implProd": "매년 1월",
+									"mainDepartmentsList": [
+										{
+											"orgCd": "1393",
+											"orgNm": "발전운영실",
+											"fullOrgNm": "발전환경처/발전운영실",
+											"orgType": 1
+										},
+										{
+											"orgCd": "1676",
+											"orgNm": "산업안전실",
+											"fullOrgNm": "안전경영처/산업안전실",
+											"orgType": 1
+										}
+									],
+									"statuteList": []
+								},
+								"resultList": [
+									{
+										"itemId": 5,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 142,
+										"pointOutFileId": 567,
+										"department": {
+											"orgCd": "9181",
+											"orgNm": "(신보령)감사부",
+											"fullOrgNm": "감사실/(신보령)감사부",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									},
+									{
+										"itemId": 6,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 143,
+										"pointOutFileId": 568,
+										"department": {
+											"orgCd": "9182",
+											"orgNm": "안전품질실",
+											"fullOrgNm": "신보령발전본부/직할/안전품질실",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									},
+									{
+										"itemId": 7,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 144,
+										"pointOutFileId": 569,
+										"department": {
+											"orgCd": "9183",
+											"orgNm": "경영기획부",
+											"fullOrgNm": "신보령발전본부/경영지원실/경영기획부",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									},
+									{
+										"itemId": 8,
+										"implState": "X",
+										"inspect": null,
+										"inspectState": null,
+										"implFileId": 145,
+										"pointOutFileId": 570,
+										"department": {
+											"orgCd": "9199",
+											"orgNm": "시설관리부",
+											"fullOrgNm": "신보령발전본부/경영지원실/시설관리부",
+											"orgType": 3
+										},
+										"attachments": {
+											"implFiles": [],
+											"implLinks": [],
+											"pointedFiles": [],
+											"pointedLinks": []
+										}
+									}
+								]
+							}
+						],
+						"equipments": null
+					}
+				]
+			}
+		]
+	}
+}

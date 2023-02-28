@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="spsc.checklist">
+	<select id="spsc.checklist.dashboard.subOrgListAll" parameterClass="ChecklistDashboardGetRequest" resultClass="ChecklistDepartment">
+		SELECT * FROM (
+		SELECT      ORG_CD                                                                                          orgCd
+		,   (   SELECT  X.ORG_NM
+		FROM (  SELECT      ORG_NM
+		FROM        TB_ORG ST
+		INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		AND     ST.ORG_CD = T.ORG_CD
+		ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) X
+		WHERE ROWNUM = 1)                                                               orgNm
+		,   (   SELECT  X.ORG_RANK
+		FROM (  SELECT      ORG_RANK
+		FROM        TB_ORG ST
+		INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		AND     ST.ORG_CD = T.ORG_CD
+		ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) X
+		WHERE ROWNUM = 1)                                                               ORGRANK
+		,   (   SELECT  Y.FULL_ORG_NM
+		FROM (  SELECT      FULL_ORG_NM
+		FROM        TB_ORG ST
+		INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		AND     ST.ORG_CD = T.ORG_CD
+		ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) Y
+		WHERE ROWNUM = 1)                                                                       fullOrgNm
+		,   DECODE(SIGN(3-SUM(ORG_TYPE)),1,1,3)                                                             orgType
+		,   PARENT_ORG_CD                                                                                   parentOrgCd
+		FROM TB_ORG T
+		INNER JOIN TB_MST_LAW_TPL TMLT on T.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   PARENT_ORG_CD = 'A000'
+		AND     TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		GROUP BY ORG_CD,PARENT_ORG_CD
+		UNION
+		SELECT      '0000'         orgCd
+		,   '본사'          orgNm
+		,    0    			ORGRANK
+		,   '본사'          fullOrgNm
+		,   1               orgType
+		,   null            parentOrgCd
+		FROM DUAL
+		) ORDER BY ORGRANK
+	</select>
+
+	<select id="spsc.checklist.dashboard.subOrgList" parameterClass="ChecklistDashboardGetRequest" resultClass="ChecklistDepartment">
+		SELECT * FROM (
+		SELECT      ORG_CD                                                                                  orgCd
+		,   (   SELECT  X.ORG_NM
+		FROM (  SELECT      ORG_NM
+		FROM        TB_ORG ST
+		INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		AND     ST.ORG_CD = T.ORG_CD
+		ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) X
+		WHERE ROWNUM = 1)                                                                   orgNm
+		,   (   SELECT  X.ORG_ORDER_CD
+		FROM (  SELECT      ORG_ORDER_CD
+		FROM        TB_ORG ST
+		INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		AND     ST.ORG_CD = T.ORG_CD
+		ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) X
+		WHERE ROWNUM = 1)                                                           orgOrderCd
+		,   (   SELECT  Y.FULL_ORG_NM
+		FROM (  SELECT      FULL_ORG_NM
+		FROM        TB_ORG ST
+		INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		AND     ST.ORG_CD = T.ORG_CD
+		ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) Y
+		WHERE ROWNUM = 1)                                                                       fullOrgNm
+		,   DECODE(SIGN(3-SUM(ORG_TYPE)),1,1,3)                                                     orgType
+		,   PARENT_ORG_CD                                                                           parentOrgCd
+		FROM TB_ORG T
+		INNER JOIN TB_MST_LAW_TPL TMLT on T.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   PARENT_ORG_CD = #orgCd#
+		AND     TMLT.OPT_TIME_YEAR = #optTimeYear#
+		AND     ORG_CD != 'A000'
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		AND     T.EXC_TYPE = 'N'
+		OR      (EXC_TYPE = 'B'
+		AND EXC_PARENT = #orgCd#
+		AND TMLT.OPT_TIME_YEAR = #optTimeYear#)
+		GROUP BY ORG_CD,PARENT_ORG_CD
+		) ORDER BY orgOrderCd
+	</select>
+
+	<select id="spsc.checklist.dashboard.implementation.check" parameterClass="ChecklistDashboardGetRequest" resultClass="ChecklistDepartment">
+		SELECT ORG.ORG_CD 			orgCd
+		FROM TB_ORG ORG
+		INNER JOIN TB_MST_LAW_TPL TMLT on ORG.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE ORG_CD IN (SELECT T.ORG_CD
+						FROM TB_ORG T
+						CONNECT BY PRIOR T.ORG_CD = DECODE(T.EXC_TYPE, 'B', T.EXC_PARENT, T.PARENT_ORG_CD)
+						START WITH T.PARENT_ORG_CD = #orgCd#
+						AND T.ORG_CD != 'A000'
+						UNION
+						SELECT #orgCd#
+						FROM DUAL)
+		AND ORG.ORG_TYPE = 3
+		AND TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		GROUP BY ORG.ORG_CD
+	</select>
+
+	<select id="spsc.checklist.dashboard.statistics" parameterClass="ChecklistInside" resultClass="ChecklistInside">
+		SELECT          X.IMPL_STATE    implState
+		,       COUNT(*)        stateCount
+		FROM    (       SELECT      TII.ITEM_ID
+		,   TII.ORG_CD
+		,   TMLT.OPT_TIME_YEAR
+		,   TII.IMPL_STATE
+		FROM TB_IMPL_ITEM TII
+		INNER JOIN TB_MST_IMPL_ORG TMIO     ON  TII.LAW_IMPL_ID = TMIO.LAW_IMPL_ID
+		AND TII.ORG_CD = TMIO.ORG_CD
+		AND TII.MST_LAW_ID = TMIO.MST_LAW_ID
+		LEFT JOIN TB_MST_LAW_IMPL TMLI      ON  TMIO.LAW_IMPL_ID = TMLI.LAW_IMPL_ID
+		LEFT JOIN TB_MST_LAW_TEXT TEXT      ON  TMLI.LAW_CTTS_ID = TEXT.LAW_CTTS_ID
+		LEFT JOIN TB_MST_LAW_SUB  TMLS      ON  TEXT.LAW_SUB_ID = TMLS.LAW_SUB_ID
+		LEFT JOIN TB_MST_LAW_MAIN TMLM      ON  TMLS.LAW_MAIN_ID = TMLM.LAW_MAIN_ID
+		LEFT JOIN TB_MST_LAW_TPL TMLT       ON  TMLM.MST_LAW_ID = TMLT.MST_LAW_ID
+		LEFT JOIN TB_MST_LAW_IMPL_MNG TMLIM ON  TMLI.LAW_IMPL_ID = TMLIM.LAW_IMPL_ID
+		AND TII.MST_LAW_ID = TMLIM.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		<isNotEmpty property="mngOrgCd" prepend="AND">
+			TMLIM.MNG_ORG_CD = #mngOrgCd#
+		</isNotEmpty>
+		<isNotEmpty property="disClaCode" prepend="AND">
+			TMLM.DIS_CLA_CODE = #disClaCode#
+		</isNotEmpty>
+		<isNotEmpty property="orgCd" prepend="AND">
+			TII.ORG_CD IN ( SELECT T.ORG_CD
+			FROM TB_ORG T
+			CONNECT BY PRIOR    T.ORG_CD = DECODE(T.EXC_TYPE, 'B', T.EXC_PARENT, T.PARENT_ORG_CD)
+			START WITH          T.PARENT_ORG_CD = #orgCd#
+			AND                 T.ORG_CD != 'A000'
+			UNION
+			SELECT #orgCd#
+			FROM DUAL)
+		</isNotEmpty>
+		GROUP BY TII.ITEM_ID,TII.ORG_CD,TMLT.OPT_TIME_YEAR,TII.IMPL_STATE)   X
+		GROUP BY X.IMPL_STATE
+	</select>
+
+	<select id="spsc.checklist.dashboard.get.org" parameterClass="ChecklistDashboardGetRequest" resultClass="ChecklistDepartment">
+		SELECT      ORG_CD                                                                              orgCd
+		,   (   SELECT  X.ORG_NM
+		FROM (  SELECT      ORG_NM
+		FROM        TB_ORG T
+		INNER JOIN  TB_MST_LAW_TPL TMLT on T.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		AND     T.ORG_CD = #orgCd#
+		ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) X
+		WHERE ROWNUM = 1)                                                               orgNm
+		,   (   SELECT  Y.FULL_ORG_NM
+		FROM (  SELECT      FULL_ORG_NM
+		FROM        TB_ORG T
+		INNER JOIN  TB_MST_LAW_TPL TMLT on T.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		AND     T.ORG_CD = #orgCd#
+		ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) Y
+		WHERE ROWNUM = 1)                                                               fullOrgNm
+		,   DECODE(SIGN(3-SUM(ORG_TYPE)),1,1,3)                                                 orgType
+		,   PARENT_ORG_CD                                                                       parentOrgCd
+		FROM        TB_ORG T
+		INNER JOIN  TB_MST_LAW_TPL TMLT on T.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		AND     T.ORG_CD = #orgCd#
+		GROUP BY ORG_CD,PARENT_ORG_CD
+	</select>
+
+	<select id="spsc.checklist.dashboard.get.mng" parameterClass="ChecklistDashboardGetRequest" resultClass="ChecklistDepartment">
+		SELECT * FROM (
+		SELECT      T.ORG_CD                                                                            orgCd
+		,   (   SELECT  X.ORG_NM
+		FROM (  SELECT      ORG_NM
+		FROM        TB_ORG ST
+		INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		AND     ST.ORG_CD = T.ORG_CD
+		ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) X
+		WHERE ROWNUM = 1)                                                               orgNm
+		,   (   SELECT  X.ORG_ORDER_CD
+		FROM (  SELECT      ORG_ORDER_CD
+		FROM        TB_ORG ST
+		INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		AND     ST.ORG_CD = T.ORG_CD
+		ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) X
+		WHERE ROWNUM = 1)                                                       orgOrderCd
+		,   (   SELECT  Y.FULL_ORG_NM
+		FROM (  SELECT      FULL_ORG_NM
+		FROM        TB_ORG ST
+		INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		AND     ST.ORG_CD = T.ORG_CD
+		ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) Y
+		WHERE ROWNUM = 1)                                                               fullOrgNm
+		,   DECODE(SIGN(3-SUM(ORG_TYPE)),1,1,3)                                                 orgType
+		,   T.PARENT_ORG_CD                                                                     parentOrgCd
+		FROM TB_ORG T
+		INNER JOIN TB_MST_LAW_TPL TMLT on T.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE T.MNG_YN = 'Y'
+		AND     TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		<isNotEmpty property="mngOrgCd" prepend="AND">
+			T.ORG_CD = #mngOrgCd#
+		</isNotEmpty>
+		GROUP BY T.ORG_CD,T.PARENT_ORG_CD
+		) ORDER BY orgOrderCd
+	</select>
+
+	<select id="spsc.checklist.get.data" parameterClass="ChecklistInside" resultClass="ChecklistDepartment">
+		SELECT      ORG_CD          orgCd
+		,   ORG_NM          orgNm
+		,   FULL_ORG_NM     fullOrgNm
+		,   ORG_TYPE        orgType
+		,   PARENT_ORG_CD   parentOrgCd
+		FROM        TB_ORG          T
+		LEFT JOIN   TB_MST_LAW_TPL  TMLT    ON  T.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		AND     TMLT.OPT_TIME_HALF = #optTimeHalf#
+		AND     T.ORG_CD = #orgCd#
+	</select>
+
+	<select id="spsc.checklist.get.data.main" parameterClass="ChecklistGetRequest" resultClass="ChecklistLawMain">
+		SELECT      TMLM.LAW_MAIN_ID            lawMainId
+		,   TMLM.LAW_MAIN_NO            lawMainNo
+		,   TMLM.LAW_MAIN_NM            lawMainNm
+		FROM TB_IMPL_ITEM   TII
+		INNER JOIN  TB_MST_IMPL_ORG TMIO    ON  TII.LAW_IMPL_ID = TMIO.LAW_IMPL_ID
+		AND TII.ORG_CD = TMIO.ORG_CD
+		AND TII.MST_LAW_ID = TMIO.MST_LAW_ID
+		LEFT JOIN   TB_MST_LAW_IMPL TMLI    ON  TMIO.LAW_IMPL_ID = TMLI.LAW_IMPL_ID
+		LEFT JOIN   TB_MST_LAW_TEXT TMLT    ON TMLI.LAW_CTTS_ID = TMLT.LAW_CTTS_ID
+		LEFT JOIN   TB_MST_LAW_SUB TMLS     ON TMLT.LAW_SUB_ID = TMLS.LAW_SUB_ID
+		LEFT JOIN   TB_MST_LAW_MAIN TMLM    ON TMLS.LAW_MAIN_ID = TMLM.LAW_MAIN_ID
+		LEFT JOIN   TB_MST_LAW_TPL TPL      ON TMLM.MST_LAW_ID = TPL.MST_LAW_ID
+		WHERE   TPL.OPT_TIME_YEAR = #optTimeYear#
+		AND     TPL.OPT_TIME_HALF = #optTimeHalf#
+		AND     TII.ORG_CD = #orgCd#
+		GROUP BY TMLM.LAW_MAIN_ID, TMLM.LAW_MAIN_NO, TMLM.LAW_MAIN_NM
+		ORDER BY TMLM.LAW_MAIN_NO
+	</select>
+
+	<select id="spsc.checklist.get.data.sub" parameterClass="ChecklistInside" resultClass="ChecklistLawSub">
+		SELECT      TMLS.LAW_SUB_ID             lawSubId
+		,   TMLS.LAW_SUB_NO             lawSubNo
+		,   TMLS.LAW_SUB_NM             lawSubNm
+		,   TMLS.LAW_SUB_ETC            lawSubEtc
+		FROM TB_IMPL_ITEM   TII
+		INNER JOIN  TB_MST_IMPL_ORG TMIO    ON  TII.LAW_IMPL_ID = TMIO.LAW_IMPL_ID
+		AND TII.ORG_CD = TMIO.ORG_CD
+		AND TII.MST_LAW_ID = TMIO.MST_LAW_ID
+		LEFT JOIN   TB_MST_LAW_IMPL TMLI    ON  TMIO.LAW_IMPL_ID = TMLI.LAW_IMPL_ID
+		LEFT JOIN   TB_MST_LAW_TEXT TMLT    ON  TMLI.LAW_CTTS_ID = TMLT.LAW_CTTS_ID
+		LEFT JOIN   TB_MST_LAW_SUB TMLS     ON  TMLT.LAW_SUB_ID = TMLS.LAW_SUB_ID
+		LEFT JOIN   TB_MST_LAW_MAIN TMLM    ON  TMLS.LAW_MAIN_ID = TMLM.LAW_MAIN_ID
+		LEFT JOIN   TB_MST_LAW_TPL TPL      ON  TMLM.MST_LAW_ID = TPL.MST_LAW_ID
+		LEFT JOIN   TB_MST_LAW_REL_MAP TMLRM        ON  TMLI.LAW_IMPL_ID = TMLRM.LAW_IMPL_ID
+		LEFT JOIN   TB_MST_LAW_REL_DTL TMLRD        ON  TMLRM.LAW_REL_DTL_ID = TMLRD.LAW_REL_DTL_ID
+		LEFT JOIN   TB_MST_LAW_REL TMLR             ON  TMLRD.LAW_REL_ID = TMLR.LAW_REL_ID
+		WHERE   TPL.OPT_TIME_YEAR = #optTimeYear#
+		AND     TPL.OPT_TIME_HALF = #optTimeHalf#
+		AND     TII.ORG_CD = #orgCd#
+		AND     TMLM.LAW_MAIN_ID = #lawMainId#
+		<isNotEmpty property="lawSubId" prepend="AND">
+			TMLS.LAW_SUB_ID = #lawSubId#
+		</isNotEmpty>
+		<isNotEmpty property="lawRelId" prepend="AND">
+			TMLR.LAW_REL_ID = #lawRelId#
+		</isNotEmpty>
+		GROUP BY TMLS.LAW_SUB_ID,TMLS.LAW_SUB_NO,TMLS.LAW_SUB_NM,TMLS.LAW_SUB_ETC
+		ORDER BY TMLS.LAW_SUB_NO
+	</select>
+
+	<select id="spsc.checklist.get.data.performance.sub" parameterClass="ChecklistInside" resultClass="ChecklistLawSub">
+		SELECT      TMLS.LAW_SUB_ID             lawSubId
+				,   TMLS.LAW_SUB_NO             lawSubNo
+				,   TMLS.LAW_SUB_NM             lawSubNm
+				,   TMLS.LAW_SUB_ETC            lawSubEtc
+		FROM 			TB_IMPL_ITEM   	TII
+			INNER JOIN  TB_MST_IMPL_ORG TMIO    	ON  TII.LAW_IMPL_ID = TMIO.LAW_IMPL_ID
+													AND TII.ORG_CD = TMIO.ORG_CD
+													AND TII.MST_LAW_ID = TMIO.MST_LAW_ID
+			LEFT JOIN   TB_MST_LAW_IMPL TMLI    	ON  TMIO.LAW_IMPL_ID = TMLI.LAW_IMPL_ID
+			LEFT JOIN   TB_MST_LAW_TEXT TMLT    	ON  TMLI.LAW_CTTS_ID = TMLT.LAW_CTTS_ID
+			LEFT JOIN   TB_MST_LAW_SUB TMLS     	ON  TMLT.LAW_SUB_ID = TMLS.LAW_SUB_ID
+			LEFT JOIN   TB_MST_LAW_MAIN TMLM    	ON  TMLS.LAW_MAIN_ID = TMLM.LAW_MAIN_ID
+			LEFT JOIN   TB_MST_LAW_TPL TPL      	ON  TMLM.MST_LAW_ID = TPL.MST_LAW_ID
+			LEFT JOIN   TB_MST_LAW_REL_MAP TMLRM    ON  TMLI.LAW_IMPL_ID = TMLRM.LAW_IMPL_ID
+			LEFT JOIN   TB_MST_LAW_REL_DTL TMLRD    ON  TMLRM.LAW_REL_DTL_ID = TMLRD.LAW_REL_DTL_ID
+			LEFT JOIN   TB_MST_LAW_REL TMLR         ON  TMLRD.LAW_REL_ID = TMLR.LAW_REL_ID
+		WHERE   	TPL.OPT_TIME_YEAR = #optTimeYear#
+			AND     TPL.OPT_TIME_HALF = #optTimeHalf#
+			AND     TII.ORG_CD IN (	SELECT T.ORG_CD
+									FROM TB_ORG T
+									CONNECT BY PRIOR T.ORG_CD = DECODE(T.EXC_TYPE, 'B', T.EXC_PARENT, T.PARENT_ORG_CD)
+									START WITH T.PARENT_ORG_CD = #orgCd#
+									AND T.ORG_CD != 'A000'
+									UNION
+									SELECT #orgCd#
+									FROM DUAL)
+		AND     TMLM.LAW_MAIN_ID = #lawMainId#
+		<isNotEmpty property="lawSubId" prepend="AND">
+			TMLS.LAW_SUB_ID = #lawSubId#
+		</isNotEmpty>
+		<isNotEmpty property="lawRelId" prepend="AND">
+			TMLR.LAW_REL_ID = #lawRelId#
+		</isNotEmpty>
+		GROUP BY TMLS.LAW_SUB_ID,TMLS.LAW_SUB_NO,TMLS.LAW_SUB_NM,TMLS.LAW_SUB_ETC
+	</select>
+
+	<select id="spsc.checklist.get.data.statute" parameterClass="ChecklistInside" resultClass="ChecklistStatute">
+		SELECT      TMLR.LAW_REL_ID             lawRelId
+		,   TMLR.LAW_REL_NM             lawRelNm
+		FROM TB_IMPL_ITEM   TII
+		INNER JOIN  TB_MST_IMPL_ORG TMIO            ON  TII.LAW_IMPL_ID = TMIO.LAW_IMPL_ID
+		AND TII.ORG_CD = TMIO.ORG_CD
+		AND TII.MST_LAW_ID = TMIO.MST_LAW_ID
+		LEFT JOIN   TB_MST_LAW_IMPL TMLI            ON  TMIO.LAW_IMPL_ID = TMLI.LAW_IMPL_ID
+		LEFT JOIN   TB_MST_LAW_TEXT TMLT            ON  TMLI.LAW_CTTS_ID = TMLT.LAW_CTTS_ID
+		LEFT JOIN   TB_MST_LAW_SUB TMLS             ON  TMLT.LAW_SUB_ID = TMLS.LAW_SUB_ID
+		LEFT JOIN   TB_MST_LAW_MAIN TMLM            ON  TMLS.LAW_MAIN_ID = TMLM.LAW_MAIN_ID
+		LEFT JOIN   TB_MST_LAW_TPL TPL              ON  TMLM.MST_LAW_ID = TPL.MST_LAW_ID
+		LEFT JOIN   TB_MST_LAW_REL_MAP TMLRM        ON  TMLI.LAW_IMPL_ID = TMLRM.LAW_IMPL_ID
+		LEFT JOIN   TB_MST_LAW_REL_DTL TMLRD        ON  TMLRM.LAW_REL_DTL_ID = TMLRD.LAW_REL_DTL_ID
+		LEFT JOIN   TB_MST_LAW_REL TMLR             ON  TMLRD.LAW_REL_ID = TMLR.LAW_REL_ID
+		WHERE   TPL.OPT_TIME_YEAR = #optTimeYear#
+		AND     TPL.OPT_TIME_HALF = #optTimeHalf#
+		AND     TII.ORG_CD = #orgCd#
+		AND     TMLS.LAW_SUB_ID = #lawSubId#
+		GROUP BY TMLR.LAW_REL_ID,TMLR.LAW_REL_NM
+		ORDER BY TMLR.LAW_REL_NM
+	</select>
+
+	<select id="spsc.checklist.get.data.performance.statute" parameterClass="ChecklistInside" resultClass="ChecklistStatute">
+		SELECT      TMLR.LAW_REL_ID             lawRelId
+		,   TMLR.LAW_REL_NM             lawRelNm
+		FROM TB_IMPL_ITEM   TII
+		INNER JOIN  TB_MST_IMPL_ORG TMIO            ON  TII.LAW_IMPL_ID = TMIO.LAW_IMPL_ID
+		AND TII.ORG_CD = TMIO.ORG_CD
+		AND TII.MST_LAW_ID = TMIO.MST_LAW_ID
+		LEFT JOIN   TB_MST_LAW_IMPL TMLI            ON  TMIO.LAW_IMPL_ID = TMLI.LAW_IMPL_ID
+		LEFT JOIN   TB_MST_LAW_TEXT TMLT            ON  TMLI.LAW_CTTS_ID = TMLT.LAW_CTTS_ID
+		LEFT JOIN   TB_MST_LAW_SUB TMLS             ON  TMLT.LAW_SUB_ID = TMLS.LAW_SUB_ID
+		LEFT JOIN   TB_MST_LAW_MAIN TMLM            ON  TMLS.LAW_MAIN_ID = TMLM.LAW_MAIN_ID
+		LEFT JOIN   TB_MST_LAW_TPL TPL              ON  TMLM.MST_LAW_ID = TPL.MST_LAW_ID
+		LEFT JOIN   TB_MST_LAW_REL_MAP TMLRM        ON  TMLI.LAW_IMPL_ID = TMLRM.LAW_IMPL_ID
+		LEFT JOIN   TB_MST_LAW_REL_DTL TMLRD        ON  TMLRM.LAW_REL_DTL_ID = TMLRD.LAW_REL_DTL_ID
+		LEFT JOIN   TB_MST_LAW_REL TMLR             ON  TMLRD.LAW_REL_ID = TMLR.LAW_REL_ID
+		WHERE   TPL.OPT_TIME_YEAR = #optTimeYear#
+		AND     TPL.OPT_TIME_HALF = #optTimeHalf#
+		AND     TII.ORG_CD IN (SELECT T.ORG_CD
+		FROM TB_ORG T
+		CONNECT BY PRIOR T.ORG_CD = DECODE(T.EXC_TYPE, 'B', T.EXC_PARENT, T.PARENT_ORG_CD)
+		START WITH T.PARENT_ORG_CD = #orgCd#
+		AND T.ORG_CD != 'A000'
+		UNION
+		SELECT #orgCd#
+		FROM DUAL)
+		AND     TMLS.LAW_SUB_ID = #lawSubId#
+		<isNotEmpty property="lawRelId" prepend="AND">
+			TMLR.LAW_REL_ID = #lawRelId#
+		</isNotEmpty>
+		GROUP BY TMLR.LAW_REL_ID,TMLR.LAW_REL_NM
+		ORDER BY TMLR.LAW_REL_NM
+	</select>
+
+	<select id="spsc.checklist.get.data.content" parameterClass="ChecklistInside" resultClass="ChecklistContent">
+		SELECT      TMLI.LAW_IMPL_ID                lawImplId
+				,   TMLT.TEXT                       text
+				,   TMLI.ITM_REQR                   itmReqr
+				,   TMLI.ITM_ATTN                   itmAttn
+				,   TMLI.IMPL_PROD                  implProd
+		FROM TB_IMPL_ITEM   TII
+		INNER JOIN  TB_MST_IMPL_ORG TMIO            ON  TII.LAW_IMPL_ID = TMIO.LAW_IMPL_ID
+		AND TII.ORG_CD = TMIO.ORG_CD
+		AND TII.MST_LAW_ID = TMIO.MST_LAW_ID
+		LEFT JOIN   TB_MST_LAW_IMPL TMLI            ON  TMIO.LAW_IMPL_ID = TMLI.LAW_IMPL_ID
+		LEFT JOIN   TB_MST_LAW_TEXT TMLT            ON  TMLI.LAW_CTTS_ID = TMLT.LAW_CTTS_ID
+		LEFT JOIN   TB_MST_LAW_SUB TMLS             ON  TMLT.LAW_SUB_ID = TMLS.LAW_SUB_ID
+		LEFT JOIN   TB_MST_LAW_MAIN TMLM            ON  TMLS.LAW_MAIN_ID = TMLM.LAW_MAIN_ID
+		LEFT JOIN   TB_MST_LAW_TPL TPL              ON  TMLM.MST_LAW_ID = TPL.MST_LAW_ID
+		LEFT JOIN   TB_MST_LAW_REL_MAP TMLRM        ON  TMLI.LAW_IMPL_ID = TMLRM.LAW_IMPL_ID
+		LEFT JOIN   TB_MST_LAW_REL_DTL TMLRD        ON  TMLRM.LAW_REL_DTL_ID = TMLRD.LAW_REL_DTL_ID
+		LEFT JOIN   TB_MST_LAW_REL TMLR             ON  TMLRD.LAW_REL_ID = TMLR.LAW_REL_ID
+		WHERE   TPL.OPT_TIME_YEAR = #optTimeYear#
+		AND     TPL.OPT_TIME_HALF = #optTimeHalf#
+		AND     TII.ORG_CD = #orgCd#
+		AND     TMLS.LAW_SUB_ID = #lawSubId#
+		GROUP BY TMLI.LAW_IMPL_ID,TMLT.TEXT,TMLI.ITM_REQR,TMLI.ITM_ATTN,TMLI.IMPL_PROD
+	</select>
+
+	<select id="spsc.checklist.get.data.performance.content" parameterClass="ChecklistInside" resultClass="ChecklistContent">
+		SELECT      TMLI.LAW_IMPL_ID                lawImplId
+			,  		TMLT.TEXT                       text
+			,  		TMLI.ITM_REQR                   itmReqr
+			,  		TMLI.ITM_ATTN                   itmAttn
+			,  		TMLI.IMPL_PROD                  implProd
+		FROM TB_IMPL_ITEM   TII
+		INNER JOIN  TB_MST_IMPL_ORG TMIO            ON  TII.LAW_IMPL_ID = TMIO.LAW_IMPL_ID
+		AND TII.ORG_CD = TMIO.ORG_CD
+		AND TII.MST_LAW_ID = TMIO.MST_LAW_ID
+		LEFT JOIN   TB_MST_LAW_IMPL TMLI            ON  TMIO.LAW_IMPL_ID = TMLI.LAW_IMPL_ID
+		LEFT JOIN   TB_MST_LAW_TEXT TMLT            ON  TMLI.LAW_CTTS_ID = TMLT.LAW_CTTS_ID
+		LEFT JOIN   TB_MST_LAW_SUB TMLS             ON  TMLT.LAW_SUB_ID = TMLS.LAW_SUB_ID
+		LEFT JOIN   TB_MST_LAW_MAIN TMLM            ON  TMLS.LAW_MAIN_ID = TMLM.LAW_MAIN_ID
+		LEFT JOIN   TB_MST_LAW_TPL TPL              ON  TMLM.MST_LAW_ID = TPL.MST_LAW_ID
+		LEFT JOIN   TB_MST_LAW_REL_MAP TMLRM        ON  TMLI.LAW_IMPL_ID = TMLRM.LAW_IMPL_ID
+		LEFT JOIN   TB_MST_LAW_REL_DTL TMLRD        ON  TMLRM.LAW_REL_DTL_ID = TMLRD.LAW_REL_DTL_ID
+		LEFT JOIN   TB_MST_LAW_REL TMLR             ON  TMLRD.LAW_REL_ID = TMLR.LAW_REL_ID
+		WHERE   TPL.OPT_TIME_YEAR = #optTimeYear#
+		AND     TPL.OPT_TIME_HALF = #optTimeHalf#
+		AND     TII.ORG_CD IN (SELECT T.ORG_CD
+		FROM TB_ORG T
+		CONNECT BY PRIOR T.ORG_CD = DECODE(T.EXC_TYPE, 'B', T.EXC_PARENT, T.PARENT_ORG_CD)
+		START WITH T.PARENT_ORG_CD = #orgCd#
+		AND T.ORG_CD != 'A000'
+		UNION
+		SELECT #orgCd#
+		FROM DUAL)
+		AND     TMLS.LAW_SUB_ID = #lawSubId#
+		<isNotEmpty property="lawRelId" prepend="AND">
+			TMLR.LAW_REL_ID = #lawRelId#
+		</isNotEmpty>
+		<isEmpty property="lawRelId" prepend="AND">
+			TMLR.LAW_REL_ID IS NULL
+		</isEmpty>
+		GROUP BY TMLI.LAW_IMPL_ID,TMLT.TEXT,TMLI.ITM_REQR,TMLI.ITM_ATTN,TMLI.IMPL_PROD
+	</select>
+
+	<select id="spsc.checklist.get.data.content.mng" parameterClass="ChecklistInside" resultClass="ChecklistMainDepartmentsList">
+		SELECT      T.ORG_CD            orgCd
+		,   T.ORG_NM            orgNm
+		,   T.FULL_ORG_NM       fullOrgNm
+		,   T.ORG_TYPE          orgType
+		,   T.PARENT_ORG_CD     parentOrgCd
+		,   TMLIM.LAW_IMPL_ID   lawImplId
+		FROM TB_MST_LAW_IMPL_MNG    TMLIM
+		LEFT JOIN TB_ORG T  ON  TMLIM.MNG_ORG_CD = T.ORG_CD
+		AND TMLIM.MST_LAW_ID = T.MST_LAW_ID
+		AND     T.MNG_YN = 'Y'
+	</select>
+
+	<select id="spsc.checklist.get.data.content.statute" resultClass="ChecklistStatuteList">
+		SELECT      TMLR.LAW_REL_ID         lawRelId
+				,   TMLR.LAW_REL_NM         lawRelNm
+				,   TMLRD.LAW_REL_DTL_ID    lawRelDtlId
+				,   TMLRD.LAW_REL_ATC       lawRelAtc
+				,   TMLRD.LAW_REL_ATC_SUB   lawRelAtcSub
+				,   TMLI.LAW_IMPL_ID        lawImplId
+		FROM TB_MST_LAW_REL_MAP TMLRM
+			LEFT JOIN TB_MST_LAW_REL_DTL    TMLRD   ON  TMLRM.LAW_REL_DTL_ID = TMLRD.LAW_REL_DTL_ID
+			LEFT JOIN TB_MST_LAW_REL        TMLR    ON  TMLRD.LAW_REL_ID = TMLR.LAW_REL_ID
+			LEFT JOIN TB_MST_LAW_IMPL       TMLI    ON  TMLRM.LAW_IMPL_ID = TMLI.LAW_IMPL_ID
+<!--		ORDER BY TMLR.LAW_REL_ID, TMLRD.LAW_REL_ATC, TMLRD.LAW_REL_ATC_SUB ASC NULLS FIRST-->
+	</select>
+
+	<!-- TODO INSPECT -->
+	<select id="spsc.checklist.get.data.result" resultClass="ChecklistResultList">
+		SELECT      TII.ITEM_ID             itemId
+		,   TII.IMPL_STATE          implState
+		,   TII.INSPECT             inspect
+		,   TII.INSPECT_STATE       inspectState
+		,   TII.IMPL_FILE_ID        implFileId
+		,   TII.POINT_OUT_FILE_ID   pointOutFileId
+		,   TII.LAW_IMPL_ID         lawImplId
+		,   TMIO.ORG_CD             orgCd
+		,	TII.UNIMPL_REASON		unimplReason
+		FROM TB_IMPL_ITEM   TII
+		INNER JOIN TB_MST_IMPL_ORG TMIO     ON  TII.LAW_IMPL_ID = TMIO.LAW_IMPL_ID
+		AND TII.ORG_CD = TMIO.ORG_CD
+		AND TII.MST_LAW_ID = TMIO.MST_LAW_ID
+	</select>
+
+	<!-- TODO INSPECT 확인-->
+	<select id="spsc.checklist.get.data.performance.result" parameterClass="ChecklistInside" resultClass="ChecklistResultList">
+		SELECT      TII.ITEM_ID             itemId
+		,   TII.IMPL_STATE          implState
+		,   TII.INSPECT             inspect
+		,   TII.INSPECT_STATE       inspectState
+		,   TII.IMPL_FILE_ID        implFileId
+		,   TII.POINT_OUT_FILE_ID   pointOutFileId
+		,   TII.LAW_IMPL_ID         lawImplId
+		,	TII.UNIMPL_REASON		unimplReason
+		FROM TB_IMPL_ITEM   TII
+		INNER JOIN TB_MST_IMPL_ORG TMIO     ON  TII.LAW_IMPL_ID = TMIO.LAW_IMPL_ID
+		AND TII.ORG_CD = TMIO.ORG_CD
+		AND TII.MST_LAW_ID = TMIO.MST_LAW_ID
+		AND     TMIO.ORG_CD IN (SELECT T.ORG_CD
+		FROM TB_ORG T
+		CONNECT BY PRIOR T.ORG_CD = DECODE(T.EXC_TYPE, 'B', T.EXC_PARENT, T.PARENT_ORG_CD)
+		START WITH T.PARENT_ORG_CD = #orgCd#
+		AND T.ORG_CD != 'A000'
+		UNION
+		SELECT #orgCd#
+		FROM DUAL)
+	</select>
+
+	<select id="spsc.checklist.get.data.equipment" parameterClass="ChecklistInside" resultClass="ChecklistEquipments">
+		SELECT      TE.EQUIP_ID             equipId
+		,   TE.EQUIP_NM             equipNm
+		FROM TB_EQUIP   TE
+		INNER JOIN TB_ORG_LAW_REL_EQUIP TOLRE   ON  TE.EQUIP_ID = TOLRE.EQUIP_ID
+		WHERE   TOLRE.ORG_CD = #orgCd#
+		AND     TOLRE.LAW_REL_ID = #lawRelId#
+		AND     TOLRE.MST_LAW_ID = (SELECT TMLT.MST_LAW_ID
+		FROM TB_MST_LAW_TPL TMLT
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		AND     TMLT.OPT_TIME_HALF = #optTimeHalf#)
+	</select>
+
+	<select id="spsc.checklist.get.performance.main" parameterClass="ChecklistPerformanceMainGetRequest" resultClass="ChecklistPerformanceMainGetResponse">
+		SELECT      LAW_MAIN_ID         lawMainId
+		,   LAW_MAIN_NO         lawMainNo
+		,   LAW_MAIN_NM         lawMainNm
+		FROM TB_MST_LAW_MAIN    TMLM
+		INNER JOIN TB_MST_LAW_TPL TMLT  ON  TMLM.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE   TMLT.OPT_TIME_YEAR = #optTimeYear#
+		AND     TMLT.OPT_TIME_HALF = #optTimeHalf#
+		ORDER BY TMLM.LAW_MAIN_NO
+	</select>
+
+	<select id="spsc.checklist.get.performance.sub" parameterClass="ChecklistPerformanceSubGetRequest" resultClass="ChecklistPerformanceSubGetResponse">
+		SELECT      TMLS.LAW_SUB_ID         lawSubId
+		,   TMLS.LAW_SUB_NO         lawSubNo
+		,   TMLS.LAW_SUB_NM         lawSubNm
+		,   TMLS.LAW_SUB_ETC        lawSubEtc
+		FROM TB_MST_LAW_SUB TMLS
+		INNER JOIN TB_MST_LAW_MAIN TMLM ON TMLS.LAW_MAIN_ID = TMLM.LAW_MAIN_ID
+		WHERE TMLM.LAW_MAIN_ID = #lawMainId#
+		ORDER BY TMLS.LAW_SUB_SORT
+	</select>
+
+	<update id="spsc.checklist.patch.implement.state" parameterClass="ChecklistImplementStateRequest">
+		UPDATE  TB_IMPL_ITEM
+		SET     IMPL_STATE = #implState#
+		WHERE   ITEM_ID = #itemId#
+	</update>
+
+	<update id="spsc.checklist.patch.performance.inspect" parameterClass="ChecklistPerformanceInspectPatchRequest">
+		UPDATE  TB_IMPL_ITEM
+		SET     INSPECT = #inspect#
+		WHERE   ITEM_ID = #itemId#
+	</update>
+
+	<update id="spsc.checklist.patch.performance.inspect.state" parameterClass="ChecklistPerformanceInspectStatePatchRequest">
+		UPDATE  TB_IMPL_ITEM
+		SET     INSPECT_STATE = #inspectState#
+		WHERE   ITEM_ID = #itemId#
+	</update>
+
+	<update id="spsc.checklist.patch.performance.unimpl.reason" parameterClass="ChecklistPerformanceUnimplReasonPatchRequest">
+		UPDATE	TB_IMPL_ITEM
+		SET		UNIMPL_REASON = #unimplReason#
+		WHERE	ITEM_ID = #itemId#
+	</update>
+
+	<select id="spsc.checklist.get.data.result.department" resultClass="ChecklistDepartment">
+		SELECT      T.ORG_CD            orgCd
+				,   T.ORG_NM            orgNm
+				,   T.FULL_ORG_NM       fullOrgNm
+				,   T.ORG_TYPE          orgType
+				,   T.PARENT_ORG_CD     parentOrgCd
+				,   TII.ITEM_ID         itemId
+		FROM 			TB_IMPL_ITEM   TII
+			LEFT JOIN 	TB_ORG    		T   ON  TII.ORG_CD = T.ORG_CD
+		AND TII.MST_LAW_ID = T.MST_LAW_ID
+	</select>
+
+	<select id="spsc.checklist.get.data.result.file" resultClass="FileInformation">
+		SELECT      ATCH_FILE_ID        atchFileId
+				,   FILE_SN             fileSn
+				,   ORIGNL_FILE_NM      name
+				,   STRE_FILE_NM        url
+				,   ATCH_TY             atchTy
+		FROM LETTNFILEDETAIL
+	</select>
+
+	<!-- TODO INSPECT -->
+	<select id="spsc.checklist.get.checklist.implement.item" parameterClass="ChecklistGetRequest" resultClass="ChecklistImplementItem">
+		SELECT				ITM.ITEM_ID					ITEMID
+			,				ITM.ORG_CD					ORGCD
+			,				IMP.LAW_IMPL_ID				LAWIMPLID
+			,				TXT.LAW_CTTS_ID				LAWCTTSID
+			,				IMP.IMPL_PROD				IMPLPROD
+			,				TXT.TEXT					TEXT
+			,				IMP.ITM_REQR				ITMREQR
+			,				IMP.ITM_ATTN				ITMATTN
+			,				ITM.IMPL_STATE				IMPLSTATE
+			,				ITM.INSPECT					INSPECT
+			,				ITM.INSPECT_STATE			INSPECTSTATE
+			,				ITM.IMPL_FILE_ID			IMPLFILEID
+			,				ITM.POINT_OUT_FILE_ID		POINTOUTFILEID
+			,				TXT.LAW_SUB_ID				LAWSUBID
+			,				ITM.UNIMPL_REASON			UNIMPLREASON
+		FROM				TB_IMPL_ITEM			ITM
+			JOIN			TB_MST_LAW_IMPL			IMP	ON	ITM.LAW_IMPL_ID = IMP.LAW_IMPL_ID
+			JOIN			TB_MST_LAW_TEXT			TXT	ON	IMP.LAW_CTTS_ID = TXT.LAW_CTTS_ID
+		WHERE				ITM.MST_LAW_ID = (	SELECT	MST_LAW_ID
+												FROM	TB_MST_LAW_TPL
+												WHERE	OPT_TIME_YEAR = #optTimeYear#
+													AND	OPT_TIME_HALF = #optTimeHalf#
+							)
+			AND				ORG_CD = #orgCd#
+		ORDER BY			TXT.LAW_SUB_ID
+			,				TXT.LAW_CTTS_ID
+			,				IMP.LAW_IMPL_ID
+	</select>
+
+	<select id="spsc.checklist.get.checklist.implement.manager.org" parameterClass="ChecklistGetRequest" resultClass="ChecklistImplementManagerOrg">
+		SELECT				MPN.LAW_IMPL_ID				LAWIMPLID
+			,				MPN.MST_LAW_ID				MSTLAWID
+			,				MPN.MNG_ORG_CD				MNGORGCD
+			,				ORG.ORG_NM					MNGORGNM
+			,				ORG.FULL_ORG_NM				FULLORGNM
+			,				ORG.PARENT_ORG_CD			PARENTORGCD
+		FROM				TB_MST_LAW_IMPL_MNG		MPN
+			JOIN			TB_ORG					ORG	ON	MPN.MST_LAW_ID = ORG.MST_LAW_ID
+														AND	MPN.MNG_ORG_CD = ORG.ORG_CD
+		WHERE				MPN.LAW_IMPL_ID IN (
+								SELECT				IMP.LAW_IMPL_ID
+								FROM				TB_MST_LAW_IMPL			IMP
+									JOIN			TB_IMPL_ITEM			ITM	ON	IMP.LAW_IMPL_ID = ITM.LAW_IMPL_ID
+								WHERE				ITM.MST_LAW_ID = (	SELECT	MST_LAW_ID
+																		FROM	TB_MST_LAW_TPL
+																		WHERE	OPT_TIME_YEAR = #optTimeYear#
+																			AND	OPT_TIME_HALF = #optTimeHalf#
+													)
+									AND				ITM.ORG_CD = #orgCd#
+							)
+	</select>
+
+	<select id="spsc.checklist.get.checklist.implement.statute" parameterClass="ChecklistGetRequest" resultClass="ChecklistImplementStatute">
+		SELECT				MPN.LAW_IMPL_ID					LAWIMPLID
+			,				REL.LAW_REL_ID					LAWRELID
+			,				REL.LAW_REL_NM					LAWRELNM
+			,				DTL.LAW_REL_DTL_ID				LAWRELDTLID
+			,				DTL.LAW_REL_ATC					LAWRELATC
+			,				DTL.LAW_REL_ATC_SUB				LAWRELATCSUB
+		FROM				TB_MST_LAW_REL				REL
+			JOIN			TB_MST_LAW_REL_DTL			DTL	ON	REL.LAW_REL_ID = DTL.LAW_REL_ID
+			JOIN			TB_MST_LAW_REL_MAP			MPN	ON	DTL.LAW_REL_DTL_ID = MPN.LAW_REL_DTL_ID
+		WHERE				MPN.LAW_IMPL_ID IN (
+								SELECT				ITM.LAW_IMPL_ID
+								FROM				TB_IMPL_ITEM			ITM
+								WHERE				ITM.MST_LAW_ID = (	SELECT	MST_LAW_ID
+																		FROM	TB_MST_LAW_TPL
+																		WHERE	OPT_TIME_YEAR = #optTimeYear#
+																			AND	OPT_TIME_HALF = #optTimeHalf#
+													)
+									AND				ITM.ORG_CD = #orgCd#
+							)
+	</select>
+
+	<select id="spsc.checklist.get.checklist.implement.equipment" parameterClass="ChecklistGetRequest" resultClass="ChecklistImplementEquipment">
+			SELECT              EQP.EQUIP_ID				EQUIPID
+				,               EQP.EQUIP_NM				EQUIPNM
+				,               MPN.LAW_REL_ID				LAWRELID
+			FROM                TB_EQUIP                EQP
+				JOIN            TB_ORG_LAW_REL_EQUIP    MPN ON  EQP.EQUIP_ID = MPN.EQUIP_ID
+															AND MPN.ORG_CD = #orgCd#
+															AND MPN.MST_LAW_ID = (	SELECT	MST_LAW_ID
+																					FROM	TB_MST_LAW_TPL
+																					WHERE	OPT_TIME_YEAR = #optTimeYear#
+																						AND	OPT_TIME_HALF = #optTimeHalf#
+															)
+			WHERE               MPN.LAW_REL_ID IN ( SELECT DISTINCT		DTL.LAW_REL_ID					LAWRELID
+													FROM				TB_MST_LAW_REL_DTL          DTL
+														JOIN			TB_MST_LAW_REL_MAP			MPN	ON	DTL.LAW_REL_DTL_ID = MPN.LAW_REL_DTL_ID
+													WHERE				MPN.LAW_IMPL_ID IN (
+																			SELECT				ITM.LAW_IMPL_ID
+																			FROM				TB_IMPL_ITEM			ITM
+																			WHERE				ITM.MST_LAW_ID = (	SELECT	MST_LAW_ID
+																													FROM	TB_MST_LAW_TPL
+																													WHERE	OPT_TIME_YEAR = #optTimeYear#
+																														AND	OPT_TIME_HALF = #optTimeHalf#
+																								)
+																				AND				ITM.ORG_CD = #orgCd#
+																		)
+								)
+	</select>
+
+	<select id="spsc.checklist.get.checklist.implement.law.main.sub" parameterClass="ChecklistGetRequest" resultClass="ChecklistImplementLawMainSub">
+		SELECT				LAW.LAW_MAIN_ID					LAWMAINID
+			,				LAW.LAW_MAIN_NO					LAWMAINNO
+			,				LAW.LAW_MAIN_NM					LAWMAINNM
+			,				SUB.LAW_SUB_ID					LAWSUBID
+			,				SUB.LAW_SUB_NO					LAWSUBNO
+			,				SUB.LAW_SUB_NM					LAWSUBNM
+		FROM				TB_MST_LAW_MAIN				LAW
+			JOIN			TB_MST_LAW_SUB				SUB	ON	LAW.LAW_MAIN_ID = SUB.LAW_MAIN_ID
+		WHERE				LAW.MST_LAW_ID = (	SELECT	MST_LAW_ID
+												FROM	TB_MST_LAW_TPL
+												WHERE	OPT_TIME_YEAR = #optTimeYear#
+													AND	OPT_TIME_HALF = #optTimeHalf#
+							)
+		ORDER BY			LAW.LAW_MAIN_NO
+			,				SUB.LAW_SUB_NO
+	</select>
+</sqlMap>

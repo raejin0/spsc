@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "data": {
+    "atchFileId": "첨부파일 ID",
+    "bbsId": 1,
+    "nttCn": "게시물 내용",
+    "nttId": 1,
+    "nttSj": "게시물 제목",
+    "uploadFiles": "파일상세정보 목록"
+  }
+}

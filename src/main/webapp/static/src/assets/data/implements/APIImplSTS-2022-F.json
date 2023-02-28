@@ -1,0 +1,107 @@
+{
+	"success": true,
+	"data": {
+		"request": {
+			"optTimeYear": "2022",
+			"optTimeHalf": "F",
+			"orgCd": "",
+			"disasterType": "",
+			"mainDepartmentCd": ""
+		},
+		"optTimeYear": "2022",
+		"optTimeHalf": "F",
+		"progressOnTargetOrg": {
+			"department": {
+				"orgCd": "",
+				"orgNm": "전사 2022 상반기"
+			},
+			"progress": 11.11
+		},
+		"progressListOnMainDepartments": [{
+			"department": {
+				"orgCd": "1",
+				"orgNm": "산업안전실"
+			},
+			"progress": 30
+		}, {
+			"department": {
+				"orgCd": "2",
+				"orgNm": "재난관리부"
+			},
+			"progress": 20
+		}, {
+			"department": {
+				"orgCd": "3",
+				"orgNm": "중대재해예방부"
+			},
+			"progress": 30
+		}, {
+			"department": {
+				"orgCd": "4",
+				"orgNm": "발전운영실"
+			},
+			"progress": 40
+		}, {
+			"department": {
+				"orgCd": "5",
+				"orgNm": "환경정책실"
+			},
+			"progress": 50
+		}, {
+			"department": {
+				"orgCd": "6",
+				"orgNm": "토건기술부"
+			},
+			"progress": 60
+		}],
+		"progressListOnImplDepartments":[{
+			"department": {
+				"orgCd": "본사",
+				"orgNm": "본사"
+			},
+			"progress": 11.11
+		}, {
+			"department": {
+				"orgCd": "보령발전본부",
+				"orgNm": "보령발전본부"
+			},
+			"progress": 11.11
+		}, {
+			"department": {
+				"orgCd": "인천발전본부",
+				"orgNm": "인천발전본부"
+			},
+			"progress": 11.11
+		}, {
+			"department": {
+				"orgCd": "서울발전본부",
+				"orgNm": "서울발전본부"
+			},
+			"progress": 11.11
+		}, {
+			"department": {
+				"orgCd": "신서천발전본부",
+				"orgNm": "신서천발전본부"
+			},
+			"progress": 11.11
+		}, {
+			"department": {
+				"orgCd": "제주발전본부",
+				"orgNm": "제주발전본부"
+			},
+			"progress": 11.11
+		}, {
+			"department": {
+				"orgCd": "신보령발전본부",
+				"orgNm": "신보령발전본부"
+			},
+			"progress": 11.11
+		}, {
+			"department": {
+				"orgCd": "세종발전본부",
+				"orgNm": "세종발전본부"
+			},
+			"progress": 11.11
+		}]
+	}
+}

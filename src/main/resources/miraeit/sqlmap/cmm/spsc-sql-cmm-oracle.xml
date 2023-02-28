@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="spsc.cmm">
+
+	<typeAlias alias="OrganizationConditions" type="net.miraeit.cmm.condition.OrganizationConditions"/>
+
+	<select id="spsc.cmm.check.code" resultClass="String" parameterClass="CMMInside">
+		SELECT CODE
+		FROM LETTCCMMNDETAILCODE
+		WHERE   CODE_ID = #codeId#
+		AND     CODE = #code#
+	</select>
+
+	<select id="spsc.cmm.check.codeId" resultClass="String" parameterClass="String">
+		SELECT CODE_ID
+		FROM LETTCCMMNCODE
+		WHERE CODE_ID = #codeId#
+	</select>
+
+	<select id="spsc.cmm.check.codeIds" resultClass="SimpleCount" parameterClass="java.util.List">
+		SELECT				CODE_ID				NAME
+			,				COUNT(CODE_ID)		COUNT
+		FROM				LETTCCMMNCODE
+		WHERE				CODE_ID IN (<iterate conjunction=",">#codeId[]#</iterate>)
+		GROUP BY			CODE_ID
+	</select>
+
+	<select id="spsc.cmm.get.codes" resultClass="CMMCodesGetResponse" parameterClass="String">
+		SELECT      CODE_ID			CODEID
+				,	CODE            code
+				,   CODE_NM         codeNm
+		FROM LETTCCMMNDETAILCODE
+		WHERE CODE_ID = #codeId#
+	</select>
+
+	<select id="spsc.cmm.get.codesList" resultClass="CMMCodesGetResponse" parameterClass="java.util.List">
+		SELECT				CODE_ID						CODEID
+			,				CODE						CODE
+			,				CODE_NM						CODENM
+		FROM				LETTCCMMNDETAILCODE
+		WHERE				CODE_ID IN (<iterate conjunction=",">#codeId[]#</iterate>)
+	</select>
+
+	<select id="spsc.cmm.get.organization.komipo" resultClass="OrganizationGetResponse">
+		SELECT      ORG_CD                          orgCd
+				,   ORG_NM                          orgNm
+				,   FULL_ORG_NM                     fullOrgNm
+				,   ORG_TYPE                        orgType
+				,   MNG_YN                        	mngYn
+				,   MST_LAW_ID                      mstLawId
+		FROM TB_ORG_CURRENT
+		WHERE ORG_CD = '0000'
+	</select>
+
+	<select id="spsc.cmm.get.organization.list" resultClass="OrganizationGetResponse" parameterClass="OrganizationGetRequest">
+		SELECT * FROM (
+			SELECT      T.ORG_CD                                                                            orgCd
+					,   (   SELECT  X.ORG_NM
+							FROM (  SELECT      ST.ORG_NM
+									FROM        TB_ORG ST
+									INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+									WHERE       ST.ORG_CD = T.ORG_CD
+									AND         TMLT.OPT_TIME_YEAR = #optTimeYear#
+			<isNotEmpty property="optTimeHalf" prepend="AND">
+												TMLT.OPT_TIME_HALF = #optTimeHalf#
+			</isNotEmpty>
+									ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) X
+							WHERE ROWNUM = 1)                                                               orgNm
+					,   (   SELECT  X.FULL_ORG_NM
+							FROM (  SELECT      ST.FULL_ORG_NM
+									FROM        TB_ORG ST
+									INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+									WHERE       ST.ORG_CD = T.ORG_CD
+									AND         TMLT.OPT_TIME_YEAR = #optTimeYear#
+			<isNotEmpty property="optTimeHalf" prepend="AND">
+												TMLT.OPT_TIME_HALF = #optTimeHalf#
+			</isNotEmpty>
+									ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) X
+							WHERE ROWNUM = 1)                                                               fullOrgNm
+					,   DECODE(SIGN(3-SUM(ORG_TYPE)),1,1,3)                                                	orgType
+					,   (   SELECT  X.MNG_YN
+							FROM (  SELECT      ST.MNG_YN
+									FROM        TB_ORG ST
+									INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+									WHERE       ST.ORG_CD = T.ORG_CD
+									AND         TMLT.OPT_TIME_YEAR = #optTimeYear#
+			<isNotEmpty property="optTimeHalf" prepend="AND">
+												TMLT.OPT_TIME_HALF = #optTimeHalf#
+			</isNotEmpty>
+									ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) X
+							WHERE ROWNUM = 1)                                                               mngYn
+					,   (   SELECT  X.PARENT_ORG_CD
+							FROM (  SELECT      ST.PARENT_ORG_CD
+									FROM        TB_ORG ST
+									INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+									WHERE       ST.ORG_CD = T.ORG_CD
+									AND         TMLT.OPT_TIME_YEAR = #optTimeYear#
+			<isNotEmpty property="optTimeHalf" prepend="AND">
+												TMLT.OPT_TIME_HALF = #optTimeHalf#
+			</isNotEmpty>
+									ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) X
+							WHERE ROWNUM = 1)                                                               parentOrgCd
+					,   (   SELECT  X.MST_LAW_ID
+							FROM (  SELECT      ST.MST_LAW_ID
+									FROM        TB_ORG ST
+									INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+									WHERE       ST.ORG_CD = T.ORG_CD
+									AND         TMLT.OPT_TIME_YEAR = #optTimeYear#
+									AND         TMLT.OPT_TIME_HALF = #optTimeHalf#
+									ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) X
+							WHERE ROWNUM = 1)                                                               mstLawId
+					,   (   SELECT  X.ORG_RANK
+							FROM (  SELECT      ST.ORG_RANK
+									FROM        TB_ORG ST
+									INNER JOIN  TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+									WHERE       ST.ORG_CD = T.ORG_CD
+									AND         TMLT.OPT_TIME_YEAR = #optTimeYear#
+			<isNotEmpty property="optTimeHalf" prepend="AND">
+												TMLT.OPT_TIME_HALF = #optTimeHalf#
+			</isNotEmpty>
+									ORDER BY    OPT_TIME_YEAR DESC ,OPT_TIME_HALF DESC  ) X
+							WHERE ROWNUM = 1)                                                               ORGRANK
+			FROM TB_ORG     T
+			WHERE   USE_YN = 'Y'
+			AND     ORG_CD != '0000'
+			AND		PARENT_ORG_CD IS NOT NULL
+			AND     MST_LAW_ID IN (SELECT MST_LAW_ID
+									FROM TB_MST_LAW_TPL
+									WHERE   OPT_TIME_YEAR = #optTimeYear#
+			<isNotEmpty property="optTimeHalf" prepend="AND">
+											OPT_TIME_HALF = #optTimeHalf#
+			</isNotEmpty>
+			)
+			GROUP BY T.ORG_CD
+		)
+		ORDER BY ORGRANK
+	</select>
+	
+
+
+	<select id="spsc.cmm.get.management" resultClass="ManagementGetResponse" parameterClass="OrganizationGetRequest">
+		SELECT      T.ORG_CD                                                                        	orgCd
+				,   (SELECT X.ORG_NM
+					FROM (  SELECT ORG_NM
+							FROM TB_ORG ST
+							INNER JOIN TB_MST_LAW_TPL TMLT ON ST.MST_LAW_ID = TMLT.MST_LAW_ID
+							WHERE TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+							TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+							AND ST.ORG_CD = T.ORG_CD
+							ORDER BY OPT_TIME_YEAR DESC, OPT_TIME_HALF DESC) X
+					WHERE ROWNUM = 1)                                                               	orgNm
+				, 	(SELECT Y.FULL_ORG_NM
+					FROM (SELECT FULL_ORG_NM
+							FROM TB_ORG ST
+							INNER JOIN TB_MST_LAW_TPL TMLT on ST.MST_LAW_ID = TMLT.MST_LAW_ID
+							WHERE TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+							TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+							AND ST.ORG_CD = T.ORG_CD
+							ORDER BY OPT_TIME_YEAR DESC, OPT_TIME_HALF DESC) Y
+					WHERE ROWNUM = 1)                                                                   fullOrgNm
+		FROM TB_ORG T
+		INNER JOIN TB_MST_LAW_TPL TMLT on T.MST_LAW_ID = TMLT.MST_LAW_ID
+		WHERE MNG_YN = 'Y'
+		AND TMLT.OPT_TIME_YEAR = #optTimeYear#
+		<isNotEmpty property="optTimeHalf" prepend="AND">
+			TMLT.OPT_TIME_HALF = #optTimeHalf#
+		</isNotEmpty>
+		GROUP BY T.ORG_CD
+	</select>
+
+	<update id="spsc.cmm.patch.management" parameterClass="ManagementPatchRequest">
+		UPDATE  TB_ORG
+		SET     MNG_YN = #mngYn#
+		WHERE   ORG_CD = #orgCd#
+		AND     MST_LAW_ID = FN_LATEST_TPL_ID()
+	</update>
+
+	<update id="spsc.cmm.patch.management.current" parameterClass="ManagementPatchRequest">
+		UPDATE  TB_ORG_CURRENT
+		SET     MNG_YN = #mngYn#
+		WHERE   ORG_CD = #orgCd#
+		AND     MST_LAW_ID = FN_LATEST_TPL_ID()
+	</update>
+
+	<delete id="spsc.cmm.delete.management.map" parameterClass="ManagementPatchRequest">
+		DELETE 	TB_MST_LAW_IMPL_MNG
+		WHERE 	ORG_CD = #orgCd#
+		AND 	MST_LAW_ID = FN_LATEST_TPL_ID()
+	</delete>
+
+	<update id="spsc.cmm.patch.organization.type" parameterClass="OrganizationTypePatchRequest">
+		UPDATE  TB_ORG
+		SET     ORG_TYPE = #orgType#
+		WHERE   ORG_CD = #orgCd#
+		AND     MST_LAW_ID = FN_LATEST_TPL_ID()
+	</update>
+
+	<update id="spsc.cmm.patch.organization.type.current" parameterClass="OrganizationTypePatchRequest">
+		UPDATE  TB_ORG_CURRENT
+		SET     ORG_TYPE = #orgType#
+		WHERE   ORG_CD = #orgCd#
+		AND     MST_LAW_ID = FN_LATEST_TPL_ID()
+	</update>
+
+	<delete id="spsc.cmm.delete.organization.map" parameterClass="OrganizationTypePatchRequest">
+		DELETE 	TB_MST_IMPL_ORG
+		WHERE 	ORG_CD = #orgCd#
+		AND 	MST_LAW_ID = FN_LATEST_TPL_ID()
+	</delete>
+
+	<!-- =================================== 대상설비 =================================== -->
+	<insert id="spsc.cmm.insert.targetEquipment" parameterClass="TargetEquipmentPostRequest">
+		<selectKey keyProperty="orgLawRelEquipId" resultClass="Integer">
+			SELECT orgLawRelEquipId.nextVal FROM DUAL
+		</selectKey>
+		INSERT INTO TB_ORG_LAW_REL_EQUIP (
+				ORG_LAW_REL_EQUIP_ID
+			,	MST_LAW_ID
+			,	ORG_CD
+			,	LAW_REL_ID
+			,	EQUIP_ID
+		) VALUES (
+				#orgLawRelEquipId#
+			,	(SELECT MST_LAW_ID FROM TB_MST_LAW_TPL WHERE OPT_TIME_YEAR = #optTimeYear# AND OPT_TIME_HALF = #optTimeHalf#)
+			,	#orgCd#
+			,	#lawRelId#
+			,	#equipId#
+		)
+	</insert>
+
+	<delete id="spsc.cmm.delete.targetEquipment" parameterClass="TargetEquipmentPostRequest">
+<!--		DELETE FROM TB_ORG_LAW_REL_EQUIP WHERE ORG_LAW_REL_EQUIP_ID = #orgLawRelEquipId#-->
+		DELETE FROM			TB_ORG_LAW_REL_EQUIP
+		WHERE				ORG_CD = #orgCd#
+			AND				LAW_REL_ID = #lawRelId#
+			AND				EQUIP_ID = #equipId#
+			AND				MST_LAW_ID = (	SELECT	MST_LAW_ID
+											FROM	TB_MST_LAW_TPL
+											WHERE	OPT_TIME_YEAR = #optTimeYear#
+												AND	OPT_TIME_HALF = #optTimeHalf#
+							)
+	</delete>
+
+	<sql id="spsc.cmm.targetEquipmentSelect">
+		SELECT				TRG.ORG_LAW_REL_EQUIP_ID			ORGLAWRELEQUIPID
+			,				TRG.LAW_REL_ID						LAWRELID
+			,				REL.LAW_REL_NM						LAWRELNM
+			,				TRG.MST_LAW_ID						MSTLAWID
+			,				TRG.ORG_CD							ORGCD
+			,				ORG.ORG_NM							ORGNM
+			,				ORG.FULL_ORG_NM						FULLORGNM
+			,				TRG.EQUIP_ID						EQUIPID
+			,				EQP.EQUIP_NM						EQUIPNM
+		FROM				TB_ORG_LAW_REL_EQUIP		TRG
+			JOIN			TB_MST_LAW_REL				REL	ON	TRG.LAW_REL_ID = REL.LAW_REL_ID
+			JOIN			TB_ORG						ORG	ON	TRG.MST_LAW_ID = ORG.MST_LAW_ID
+															AND	TRG.ORG_CD = ORG.ORG_CD
+			JOIN			TB_EQUIP					EQP	ON	TRG.EQUIP_ID = EQP.EQUIP_ID
+		WHERE				(1=1)
+			AND				TRG.MST_LAW_ID = (
+								SELECT	MST_LAW_ID
+								FROM	TB_MST_LAW_TPL
+								WHERE	OPT_TIME_YEAR = #optTimeYear#
+									AND	OPT_TIME_HALF = #optTimeHalf#
+							)
+	</sql>
+	<sql id="spsc.cmm.targetEquipmentSelectOrder">
+		ORDER BY			TRG.LAW_REL_ID
+			,				TRG.MST_LAW_ID
+			,				TRG.ORG_CD
+			,				EQP.EQUIP_NM
+	</sql>
+	<select id="spsc.cmm.select.targetEquipment" parameterClass="TargetEquipmentListGetRequest" resultClass="TargetEquipment">
+		<include refid="spsc.cmm.targetEquipmentSelect"/>
+		<isGreaterThan property="lawRelId" compareValue="0">
+			AND				TRG.LAW_REL_ID = #lawRelId#
+		</isGreaterThan>
+		<include refid="spsc.cmm.targetEquipmentSelectOrder"/>
+	</select>
+	<select id="spsc.cmm.select.target.equipments" parameterClass="TargetEquipmentOnLawGetRequest" resultClass="TargetEquipment">
+		<include refid="spsc.cmm.targetEquipmentSelect"/>
+			AND				TRG.LAW_REL_ID IN (
+								<iterate property="lawRelIds" conjunction=",">#lawRelIds[]#</iterate>
+							)
+		<include refid="spsc.cmm.targetEquipmentSelectOrder"/>
+	</select>
+
+	<select id="spsc.cmm.select.equipmentAll" parameterClass="TargetEquipment" resultClass="TargetEquipment">
+		SELECT				EQUIP_ID				EQUIPID
+			,				EQUIP_NM				EQUIPNM
+		FROM				TB_EQUIP
+		ORDER BY			EQUIP_NM
+	</select>
+
+	<!-- /////////////////////////////////// 대상설비 /////////////////////////////////// -->
+
+	<select id="spsc.cmm.select.usableYears" resultClass="String">
+		SELECT DISTINCT		OPT_TIME_YEAR
+		FROM				TB_MST_LAW_TPL
+	</select>
+
+	<select id="spsc.cmm.select.usablePeriods" resultClass="OperationPeriod">
+		SELECT DISTINCT		OPT_TIME_YEAR			OPTTIMEYEAR
+			,				OPT_TIME_HALF			OPTTIMEHALF
+		FROM				TB_MST_LAW_TPL
+		ORDER BY			OPT_TIME_YEAR								DESC
+			,				DECODE(OPT_TIME_HALF, 'F', 1, 'S', 2, 0)	DESC
+	</select>
+
+	<!-- =================================== 관련법령 =================================== -->
+	<insert id="spsc.cmm.insert.law.detail" parameterClass="lawDetailInsertDTO">
+		<selectKey keyProperty="lawRelDtlId" resultClass="Integer">
+			SELECT lawRelDtlId.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO	TB_MST_LAW_REL_DTL	(	LAW_REL_DTL_ID,
+											LAW_REL_ATC,
+											LAW_REL_TEXT,
+											LAW_REL_ID,
+											USE_YN)
+		    VALUES						(	#lawRelDtlId#,
+											#lawRelAtc#,
+											#lawRelText#,
+											#lawRelId#,
+											'Y')
+	</insert>
+
+	<!--<select id="spsc.cmm.select.law.map" parameterClass="RawDetailPatchRequest" resultClass="LawMapDTO">
+		SELECT 	LAW_IMPL_ID 		lawImplId,
+		        LAW_REL_DTL_ID		lawRelDtlId
+		FROM  	TB_MST_LAW_REL_MAP
+		WHERE 	LAW_REL_DTL_ID = #lawRelDtlId#
+	</select>-->
+
+	<update id="spsc.cmm.update.law.detail" parameterClass="LawDetailPatchRequest">
+		UPDATE		TB_MST_LAW_REL_DTL
+			SET		LAW_REL_ATC 	= #lawRelAtc#
+				,	LAW_REL_TEXT 	= #lawRelText#
+		WHERE 		LAW_REL_DTL_ID 	= #lawRelDtlId#
+			AND 	LAW_REL_ID		= #lawRelId#
+	</update>
+
+	<delete id="spsc.cmm.delete.law.detail" parameterClass="LawDetailDeleteRequest">
+		DELETE FROM TB_MST_LAW_REL_DTL
+		WHERE LAW_REL_DTL_ID = #lawRelDtlId#
+	</delete>
+
+	<!-- 관련법령 전체 조회 -->
+	<select id="spsc.cmm.select.law.detail.list" resultClass="LawDetail">
+		<!-- 조항(DTL) 없는 법령(REL)도 포함 -->
+		SELECT 				REL.LAW_REL_ID			lawRelId
+			,				REL.LAW_REL_NM			lawRelNm
+			,     			DTL.LAW_REL_DTL_ID		lawRelDtlId
+			,				DTL.LAW_REL_ATC			lawRelAtc
+			,				DTL.LAW_REL_TEXT		lawRelText
+		FROM   				TB_MST_LAW_REL 			REL
+			LEFT OUTER JOIN (
+								SELECT     			LAW_REL_DTL_ID
+									,				LAW_REL_ATC
+									,				LAW_REL_TEXT
+									,				LAW_REL_ID
+								FROM   				TB_MST_LAW_REL_DTL
+								WHERE  				USE_YN = 'Y'
+							)						DTL ON REL.LAW_REL_ID = DTL.LAW_REL_ID
+		WHERE   			REL.USE_YN	= 'Y'
+		ORDER BY 			lawRelNm, lawRelDtlId
+
+		<!-- 조항(DTL) 있는 법령(REL)만 -->
+<!--		SELECT 				REL.LAW_REL_ID			lawRelId
+			,				REL.LAW_REL_NM			lawRelNm
+			,     			DTL.LAW_REL_DTL_ID		lawRelDtlId
+			,				DTL.LAW_REL_ATC			lawRelAtc
+			,				DTL.LAW_REL_TEXT		lawRelText
+		FROM   				TB_MST_LAW_REL 			REL
+			LEFT OUTER JOIN TB_MST_LAW_REL_DTL		DTL ON REL.LAW_REL_ID = DTL.LAW_REL_ID
+		WHERE   			REL.USE_YN	= 'Y'
+			AND				DTL.USE_YN 	= 'Y'
+		ORDER BY 			lawRelId, lawRelDtlId-->
+	</select>
+
+
+
+	<!-- /////////////////////////////////// 관련법령 /////////////////////////////////// -->
+
+	<sql id="spsc.cmm.page.header">
+		<!-- todo 성능 문제가 발생할 수 있다. 최적화가 필요하면 order by를 index 로 처리하고 쿼리 자체적으로 페이징 처리해야 함 -->
+		SELECT				*
+		FROM				(
+			SELECT				ROWNUM	RN
+				,				INR.*
+			FROM				(
+	</sql>
+	<sql id="spsc.cmm.page.tail">
+								)	INR
+			WHERE				ROWNUM &lt;= #fetchCount# * #currentPageNo#
+		)	OTR
+		WHERE				OTR.RN > #fetchCount# * (#currentPageNo# - 1)
+	</sql>
+
+	<select id="spsc.cmm.selet.org.cd.by.full.org.nm" parameterClass="OrganizationConditions" resultClass="String">
+		SELECT      FN_ORG_CD(#mstLawId#, #fullOrgNm#)  FROM DUAL
+	</select>
+</sqlMap>

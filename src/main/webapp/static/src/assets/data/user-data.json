@@ -1,0 +1,38 @@
+[
+  {
+    "userNm": "홍길동",
+    "userId": "honggildong",
+    "belongTo": {
+      "workplc": "보령",
+      "dept": "화학기술부"
+    },
+    "userType": "이행관리"
+  },
+  {
+    "userNm": "임꺽정",
+    "userId": "imggeokjeong",
+    "belongTo": {
+      "workplc": "서울",
+      "dept": "전기기술부"
+    },
+    "userType": "이행관리"
+  },
+  {
+    "userNm": "김철수",
+    "userId": "kimcheolsu",
+    "belongTo": {
+      "workplc": "보령",
+      "dept": "기계기술부"
+    },
+    "userType": "이행관리"
+  },
+  {
+    "userNm": "박동수",
+    "userId": "parkdongsu",
+    "belongTo": {
+      "workplc": "본사",
+      "dept": "경영혁신부"
+    },
+    "userType": "관리자"
+  }
+]

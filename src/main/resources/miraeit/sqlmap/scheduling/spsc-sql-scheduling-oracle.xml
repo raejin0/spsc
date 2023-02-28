@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="spsc.cmm.link">
+	<typeAlias  alias="Personnel" type="net.miraeit.scheduling.model.link.Personnel"/>
+	<typeAlias  alias="OrganizationToFulfill" type="net.miraeit.scheduling.model.link.OrganizationToFulfill"/>
+	<typeAlias  alias="PersonnelToFulfill" type="net.miraeit.scheduling.model.link.PersonnelToFulfill"/>
+	<typeAlias  alias="ImplItemStates" type="net.miraeit.scheduling.model.mail.ImplItemStates"/>
+
+	<!-- conditions -->
+
+
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡ 인사 데이터 연계 ㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<select id="spsc.cmm.link.select.personnel" resultClass="Personnel">
+		SELECT
+			            SABUN				sabun
+			, 			ORG_CD				orgCd
+			, 			ORG_NM				orgNm
+			, 			NAME_HAN			nameHan
+			, 			STATE_CD			stateCd
+			, 			JIKGUB_CD			jikgubCd
+			, 			JIKGUB_NM			jikgubNm
+			, 			JIKGUN_CD			jikgunCd
+			, 			JIKGUN_NM			jikgunNm
+			, 			POS_CD				posCd
+			, 			POS_NM				posNm
+			, 			JIKMU_CD			jikmuCd
+			, 			JIKMU_NM			jikmuNm
+			, 			EMAIL				email
+			, 			PROC_CD				procCd
+			, 			TO_CHAR(CREATE_DT, 'yyyy-mm-dd')			createDt
+		FROM 			IF_INSA_MASTER_TBL
+	</select>
+
+	<update id="spsc.cmm.link.merge.personnel" parameterClass="Personnel">
+		MERGE INTO LETTNEMPLYRINFO
+			USING DUAL ON (EMPLYR_ID = #sabun#)
+			WHEN MATCHED THEN
+				UPDATE SET
+					        ORGNZT_ID			= #orgCd#
+					, 		USER_NM				= #nameHan#
+					, 		PASSWORD			= #password#
+					, 		EMAIL_ADRES			= #email#
+					, 		SBSCRB_DE			= TO_DATE(#createDt#, 'yyyy-mm-dd')
+					, 		EMPLYR_STTUS_CODE	= #stateCd#
+					, 		JIKGUB_CD			= #jikgubCd#
+					, 		JIKGUB_NM			= #jikgubNm#
+					, 		JIKGUN_CD			= #jikgunCd#
+					, 		JIKGUN_NM			= #jikgunNm#
+					, 		POS_CD				= #posCd#
+					, 		POS_NM				= #posNm#
+					, 		JIKMU_CD			= #jikmuCd#
+					, 		JIKMU_NM			= #jikmuNm#
+			WHEN NOT MATCHED THEN
+				INSERT (
+					        EMPLYR_ID	, 		ORGNZT_ID
+					, 		USER_NM		, 		PASSWORD
+					, 		EMAIL_ADRES	, 		SBSCRB_DE	, 		EMPLYR_STTUS_CODE
+					, 		JIKGUB_CD	, 		JIKGUB_NM
+					, 		JIKGUN_CD	, 		JIKGUN_NM
+					, 		POS_CD		, 		POS_NM
+					, 		JIKMU_CD	, 		JIKMU_NM
+				) VALUES (
+							#sabun#		,		#orgCd#
+					,		#nameHan#	,		#password#
+					,		#email#		,		TO_DATE(#createDt#, 'yyyy-mm-dd'),		#stateCd#
+					,		#jikgubCd#	,		#jikgubNm#
+					,		#jikgunCd#	,		#jikgunNm#
+					,		#posCd#		,		#posNm#
+					,		#jikmuCd#	,		#jikmuNm#
+				)
+	</update>
+	<!-- ////////////// 인사 데이터 연계 ////////////// -->
+
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡ 조직 데이터 연계 ㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<update id="spsc.cmm.link.patch.organization.use.n">
+		UPDATE TB_ORG
+		SET USE_YN = 'N'
+		WHERE MST_LAW_ID = FN_LATEST_TPL_ID()
+	</update>
+
+	<update id="spsc.cmm.link.merge.organization">
+		MERGE INTO TB_ORG T
+		USING (SELECT       IJMT.ORG_CD             ORG_CD
+						,   IJMT.FULL_ORG_NM        FULL_ORG_NM
+						,   IJMT.SHORT_ORG_NM       SHORT_ORG_NM
+						,   IJMT.DIRECT_ORG         DIRECT_ORG
+						,   IJMT.BONSA_YN           BONSA_YN
+						,   IJMT.FIRST_ORG_CD       FIRST_ORG_CD
+						,   IJMT.ORG_RANK       	ORG_RANK
+						,   IJMT.JOJIKJANG       	JOJIKJANG
+						,   TOE.EXC_TYPE            EXC_TYPE
+						,   TOE.EXC_PARENT          EXC_PARENT
+						,   TOE.EXC_FIRST_ORG_CD    EXC_FIRST_ORG_CD
+				FROM        IF_JOJIK_MASTER_TBL IJMT
+				LEFT        JOIN TB_ORG_EXC TOE    ON  IJMT.ORG_CD = TOE.ORG_CD) X
+		ON (            T.ORG_CD = X.ORG_CD
+				AND     T.MST_LAW_ID = FN_LATEST_TPL_ID()
+		)
+		WHEN MATCHED THEN
+		UPDATE
+		SET     T.ORG_NM        = X.SHORT_ORG_NM
+			,   T.USE_YN        = 'Y'
+			,   T.FULL_ORG_NM   = X.FULL_ORG_NM
+			,	T.JOJIKJANG		= X.JOJIKJANG
+			,	T.ORG_RANK 		= X.ORG_RANK
+			<!-- UPDATE 배제 컬럼 3가지: DIRECT_ORG, FIRST_ORG_CD, BONSA_YN -->
+		WHEN NOT MATCHED THEN
+		INSERT (
+				T.ORG_CD
+			,   T.ORG_NM
+			,   T.ORG_TYPE
+			,   T.PARENT_ORG_CD
+			,   T.BONSA_YN
+			,   T.FIRST_ORG_CD
+			,   T.MNG_YN
+			,   T.USE_YN
+			,   T.EXC_TYPE
+			,   T.EXC_PARENT
+			,   T.MST_LAW_ID
+			,   T.EXC_FIRST_ORG_CD
+			,   T.FULL_ORG_NM
+			,   T.ORG_RANK
+			,   T.JOJIKJANG
+		)VALUES (
+				X.ORG_CD
+			,   X.SHORT_ORG_NM
+			,   1
+			,   X.DIRECT_ORG
+			,   X.BONSA_YN
+			,   X.FIRST_ORG_CD
+			,   'N'
+			,   'Y'
+			,   DECODE(X.EXC_TYPE, NULL, 'N', X.EXC_TYPE)
+			,   X.EXC_PARENT
+			,   FN_LATEST_TPL_ID()
+			,   X.EXC_FIRST_ORG_CD
+			,   X.FULL_ORG_NM
+			,   X.ORG_RANK
+			,   X.JOJIKJANG
+		)
+	</update>
+
+	<delete id="spsc.cmm.link.delete.organization.current">
+		DELETE FROM TB_ORG_CURRENT
+	</delete>
+
+	<insert id="spsc.cmm.link.post.organization.current">
+		INSERT INTO TB_ORG_CURRENT
+			(       ORG_CD
+				,   ORG_NM
+				,   ORG_TYPE
+				,   PARENT_ORG_CD
+				,   BONSA_YN
+				,   FIRST_ORG_CD
+				,   MNG_YN
+				,   USE_YN
+				,   EXC_TYPE
+				,   EXC_PARENT
+				,   MST_LAW_ID
+				,   EXC_FIRST_ORG_CD
+				,   FULL_ORG_NM
+				,   ORG_RANK
+				,   JOJIKJANG
+			)
+		SELECT      IJMT.ORG_CD
+				,   IJMT.SHORT_ORG_NM
+				,   T.ORG_TYPE
+				,   IJMT.DIRECT_ORG
+				,   IJMT.BONSA_YN
+				,   IJMT.FIRST_ORG_CD
+				,   T.MNG_YN
+				,   'Y'
+				,   DECODE(TOE.EXC_TYPE, NULL, 'N', TOE.EXC_TYPE)
+				,   TOE.EXC_PARENT
+				,   FN_LATEST_TPL_ID()
+				,   TOE.EXC_FIRST_ORG_CD
+				,   IJMT.FULL_ORG_NM
+				,   IJMT.ORG_RANK
+				,   IJMT.JOJIKJANG
+		FROM IF_JOJIK_MASTER_TBL IJMT
+		LEFT JOIN TB_ORG_EXC TOE    ON  IJMT.ORG_CD = TOE.ORG_CD
+		LEFT JOIN TB_ORG T          ON  T.ORG_CD = IJMT.ORG_CD
+		AND T.MST_LAW_ID = FN_LATEST_TPL_ID()
+	</insert>
+
+	<!-- ////////////// 조직 데이터 연계 ////////////// -->
+
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡ 미이행 메일 전송 ㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<select id="spsc.cmm.mail.select.org.to.fulfill" resultClass="OrganizationToFulfill">
+		<!-- findOrganizationToFulfill: 해당 반기 미이행 부서( 코드 목록 ) -->
+		SELECT				DISTINCT ORG_CD             orgCd
+<!--			,				FN_FULL_ORG_NM(ORG_CD)      fullOrgNm-->
+		FROM   				TB_IMPL_ITEM ITM
+		WHERE  				IMPL_STATE = 'X'
+			AND   			ITM.ORG_CD IN (
+			                                <!--해당 반기 중 이행 내용이 있는 부서(코드 목록)-->
+											SELECT				DISTINCT IOG.ORG_CD
+											FROM 				TB_MST_IMPL_ORG IOG
+											WHERE				MST_LAW_ID = (
+											                                    <!--해당 반기-->
+																				SELECT  			DISTINCT MST_LAW_ID
+																				FROM   				TB_ORG_CURRENT
+
+																				<!--SELECT   			MST_LAW_ID
+																				FROM   				TB_MST_LAW_TPL
+																				WHERE  				OPT_TIME_YEAR = '2022'	&#45;&#45; 해당 반기 매개변수
+																					AND  			OPT_TIME_HALF = 'S'		&#45;&#45; 해당 반기 매개변수-->
+											                                    )
+											)
+	</select>
+
+	<!-- 이행 상태별 건수 -->
+	<select id="spsc.point-out.select.impl.item.states" resultClass="ImplItemStates">
+		SELECT		(SELECT  		COUNT(*)
+					FROM   			TB_IMPL_ITEM
+					WHERE   		MST_LAW_ID = FN_LATEST_TPL_ID()
+						AND  		IMPL_STATE = 'V') 	AS V
+			,		(SELECT  		COUNT(*)
+					FROM   			TB_IMPL_ITEM
+					WHERE   		MST_LAW_ID = FN_LATEST_TPL_ID()
+						AND  		IMPL_STATE = 'X') 	AS X
+			,		(SELECT  		COUNT(*)
+					FROM   			TB_IMPL_ITEM
+					WHERE   		MST_LAW_ID = FN_LATEST_TPL_ID()
+						AND  		IMPL_STATE = 'N') 	AS N
+		FROM 		DUAL
+	</select>
+
+	<select id="spsc.cmm.mail.select.personnel.to.fulfill" parameterClass="java.util.List" resultClass="PersonnelToFulfill">
+		<!-- getPersonnelToFulfill : 이행 담당자 목록 ( 반기 미이행 부서 담당자_조직장을 제외한 3, 4급 )-->
+		SELECT				EMP.EMPLYR_ID								userId
+			,				EMP.USER_NM									userNm
+			,				EMP.JIKGUB_NM   							jikgubNm
+			,				EMP.POS_NM									posNm
+			,  				EMP.EMAIL_ADRES||'@komipo.co.kr'			email
+			,				ORG.FULL_ORG_NM 							fullOrgNm
+			, 				EMP.ORGNZT_ID								orgCd
+			,				EMP.JIKGUB_CD								jikgubCd
+			,				EMP.POS_CD									posCd
+		FROM   				LETTNEMPLYRINFO								EMP
+			LEFT OUTER JOIN TB_ORG_CURRENT ORG ON EMP.ORGNZT_ID = ORG.ORG_CD
+		WHERE               EMP.ORGNZT_ID IN ( <iterate conjunction=",">#[].orgCd#</iterate> )   <!-- 미이행 부서 -->
+			AND             EMP.JIKGUB_CD IN ('2G', '2K', '2I')	 					             <!-- 3, 4가, 4나 직급-->
+			AND             EMP.EMPLYR_ID NOT IN (                                              <!-- (해당 반기 미이행 부서의) 조직장 제외-->
+													SELECT  			JOJIKJANG
+													FROM  				TB_ORG_CURRENT
+														WHERE  			ORG_CD IN ( <iterate conjunction=",">#[].orgCd#</iterate> )
+												  )
+	</select>
+	<!-- ////////////// 미이행 메일 전송 ////////////// -->
+</sqlMap>

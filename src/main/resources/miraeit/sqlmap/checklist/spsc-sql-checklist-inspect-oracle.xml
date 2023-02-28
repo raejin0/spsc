@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="spsc.checklist.inspect">
+
+	<typeAlias  alias="PostInspectContentCondition"     type="net.miraeit.checklist.model.inspect.PostInspectContentCondition"/>
+	<typeAlias  alias="DeleteInspectContentRequest"     type="net.miraeit.checklist.model.inspect.DeleteInspectContentRequest"/>
+
+	<!-- 점검내용 저장 -->
+	<insert id="spsc.checklist.inspect.insert.content" parameterClass="PostInspectContentCondition">
+		<selectKey keyProperty="inspectId" resultClass="Integer">
+			SELECT SEQ_INSEPCT_ID.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_IMPL_ITEM_INSPECT (
+			    INSPECT_ID,
+			    CONTENT,
+			    IMPL_ITEM_ID
+		  )	VALUES (
+				#inspectId#,
+				#content#,
+				#implItemId#
+		  )
+	</insert>
+
+	<!-- 점검내용 삭제 -->
+	<delete id="spsc.checklist.inspect.delete.content" parameterClass="DeleteInspectContentRequest">
+		DELETE FROM	TB_IMPL_ITEM_INSPECT
+		WHERE 		INSPECT_ID      = #inspectId#
+			AND 	IMPL_ITEM_ID    = #implItemId#
+	</delete>
+
+</sqlMap>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>중부발전 안전보건 의무이행 점검시스템</title>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/design.js"></script>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!--<link href="css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="css/navbar.css" rel="stylesheet">-->
+    <link href="css/spsc2022.css" rel="stylesheet">
+</head>
+<body class="a00 a10 doMng">
+
+    <div class="gnbWrap">
+        <nav class="navbar navbar-expand-md navbar-light" id="gnbWrap">
+        <a class="navbar-brand" href="main.htm">
+          <img src="images/logo.png" class="d-inline-block align-top" alt="">
+          중부발전 안전보건 의무이행 점검시스템
+        </a>
+        <p class="systemHint">중부발전 안전보건 의무이행 점검시스템이란? <br>
+            중대재해처벌법 대비 안전보건 관계법령*에 따른 의무사항 이행관리를 위한 On-Line 전산시스템
+        </p>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav mr-auto navGnb">
+              <li class="nav-item a00 active">
+                <a class="nav-link" href="a10_doMng.htm"><span class="activeLine">이행관리</span> <span class="sr-only">(선택)</span></a>
+              </li>
+              <li class="nav-item b00">
+                <a class="nav-link" href="b10_matterAct.htm"><span class="activeLine">대외기관 점검 관리</span></a>
+              </li>
+              <li class="nav-item c00">
+                <a class="nav-link" href="c10_laws.htm"><span class="activeLine">관련법령</span></a>
+              </li>
+              <li class="nav-item d00">
+                <a class="nav-link" href="d10_notice.htm"><span class="activeLine">커뮤니티</span></a>
+              </li>
+              <li class="nav-item e00">
+                <a class="nav-link" href="e10_lawsMng.htm"><span class="activeLine">시스템관리</span></a>
+              </li>
+              <li class="nav-item f00">
+                <a class="nav-link" href="f10_recMng.htm"><span class="activeLine">이행실적관리</span></a>
+              </li>
+            </ul>
+
+            <div class="navbar-right">
+              <ul class="nav navbar-nav">
+                <li class="nav-item loginName"><a href="#">홍길동</a></li>
+                <li class="nav-item logOut"><a href="#">로그아웃</a></li>
+              </ul>
+            </div>
+
+          </div>
+
+        </nav>
+    </div>
+
+
+    <div class="container">
+        <div class="row mt20 mb10">
+            <div class="col searchWrapRight text-right">
+                <button type="button" class="btn btn-outline-primary">전사</button>
+
+                <div class="btn-group btn-group" role="group" aria-label="기간">
+                  <button type="button" class="btn btn-primary">전체</button>
+                  <button type="button" class="btn btn-outline-primary">상반기</button>
+                  <button type="button" class="btn btn-outline-primary">하반기</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt10 mb10">
+            <div class="col">
+
+                <header class="headerA">
+                    <h2>보령화력-2 발전소</h2>
+                    <p>전기기술부 <strong>75.4</strong><span>%</span></p>
+
+                    <div class="selctYY">
+                        <button type="button" class="btnYY_before">이전년</button>
+                        2022
+                        <button class="btnYY_next">다음년</button>
+                    </div>
+
+                    <div class="barGraph">
+                        <div style="background-color: #faC716;width:75.4%"></div>
+                        <style>
+                            .headerA  .barGraph > div:after { border-color:#faC716}
+                        </style>
+                    </div>
+
+                </header>
+
+            </div>
+        </div>
+        <div class="row mt10 mb10">
+            <div class="col">
+                <article class="lawD10">
+                    <h3 class="h3"><span>시행령 제5조</span> 안전 보건 관계 법려엥 따른 의무이행여부 점검</h3>
+
+                    <article class="lawD20">
+                        <h4 class="h4">시행령 제5조 1호 시행령 제5조 1호 <span>안전&middot;보건 관계 법령에 따른 의무를 이행했는지 반기1회이상 점검</span></h4>
+
+                        <article class="lawD30">
+                            <h5 class="h5"><span class="hBox">산업안전보건법</span></h5>
+
+                            <div class="statusA_O table-responsive">
+                                <table class="table table-bordered">
+                                    <colgroup>
+                                        <col style="width:220px">
+                                        <col style="width:260px">
+                                        <col>
+                                        <col style="width:110px">
+                                        <col style="width:260px">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">
+                                                <select class="width100" id=""> <option value="">대상설비 선택</option> </select>
+                                            </td>
+                                            <td colspan="4">수소,질소(생산설비), 탄산가스, 냉동제조시설 (프레온), 소화약제, 액화질소탱크, 탈질설비, 무수암모니아, CCS 압축액화설비</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2">
+                                                <div class="boxLB text-center">
+                                                    <div>법 제84조</div>
+                                                    <div>법 제85조</div>
+                                                </div>
+                                                <div class="boxLR text-center">
+                                                    <strong>이행주기</strong> 전년 12월~3월
+                                                </div>
+                                            </td>
+                                            <th>법령내용</th>
+                                            <th>이행내용</th>
+                                            <th>적부판단</th>
+                                            <th>주관부서/점검사항</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <ul class="liStyle10">
+                                                    <li>안전관리자</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul class="liStyle10">
+                                                    <li><strong>의무사항</strong> 안전경영책임계획 수립 및 이사회 보고</li>
+                                                    <li><strong>착안사항</strong> 조직 및 직무, 작업장 안전관리, 사고조사 및 대책 수립 등</li>
+                                                </ul>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="statusA">
+                                                    <label class="statusA_label statusA_O"><input type="radio" name="statusA01">적합</label>
+                                                    <label class="statusA_label statusA_X on"><input type="radio" name="statusA01" checked>부적합</label>
+                                                    <label class="statusA_label statusA_N"><input type="radio" name="statusA01">NA</label>
+                                                </div>
+                                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" id="myModal">증빙자료</button>
+                                            </td>
+                                            <td>
+                                                <div class="boxGR">발전운영실,환경정책실 <span class="statusB01">개선</span> </div>
+                                                <div><input type="text" class="form-control" value="본사점검사항 작성"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="statusA_N table-responsive">
+                                <table class="table table-bordered">
+                                    <colgroup>
+                                        <col style="width:220px">
+                                        <col style="width:260px">
+                                        <col>
+                                        <col style="width:110px">
+                                        <col style="width:260px">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2">
+                                                <div class="boxLB text-center">
+                                                    <div>법 제15조</div>
+                                                </div>
+                                                <div class="boxLR text-center">
+                                                    <strong>이행주기</strong> 분기
+                                                </div>
+                                            </td>
+                                            <th>법령내용</th>
+                                            <th>이행내용</th>
+                                            <th>적부판단</th>
+                                            <th>주관부서/점검사항</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <ul class="liStyle10">
+                                                    <li>특정소방대상물에 설치하는 소방시설의 유지.관리</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul class="liStyle10">
+                                                    <li><strong>의무사항</strong> 안전경영책임계획 수립 및 이사회 보고</li>
+                                                    <li><strong>착안사항</strong> 에너지 개발 사업</li>
+                                                </ul>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="statusA">
+                                                    <label class="statusA_label statusA_O on"><input type="radio" name="statusA01" checked>적합</label>
+                                                    <label class="statusA_label statusA_X"><input type="radio" name="statusA01">부적합</label>
+                                                    <label class="statusA_label statusA_N"><input type="radio" name="statusA01">NA</label>
+                                                </div>
+                                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" id="myModal">증빙자료</button>
+                                            </td>
+                                            <td>
+                                                <div class="boxGR">발전운영실,환경정책실 <span class="statusB02">양호</span> </div>
+                                                <div><input type="text" class="form-control" value="발전운영실,환경정책실"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h5 class="h5"><span class="hBox">시설물의 안전 및 유지관리에 관한 특별법</span></h5>
+
+                            <div class="statusA_X table-responsive">
+                                <table class="table table-bordered">
+                                    <colgroup>
+                                        <col style="width:220px">
+                                        <col style="width:260px">
+                                        <col>
+                                        <col style="width:110px">
+                                        <col style="width:260px">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">대상설비</td>
+                                            <td colspan="4">수소,질소(생산설비), 탄산가스, 냉동제조시설 (프레온), 소화약제, 액화질소탱크, 탈질설비, 무수암모니아, CCS 압축액화설비</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2">
+                                                <div class="boxLB text-center">
+                                                    <div>법 제84조</div>
+                                                    <div>법 제85조</div>
+                                                </div>
+                                                <div class="boxLR text-center">
+                                                    <strong>이행주기</strong> 전년 12월~3월
+                                                </div>
+                                            </td>
+                                            <th>법령내용</th>
+                                            <th>이행내용</th>
+                                            <th>적부판단</th>
+                                            <th>주관부서/점검사항</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <ul class="liStyle10">
+                                                    <li>취급시설 등의 자체 점검 </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul class="liStyle10">
+                                                    <li><strong>의무사항</strong> 안전경영책임계획 수립 및 이사회 보고</li>
+                                                    <li><strong>착안사항</strong> 유해작업 하도급 금지</li>
+                                                </ul>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="statusA">
+                                                    <label class="statusA_label statusA_O"><input type="radio" name="statusA01">적합</label>
+                                                    <label class="statusA_label statusA_X"><input type="radio" name="statusA01">부적합</label>
+                                                    <label class="statusA_label statusA_N on"><input type="radio" name="statusA01" checked>NA</label>
+                                                </div>
+                                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" id="myModal">증빙자료</button>
+                                            </td>
+                                            <td>
+                                                <div class="boxGR">발전운영실,환경정책실 <span class="statusB02">양호</span> </div>
+                                                <div><input type="text" class="form-control" value="본사점검사항 작성"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </article>
+                    </article>
+
+                    <article class="lawD20">
+                        <h4 class="h4">시행령 제5조 3호</h4>
+
+                        <article class="lawD30">
+                            <h5 class="h5"><span class="hBox">산업안전보건법</span></h5>
+                        </article>
+                    </article>
+
+                </article>
+
+
+
+                <article class="lawD10">
+                    <h3 class="h3"><span>시행령 제5조 </span>안전 보건 관계 법려엥 따른 의무이행여부 점검</h3>
+                    <h3 class="h3"><span>대상시설 </span>본사사옥, 새빛누리 어린이집, 보령 에너지월드, 서울 홍보관</h3>
+
+                    <article class="lawD20">
+                        <h4 class="h4">시행령 제10조 1호</h4>
+
+                        <article class="lawD30">
+                            <div class="statusA_N table-responsive">
+                                <table class="table table-bordered">
+                                    <colgroup>
+                                        <col style="width:220px">
+                                        <col style="width:260px">
+                                        <col>
+                                        <col style="width:110px">
+                                        <col style="width:260px">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2">
+                                                <div class="boxLB text-center">
+                                                    <div>관련법령 없음</div>
+                                                </div>
+                                                <div class="boxLR text-center">
+                                                    <strong>이행주기</strong> 분기
+                                                </div>
+                                            </td>
+                                            <th>법령내용</th>
+                                            <th>이행내용</th>
+                                            <th>적부판단</th>
+                                            <th>주관부서/점검사항</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <ul class="liStyle10">
+                                                    <li>필요한 인력을 갖추어 중대시민재해 예방을 위한업무 수행</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul class="liStyle10">
+                                                    <li><strong>의무사항</strong> 안전경영책임계획 수립 및 이사회 보고</li>
+                                                    <li><strong>착안사항</strong> 소방특별조사 지적사하엥 따른 조치결과</li>
+                                                </ul>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="statusA">
+                                                    <label class="statusA_label statusA_O"><input type="radio" name="statusA01">적합</label>
+                                                    <label class="statusA_label statusA_X"><input type="radio" name="statusA01">부적합</label>
+                                                    <label class="statusA_label statusA_N"><input type="radio" name="statusA01">NA</label>
+                                                </div>
+                                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" id="myModal">증빙자료</button>
+                                            </td>
+                                            <td>
+                                                <div class="boxLR">중대재해예방부 </div>
+                                                <div><input type="text" class="form-control" value="본사점검사항 작성"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </article>
+                    </article>
+
+                </article>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">증빙자료 업로드</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+                <div class="col-4">이행 증빙 파일</div>
+                <div class="col-8 text-right"><button type="button" class="btn btn-primary btn-sm">업로드</button></div>
+            </div>
+            <ul class="fileList" tabindex="0">
+                <li><a href="#none">산업안전보건법_증빙1.pdf</a> <button type="button" class="btnDelIcon">삭제</button></li>
+                <li><a href="#none">산업안전보건법_증빙2.pdf</a> <button type="button" class="btnDelIcon">삭제</button></li>
+                <li><a href="#none">산업안전보건법_증빙3.pdf</a> <button type="button" class="btnDelIcon">삭제</button></li>
+            </ul>
+
+            <div class="row">
+                <div class="col-4">이행 증빙 링크</div>
+                <div class="col-8 linkInput">
+                    <input type="text" placeholder="링크명" title="링크명" class="linkName">
+                    <input type="text" placeholder="링크주소" title="링크주소" class="linkURL">
+                    <button type="button" class="btn btn-primary">업로드</button>
+                </div>
+            </div>
+            <ul class="fileList" tabindex="0">
+                <li><a href="#none">법 제64조 관련 증빙 링크 1.pdf</a> <button type="button" class="btnDelIcon">삭제</button></li>
+                <li><a href="#none">법 제64조 관련 증빙 링크 2.pdf</a> <button type="button" class="btnDelIcon">삭제</button></li>
+            </ul>
+
+            <div class="row">
+                <div class="col-4">지적사항 증빙 파일</div>
+                <div class="col-8 text-right"><button type="button" class="btn btn-primary btn-sm">업로드</button></div>
+            </div>
+            <ul class="fileList" tabindex="0">
+                <li><a href="#none">산업안전보건법_지적사항_증빙1.pdf</a> <button type="button" class="btnDelIcon">삭제</button></li>
+                <li><a href="#none">산업안전보건법_지적사항_증빙2.pdf</a> <button type="button" class="btnDelIcon">삭제</button></li>
+            </ul>
+
+            <div class="row">
+                <div class="col-4">지적사항 증빙 링크</div>
+                <div class="col-8 linkInput">
+                    <input type="text" placeholder="링크명" title="링크명" class="linkName">
+                    <input type="text" placeholder="링크주소" title="링크주소" class="linkURL">
+                    <button type="button" class="btn btn-primary">업로드</button>
+                </div>
+            </div>
+            <ul class="fileList" tabindex="0">
+                <li><a href="#none">법 제64조 관련 증빙 링크 1.pdf</a> <button type="button" class="btnDelIcon">삭제</button></li>
+                <li><a href="#none">법 제64조 관련 증빙 링크 2.pdf</a> <button type="button" class="btnDelIcon">삭제</button></li>
+            </ul>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            <button type="button" class="btn btn-primary">확인</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+</body>
+</html>

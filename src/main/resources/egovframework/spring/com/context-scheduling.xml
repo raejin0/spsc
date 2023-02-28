@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- ///////////////// 인사정보 //////////////////-->
+	<!-- 스케쥴링 클래스 -->
+	<bean id="personnelLinkSchedule" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="linkService" />
+		<property name="targetMethod" value="linkPersonnel"/>
+		<property name="concurrent" value="false" /> <!-- 동시 처리 -->
+	</bean>
+
+	<!-- 트리거 -->
+	<bean id="personnelLinkSchedulingTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="personnelLinkSchedule" />
+		<property name="cronExpression" value="0 30 06 * * ?" />     <!-- 매일 6시 30분에 실행 -->
+		<!--<property name="cronExpression" value="*/10 * * * * ?" />-->   <!-- 매 10초마다 실행(테스트용) -->
+	</bean>
+
+	<!-- ///////////////// 조직정보 //////////////////-->
+	<!-- 스케쥴링 클래스 -->
+	<bean id="organizationLinkSchedule" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="linkService" />
+		<property name="targetMethod" value="linkOrganization" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<!-- 트리거 -->
+	<bean id="organizationLinkSchedulingTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="organizationLinkSchedule" />
+		<property name="cronExpression" value="0 0 07 * * ?" />     <!-- 매일 7시에 실행 -->
+		<!--<property name="cronExpression" value="*/10 * * * * ?" />-->   <!-- 매 10초마다 실행(테스트용) -->
+	</bean>
+
+	<!-- ///////////////// 반기 데이터 //////////////////-->
+	<bean id="semiannualDataScheduling" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="semiannualDataService" />
+		<property name="targetMethod" value="update"/>
+		<property name="concurrent" value="false" /> <!-- 동시 처리 -->
+	</bean>
+
+	<bean id="semiannualDataSchedulingTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="semiannualDataScheduling" />
+		<property name="cronExpression" value="0 0 0 1 2,8 ? *" />     <!-- 0초 0분 0시 1일 2월,8월 (요일설정x) 매년 -->
+		<!--<property name="cronExpression" value=" 0 * * * * ?" />-->   <!--매 분 0초마다 실행(테스트 완료)-->
+	</bean>
+
+
+	<!-- ///////////////// mail(메일) //////////////////-->
+	<!-- 스케쥴링 클래스 -->
+	<bean id="mailSchedule" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="mailService" />
+		<property name="targetMethod" value="sendMail"/>
+		<property name="concurrent" value="false" /> <!-- 동시 처리 -->
+	</bean>
+
+	<!-- 트리거 -->
+	<bean id="sendMailTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="mailSchedule" />
+		<property name="cronExpression" value="0 0 0 20 1,7 ? *" />     <!-- 0초 0분 0시 20일 1월,7월 (요일설정x) 매년 -->
+		<!--<property name="cronExpression" value=" 0,10,30,40 * * * * ?" />-->   <!--매 분 0,10,30,40초마다 실행(테스트용)-->
+	</bean>
+
+
+	<!-- 스케쥴러 실행(공통) -->
+	<bean id="personnelLinkScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="personnelLinkSchedulingTrigger" />
+				<ref bean="organizationLinkSchedulingTrigger" />
+				<ref bean="semiannualDataSchedulingTrigger" />
+				<ref bean="sendMailTrigger" />
+			</list>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,1072 @@
+{
+	"years": [
+		2020,
+		2021,
+		2022
+	],
+	"data": [
+		{
+			"dataYear": 2020,
+			"entire": 0,
+			"orgs": [
+				{
+					"orgName": "본사",
+					"firstHalf": 0,
+					"secondHalf": 0,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "ESG경영처",
+									"firstHalf": 0,
+									"secondHalf": 0
+								},
+								{
+									"orgName": "안전보건처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "산업안전실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "재난관리부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "안전감찰부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "중대재해예방부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								}
+							]
+						},
+						{
+							"orgName": "기획관리본부",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "기획전략처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "기획조정실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "경영혁신부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "홍보실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "재무예산부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								},
+								{
+									"orgName": "경영관리처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "인사운영실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "인재개발부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "총무부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "노사협력실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								}
+							]
+						},
+						{
+							"orgName": "기술안전본부",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "발전환경처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "기술기획부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "발전운영실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "전력거래부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "환경정책실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								},
+								{
+									"orgName": "전원개발처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "전원기획실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "기계기술부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "계전기술부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "토건기술부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								}
+							]
+						},
+						{
+							"orgName": "사업본부",
+							"firstHalf": 76.1,
+							"secondHalf": 90.4
+						}
+					]
+				},
+				{
+					"orgName": "보령발전본부",
+					"firstHalf": 0,
+					"secondHalf": 0,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "감사부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "안전품질실",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "정보보안부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								}
+							]
+						},
+						{
+							"orgName": "경영지원처",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "기획관리부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "노무복지부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "자재구매부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "정보통신부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "지역협력부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "(보령)총무부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								}
+							]
+						},
+						{
+							"orgName": "기술지원처",
+							"firstHalf": 43.91,
+							"secondHalf": 9.4
+						},
+						{
+							"orgName": "제2발전소",
+							"firstHalf": 56.96,
+							"secondHalf": 94.91
+						},
+						{
+							"orgName": "제3발전소",
+							"firstHalf": 97.64,
+							"secondHalf": 11.98
+						},
+						{
+							"orgName": "복합발전소",
+							"firstHalf": 89.11,
+							"secondHalf": 36.46
+						},
+						{
+							"orgName": "친환경발전건설소",
+							"firstHalf": 32.12,
+							"secondHalf": 11.55
+						}
+					]
+				},
+				{
+					"orgName": "인천발전본부",
+					"firstHalf": 3.19,
+					"secondHalf": 25.53,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "정보보안팀",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "경영기획부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "안전품질부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "환경화학부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								}
+							]
+						},
+						{
+							"orgName": "발전소",
+							"firstHalf": 99.37,
+							"secondHalf": 100,
+							"department": [
+								{
+									"orgName": "발전운영실",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "기계기술부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "전기기술부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "제어기술부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "PTW팀",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								}
+							]
+						}
+					]
+				},
+				{
+					"orgName": "서울발전본부",
+					"firstHalf": 52.28,
+					"secondHalf": 55.48,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 8.11,
+							"secondHalf": 36.46
+						},
+						{
+							"orgName": "경영지원실",
+							"firstHalf": 32.12,
+							"secondHalf": 11.55
+						},
+						{
+							"orgName": "원주그린열병합발전소",
+							"firstHalf": 32.12,
+							"secondHalf": 11.55
+						}
+					]
+				},
+				{
+					"orgName": "신서천발전본부",
+					"firstHalf": 36.6,
+					"secondHalf": 66.78,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 54.23,
+							"secondHalf": 52.12
+						},
+						{
+							"orgName": "발전소",
+							"firstHalf": 43.91,
+							"secondHalf": 9.4
+						}
+					]
+				}
+			]
+		},
+		{
+			"dataYear": 2021,
+			"entire": 0,
+			"orgs": [
+				{
+					"orgName": "본사",
+					"firstHalf": 0,
+					"secondHalf": 0,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "ESG경영처",
+									"firstHalf": 0,
+									"secondHalf": 0
+								},
+								{
+									"orgName": "안전보건처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "산업안전실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "재난관리부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "안전감찰부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "중대재해예방부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								}
+							]
+						},
+						{
+							"orgName": "기획관리본부",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "기획전략처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "기획조정실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "경영혁신부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "홍보실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "재무예산부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								},
+								{
+									"orgName": "경영관리처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "인사운영실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "인재개발부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "총무부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "노사협력실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								}
+							]
+						},
+						{
+							"orgName": "기술안전본부",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "발전환경처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "기술기획부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "발전운영실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "전력거래부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "환경정책실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								},
+								{
+									"orgName": "전원개발처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "전원기획실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "기계기술부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "계전기술부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "토건기술부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								}
+							]
+						},
+						{
+							"orgName": "사업본부",
+							"firstHalf": 76.1,
+							"secondHalf": 90.4
+						}
+					]
+				},
+				{
+					"orgName": "신서천발전본부",
+					"firstHalf": 36.6,
+					"secondHalf": 66.78,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 54.23,
+							"secondHalf": 52.12
+						},
+						{
+							"orgName": "발전소",
+							"firstHalf": 43.91,
+							"secondHalf": 9.4
+						}
+					]
+				},
+				{
+					"orgName": "제주발전본부",
+					"firstHalf": 33.33,
+					"secondHalf": 89.1,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 54.23,
+							"secondHalf": 52.12
+						},
+						{
+							"orgName": "제1발전소",
+							"firstHalf": 43.91,
+							"secondHalf": 9.4
+						},
+						{
+							"orgName": "제2발전소",
+							"firstHalf": 2.96,
+							"secondHalf": 80.91
+						}
+					]
+				},
+				{
+					"orgName": "신보령발전본부",
+					"firstHalf": 50.83,
+					"secondHalf": 20.51,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 54.23,
+							"secondHalf": 52.12
+						},
+						{
+							"orgName": "경영지원실",
+							"firstHalf": 43.91,
+							"secondHalf": 9.4
+						},
+						{
+							"orgName": "발전소",
+							"firstHalf": 56.96,
+							"secondHalf": 94.91
+						}
+					]
+				}
+			]
+		},
+		{
+			"dataYear": 2022,
+			"entire": 0,
+			"orgs": [
+				{
+					"orgName": "본사",
+					"firstHalf": 0,
+					"secondHalf": 0,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "ESG경영처",
+									"firstHalf": 0,
+									"secondHalf": 0
+								},
+								{
+									"orgName": "안전보건처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "산업안전실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "재난관리부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "안전감찰부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "중대재해예방부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								}
+							]
+						},
+						{
+							"orgName": "기획관리본부",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "기획전략처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "기획조정실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "경영혁신부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "홍보실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "재무예산부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								},
+								{
+									"orgName": "경영관리처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "인사운영실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "인재개발부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "총무부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "노사협력실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								}
+							]
+						},
+						{
+							"orgName": "기술안전본부",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "발전환경처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "기술기획부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "발전운영실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "전력거래부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "환경정책실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								},
+								{
+									"orgName": "전원개발처",
+									"firstHalf": 0,
+									"secondHalf": 0,
+									"department": [
+										{
+											"orgName": "전원기획실",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "기계기술부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "계전기술부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										},
+										{
+											"orgName": "토건기술부",
+											"firstHalf": 0,
+											"secondHalf": 0
+										}
+									]
+								}
+							]
+						},
+						{
+							"orgName": "사업본부",
+							"firstHalf": 76.1,
+							"secondHalf": 90.4
+						}
+					]
+				},
+				{
+					"orgName": "보령발전본부",
+					"firstHalf": 0,
+					"secondHalf": 0,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "감사부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "안전품질실",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "정보보안부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								}
+							]
+						},
+						{
+							"orgName": "경영지원처",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "기획관리부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "노무복지부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "자재구매부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "정보통신부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "지역협력부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "(보령)총무부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								}
+							]
+						},
+						{
+							"orgName": "기술지원처",
+							"firstHalf": 43.91,
+							"secondHalf": 9.4
+						},
+						{
+							"orgName": "제2발전소",
+							"firstHalf": 56.96,
+							"secondHalf": 94.91
+						},
+						{
+							"orgName": "제3발전소",
+							"firstHalf": 97.64,
+							"secondHalf": 11.98
+						},
+						{
+							"orgName": "복합발전소",
+							"firstHalf": 89.11,
+							"secondHalf": 36.46
+						},
+						{
+							"orgName": "친환경발전건설소",
+							"firstHalf": 32.12,
+							"secondHalf": 11.55
+						}
+					]
+				},
+				{
+					"orgName": "인천발전본부",
+					"firstHalf": 3.19,
+					"secondHalf": 25.53,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "정보보안팀",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "경영기획부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "안전품질부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "환경화학부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								}
+							]
+						},
+						{
+							"orgName": "발전소",
+							"firstHalf": 99.37,
+							"secondHalf": 100,
+							"department": [
+								{
+									"orgName": "발전운영실",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "기계기술부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "전기기술부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "제어기술부",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								},
+								{
+									"orgName": "PTW팀",
+									"firstHalf": 54.23,
+									"secondHalf": 52.12
+								}
+							]
+						}
+					]
+				},
+				{
+					"orgName": "서울발전본부",
+					"firstHalf": 52.28,
+					"secondHalf": 55.48,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 8.11,
+							"secondHalf": 36.46
+						},
+						{
+							"orgName": "경영지원실",
+							"firstHalf": 32.12,
+							"secondHalf": 11.55
+						},
+						{
+							"orgName": "원주그린열병합발전소",
+							"firstHalf": 32.12,
+							"secondHalf": 11.55
+						}
+					]
+				},
+				{
+					"orgName": "신서천발전본부",
+					"firstHalf": 36.6,
+					"secondHalf": 66.78,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 54.23,
+							"secondHalf": 52.12
+						},
+						{
+							"orgName": "발전소",
+							"firstHalf": 43.91,
+							"secondHalf": 9.4
+						}
+					]
+				},
+				{
+					"orgName": "제주발전본부",
+					"firstHalf": 33.33,
+					"secondHalf": 89.1,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 54.23,
+							"secondHalf": 52.12
+						},
+						{
+							"orgName": "제1발전소",
+							"firstHalf": 43.91,
+							"secondHalf": 9.4
+						},
+						{
+							"orgName": "제2발전소",
+							"firstHalf": 2.96,
+							"secondHalf": 80.91
+						}
+					]
+				},
+				{
+					"orgName": "신보령발전본부",
+					"firstHalf": 50.83,
+					"secondHalf": 20.51,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 54.23,
+							"secondHalf": 52.12
+						},
+						{
+							"orgName": "경영지원실",
+							"firstHalf": 43.91,
+							"secondHalf": 9.4
+						},
+						{
+							"orgName": "발전소",
+							"firstHalf": 56.96,
+							"secondHalf": 94.91
+						}
+					]
+				},
+				{
+					"orgName": "세종발전본부",
+					"firstHalf": 0,
+					"secondHalf": 0,
+					"department": [
+						{
+							"orgName": "직할",
+							"firstHalf": 0,
+							"secondHalf": 0,
+							"department": [
+								{
+									"orgName": "경영기획부",
+									"firstHalf": 11.77,
+									"secondHalf": 29.46
+								},
+								{
+									"orgName": "계전기술부",
+									"firstHalf": 79.63,
+									"secondHalf": 1.3
+								},
+								{
+									"orgName": "기계기술부",
+									"firstHalf": 91.03,
+									"secondHalf": 80.91
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

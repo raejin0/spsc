@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="spsc.file">
+	<sql id="spsc.cmm.file.detail.select.and.from">
+		SELECT		ATCH_FILE_ID		atchFileId
+				,	FILE_SN				fileSn
+				,	FILE_STRE_COURS		fileStreCours
+				,	STRE_FILE_NM		streFileNm
+				,	ORIGNL_FILE_NM		orignlFileNm
+				,	FILE_EXTSN			fileExtsn
+				,	FILE_CN				fileCn
+				,	FILE_SIZE			fileSize
+				,	ATCH_TY				atchTy
+		FROM  		LETTNFILEDETAIL
+	</sql>
+
+	<insert id="spsc.cmm.insert.file" parameterClass="FileDTO">
+		<selectKey keyProperty="atchFileId" resultClass="Integer">
+			SELECT fileId.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO LETTNFILE	(ATCH_FILE_ID, CREAT_DT, USE_AT)
+				VALUES 			(#atchFileId#, SYSDATE, 'Y')
+	</insert>
+
+	<insert id="spsc.cmm.insert.file.detail" parameterClass="UploadFile">
+		INSERT INTO LETTNFILEDETAIL (ATCH_FILE_ID,
+		                             FILE_SN,
+		                             FILE_STRE_COURS,
+		                             STRE_FILE_NM,
+		                             ORIGNL_FILE_NM,
+		                             FILE_EXTSN,
+		                             FILE_SIZE,
+		                             ATCH_TY)
+				VALUES 				(#atchFileId#,
+									 #fileSn#,
+									 #fileStreCours#,
+									 #streFileNm#,
+									 #orignlFileNm#,
+									 #fileExtsn#,
+									 #fileSize#,
+									 #atchTy#
+					                )
+	</insert>
+
+	<update id="spsc.cmm.update.file.detail" parameterClass="UploadFile">
+	   UPDATE       LETTNFILEDETAIL
+	      SET       FILE_STRE_COURS = #fileStreCours#
+	         ,      STRE_FILE_NM    = #streFileNm#
+	         ,      ORIGNL_FILE_NM  = #orignlFileNm#
+	         ,      FILE_EXTSN      = #fileExtsn#
+	         ,      FILE_SIZE       = #fileSize#
+	         ,      ATCH_TY         = #atchTy#
+	   WHERE        ATCH_FILE_ID    = #atchFileId#
+	      AND       FILE_SN         = #fileSn#
+	</update>
+
+	<select id="spsc.cmm.get.maxFileSn" parameterClass="Integer" resultClass="Integer">
+		SELECT	DECODE(FILESN, NULL, 0, FILESN) + 1
+		FROM	(	SELECT				MAX(FILE_SN)+1       FILESN
+					FROM				LETTNFILEDETAIL
+					WHERE				ATCH_FILE_ID = #ATCHFILEID#
+				)
+	</select>
+
+	<insert id="spsc.cmm.insert.url.detail" parameterClass="FileUploadRequest">
+		INSERT INTO LETTNFILEDETAIL (ATCH_FILE_ID,
+		                             FILE_SN,
+		                             FILE_STRE_COURS,
+		                             STRE_FILE_NM,
+									 ORIGNL_FILE_NM,
+		                             FILE_EXTSN,
+									 ATCH_TY)
+				VALUES 				(#atchFileId#,
+									 #fileSn#,
+									 #url#,
+									 #url#,
+									 #name#,
+									 'url',
+									 #atchTy#
+					                )
+	</insert>
+
+	<update id="spsc.cmm.update.url.detail" parameterClass="FileUploadRequest">
+	   UPDATE       LETTNFILEDETAIL
+	      SET       FILE_STRE_COURS = #url#
+	         ,      STRE_FILE_NM    = #url#
+	         ,      ORIGNL_FILE_NM  = #name#
+	         ,      FILE_EXTSN      = 'url'
+			 ,      FILE_SIZE       = null
+	         ,      ATCH_TY         = #atchTy#
+	   WHERE        ATCH_FILE_ID    = #atchFileId#
+	      AND       FILE_SN         = #fileSn#
+	</update>
+
+	<select id="spsc.cmm.select.file.detail.list" parameterClass="FileDetailConditions" resultClass="UploadFileResponse">
+		SELECT
+				ATCH_FILE_ID  	atchFileId,
+				FILE_SN  		fileSn,
+				ORIGNL_FILE_NM  orignlFileNm
+		FROM  	LETTNFILEDETAIL
+		WHERE   ATCH_FILE_ID = #atchFileId#
+	</select>
+
+	<select id="spsc.cmm.select.file.detail.list.of.multiple.id" parameterClass="FileDetailConditions" resultClass="FileDetailDTO">
+		SELECT				ATCH_FILE_ID					ATCHFILEID
+			,				FILE_SN							FILESN
+<!--			,				FILE_STRE_COURS					FILESTRECOURS-->
+			,				STRE_FILE_NM					STREFILENM
+			,				ORIGNL_FILE_NM					ORIGNLFILENM
+			,				FILE_EXTSN						FILEEXTSN
+			,				FILE_CN							FILECN
+			,				FILE_SIZE						FILESIZE
+			,				ATCH_TY							ATCHTY
+		FROM				LETTNFILEDETAIL
+		WHERE				ATCH_FILE_ID IN (<iterate property="atchFileIds" conjunction=",">#atchFileIds[]#</iterate>)
+		ORDER BY			ATCH_FILE_ID, FILE_SN
+	</select>
+
+	<select id="spsc.cmm.select.file.path.list" parameterClass="FileDetailConditions" resultClass="String">
+		SELECT  FILE_STRE_COURS
+		FROM  	LETTNFILEDETAIL
+		WHERE   ATCH_FILE_ID = #atchFileId#
+	</select>
+
+	<select id="spsc.cmm.select.file.path" parameterClass="DeleteUploadedFileRequest" resultClass="String">
+		SELECT  FILE_STRE_COURS
+		FROM  	LETTNFILEDETAIL
+		WHERE   ATCH_FILE_ID = #atchFileId#
+			AND FILE_SN      = #fileSn#
+	</select>
+
+	<delete id="spsc.cmm.delete.file.detail" parameterClass="DeleteUploadedFileRequest">
+		DELETE FROM LETTNFILEDETAIL
+		WHERE       ATCH_FILE_ID = #atchFileId#
+			AND     FILE_SN      = #fileSn#
+	</delete>
+
+	<delete id="spsc.cmm.delete.file.detail.by.id" parameterClass="Integer">
+		DELETE FROM LETTNFILEDETAIL
+		WHERE       ATCH_FILE_ID = #atchFileId#
+	</delete>
+
+	<delete id="spsc.cmm.delete.file" parameterClass="Integer">
+		DELETE FROM LETTNFILE
+		WHERE   ATCH_FILE_ID = #atchFileId#
+	</delete>
+
+	<select id="spsc.cmm.select.file.detail" parameterClass="FileDetailConditions" resultClass="FileDetailDTO">
+		<include refid="spsc.cmm.file.detail.select.and.from"/>
+		WHERE		ATCH_FILE_ID	=	#atchFileId#
+			AND 	FILE_SN			=	#fileSn#
+	</select>
+
+	<insert id="spsc.file.insert.file.detail" parameterClass="FileDetailDTO">
+		INSERT INTO		LETTNFILEDETAIL ( ATCH_FILE_ID
+										, FILE_SN
+										, FILE_STRE_COURS
+										, STRE_FILE_NM
+										, ORIGNL_FILE_NM
+										, FILE_EXTSN
+										, FILE_CN
+										, FILE_SIZE)
+			VALUES						( #atchFileId#
+										, #fileSn#
+										, #fileStreCours#
+										, #streFileNm#
+										, #orignlFileNm#
+										, #fileExtsn#
+										, NULL
+										, #fileSize#)
+	</insert>
+
+	<select id="spsc.cmm.select.file.detail.list.by.id" parameterClass="Integer" resultClass="FileDetailDTO">
+		<include refid="spsc.cmm.file.detail.select.and.from"/>
+		WHERE		ATCH_FILE_ID	=	#atchFileId#
+	</select>
+
+</sqlMap>

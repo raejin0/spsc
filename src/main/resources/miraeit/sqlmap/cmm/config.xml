@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+    <typeAlias alias="MasterTemplatePostRequest" type="net.miraeit.master.model.template.MasterTemplatePostRequest"/>
+    <typeAlias alias="MasterTemplateGetResponse" type="net.miraeit.master.model.template.MasterTemplateGetResponse"/>
+    <typeAlias alias="MasterInside" type="net.miraeit.master.model.MasterInside"/>
+    <typeAlias alias="AppliedPeriod" type="net.miraeit.master.model.template.AppliedPeriod"/>
+    <typeAlias alias="MasterTemplatePatchRequest" type="net.miraeit.master.model.template.MasterTemplatePatchRequest"/>
+    <typeAlias alias="MasterTemplateDeleteRequest" type="net.miraeit.master.model.template.MasterTemplateDeleteRequest"/>
+    <typeAlias alias="MasterMainListByLawId" type="net.miraeit.master.model.main.MasterMainListByLawId"/>
+    <typeAlias alias="MasterMainSubInfoGetResponse" type="net.miraeit.master.model.main.MasterMainSubInfoGetResponse"/>
+    <typeAlias alias="MasterTextListBySubId" type="net.miraeit.master.model.text.MasterTextListBySubId"/>
+    <typeAlias alias="MasterImplListByTextId" type="net.miraeit.master.model.impl.MasterImplListByTextId"/>
+    <typeAlias alias="ExecutionDepartmentList" type="net.miraeit.master.model.impl.ExecutionDepartmentList"/>
+    <typeAlias alias="MainDepartmentList" type="net.miraeit.master.model.impl.MainDepartmentList"/>
+    <typeAlias alias="StatuteList" type="net.miraeit.master.model.impl.StatuteList"/>
+    <typeAlias alias="MasterMainPostRequest" type="net.miraeit.master.model.main.MasterMainPostRequest"/>
+    <typeAlias alias="MasterMainPatchRequest" type="net.miraeit.master.model.main.MasterMainPatchRequest"/>
+    <typeAlias alias="MasterSubPostRequest" type="net.miraeit.master.model.sub.MasterSubPostRequest"/>
+    <typeAlias alias="MasterSubPatchRequest" type="net.miraeit.master.model.sub.MasterSubPatchRequest"/>
+    <typeAlias alias="MasterTextPostRequest" type="net.miraeit.master.model.text.MasterTextPostRequest"/>
+    <typeAlias alias="MasterTextPatchRequest" type="net.miraeit.master.model.text.MasterTextPatchRequest"/>
+    <typeAlias alias="MasterImplPostRequest" type="net.miraeit.master.model.impl.MasterImplPostRequest"/>
+    <typeAlias alias="MasterStatuteGetResponse" type="net.miraeit.master.model.impl.MasterStatuteGetResponse"/>
+    <typeAlias alias="MasterArticleGetResponse" type="net.miraeit.master.model.impl.MasterArticleGetResponse"/>
+    <typeAlias alias="MasterStatutePostRequest" type="net.miraeit.master.model.impl.MasterStatutePostRequest"/>
+    <typeAlias alias="MasterStatutePatchRequest" type="net.miraeit.master.model.impl.MasterStatutePatchRequest"/>
+    <typeAlias alias="MasterStatuteDeleteRequest" type="net.miraeit.master.model.impl.MasterStatuteDeleteRequest"/>
+    <typeAlias alias="MasterArticlePostRequest" type="net.miraeit.master.model.impl.MasterArticlePostRequest"/>
+    <typeAlias alias="MasterArticlePatchRequest" type="net.miraeit.master.model.impl.MasterArticlePatchRequest"/>
+    <typeAlias alias="MasterArticleDeleteRequest" type="net.miraeit.master.model.impl.MasterArticleDeleteRequest"/>
+    <typeAlias alias="MasterArticleDetailGetResponse" type="net.miraeit.master.model.impl.MasterArticleDetailGetResponse"/>
+
+    <typeAlias alias="SimpleCount"                      type="net.miraeit.cmm.model.SimpleCount"/>
+    <typeAlias alias="CMMInside" type="net.miraeit.cmm.model.CMMInside"/>
+    <typeAlias alias="CMMCodesGetResponse" type="net.miraeit.cmm.model.CMMCodesGetResponse"/>
+    <typeAlias alias="OrganizationGetResponse" type="net.miraeit.cmm.model.organization.OrganizationGetResponse"/>
+    <typeAlias alias="ManagementGetResponse" type="net.miraeit.cmm.model.organization.ManagementGetResponse"/>
+    <typeAlias alias="OrganizationGetRequest" type="net.miraeit.cmm.model.organization.OrganizationGetRequest"/>
+    <typeAlias alias="ManagementPatchRequest" type="net.miraeit.cmm.model.organization.ManagementPatchRequest"/>
+    <typeAlias alias="OrganizationTypePatchRequest" type="net.miraeit.cmm.model.organization.OrganizationTypePatchRequest"/>
+
+	<typeAlias alias="FileDTO" type="net.miraeit.cmm.model.file.FileDTO"/>
+	<typeAlias alias="UploadFile" type="net.miraeit.cmm.model.file.UploadFile"/>
+	<typeAlias alias="UploadFileResponse" type="net.miraeit.cmm.model.file.UploadFileResponse"/>
+	<typeAlias alias="FileDetailConditions" type="net.miraeit.cmm.condition.FileDetailConditions"/>
+	<typeAlias alias="FileUploadRequest" type="net.miraeit.cmm.model.file.FileUploadRequest"/>
+	<typeAlias alias="URLDetailDTO" type="net.miraeit.cmm.model.file.URLDetailDTO"/>
+	<typeAlias alias="FileDetailDTO" type="net.miraeit.cmm.model.file.FileDetailDTO"/>
+	<typeAlias alias="DeleteUploadedFileRequest" type="net.miraeit.cmm.model.file.DeleteUploadedFileRequest"/>
+	<typeAlias alias="FileDownloadRequest" type="net.miraeit.cmm.model.file.FileDownloadRequest"/>
+    <typeAlias  alias="TargetEquipment"                          type="net.miraeit.cmm.model.equipment.TargetEquipment"/>
+    <typeAlias  alias="TargetEquipmentListGetRequest"            type="net.miraeit.cmm.model.equipment.TargetEquipmentListGetRequest"/>
+    <typeAlias  alias="TargetEquipmentGetRequest"                type="net.miraeit.cmm.model.equipment.TargetEquipmentGetRequest"/>
+    <typeAlias  alias="TargetEquipmentPostRequest"               type="net.miraeit.cmm.model.equipment.TargetEquipmentPostRequest"/>
+    <typeAlias  alias="TargetEquipmentOnLawGetRequest"           type="net.miraeit.cmm.model.equipment.TargetEquipmentOnLawGetRequest"/>
+    <typeAlias alias="FileInformation" type="net.miraeit.cmm.model.file.FileInformation"/>
+
+    <typeAlias alias="ChecklistDepartment" type="net.miraeit.checklist.model.ChecklistDepartment"/>
+    <typeAlias alias="ChecklistDashboardGetRequest" type="net.miraeit.checklist.model.ChecklistDashboardGetRequest"/>
+    <typeAlias alias="ChecklistInside" type="net.miraeit.checklist.model.ChecklistInside"/>
+    <typeAlias alias="ChecklistGetRequest" type="net.miraeit.checklist.model.ChecklistGetRequest"/>
+    <typeAlias alias="ChecklistGetResponse" type="net.miraeit.checklist.model.ChecklistGetResponse"/>
+    <typeAlias alias="ChecklistLawMain" type="net.miraeit.checklist.model.ChecklistLawMain"/>
+    <typeAlias alias="ChecklistLawSub" type="net.miraeit.checklist.model.ChecklistLawSub"/>
+    <typeAlias alias="ChecklistStatute" type="net.miraeit.checklist.model.ChecklistStatute"/>
+    <typeAlias alias="ChecklistContent" type="net.miraeit.checklist.model.ChecklistContent"/>
+    <typeAlias alias="ChecklistMainDepartmentsList" type="net.miraeit.checklist.model.ChecklistMainDepartmentsList"/>
+    <typeAlias alias="ChecklistStatuteList" type="net.miraeit.checklist.model.ChecklistStatuteList"/>
+    <typeAlias alias="ChecklistResultList" type="net.miraeit.checklist.model.ChecklistResultList"/>
+    <typeAlias alias="ChecklistEquipments" type="net.miraeit.checklist.model.ChecklistEquipments"/>
+    <typeAlias alias="ChecklistPerformanceMainGetRequest" type="net.miraeit.checklist.model.ChecklistPerformanceMainGetRequest"/>
+    <typeAlias alias="ChecklistPerformanceMainGetResponse" type="net.miraeit.checklist.model.ChecklistPerformanceMainGetResponse"/>
+    <typeAlias alias="ChecklistPerformanceSubGetRequest" type="net.miraeit.checklist.model.ChecklistPerformanceSubGetRequest"/>
+    <typeAlias alias="ChecklistPerformanceSubGetResponse" type="net.miraeit.checklist.model.ChecklistPerformanceSubGetResponse"/>
+    <typeAlias alias="ChecklistPerformanceTextGetRequest" type="net.miraeit.checklist.model.ChecklistPerformanceTextGetRequest"/>
+    <typeAlias alias="ChecklistPerformanceTextGetResponse" type="net.miraeit.checklist.model.ChecklistPerformanceTextGetResponse"/>
+    <typeAlias alias="ChecklistPerformanceGetRequest" type="net.miraeit.checklist.model.ChecklistPerformanceGetRequest"/>
+    <typeAlias alias="ChecklistPerformanceGetResponse" type="net.miraeit.checklist.model.ChecklistPerformanceGetResponse"/>
+    <typeAlias alias="ChecklistImplementStateRequest" type="net.miraeit.checklist.model.ChecklistImplementStateRequest"/>
+    <typeAlias alias="ChecklistPerformanceInspectPatchRequest" type="net.miraeit.checklist.model.ChecklistPerformanceInspectPatchRequest"/>
+    <typeAlias alias="ChecklistPerformanceInspectStatePatchRequest" type="net.miraeit.checklist.model.ChecklistPerformanceInspectStatePatchRequest"/>
+    <typeAlias alias="ChecklistPerformanceUnimplReasonPatchRequest" type="net.miraeit.checklist.model.ChecklistPerformanceUnimplReasonPatchRequest"/>
+
+	<!-- 관련 법령 -->
+	<typeAlias alias="LawDetail" type="net.miraeit.cmm.model.law.LawDetail"/>
+	<typeAlias alias="LawDetailInsertDTO" type="net.miraeit.cmm.model.law.LawDetailInsertDTO"/>
+	<typeAlias alias="LawDetailPatchRequest" type="net.miraeit.cmm.model.law.LawDetailPatchRequest"/>
+	<typeAlias alias="LawDetailDeleteRequest" type="net.miraeit.cmm.model.law.LawDetailDeleteRequest"/>
+	<!--<typeAlias alias="LawMapDTO" type="net.miraeit.cmm.model.raw.LawMapDTO"/>-->
+
+    <!-- 지적조치사항 -->
+    <typeAlias  alias="PointOutSummary"             type="net.miraeit.pointout.model.PointOutSummary"/>
+    <typeAlias  alias="PointOutSummaryRequest"      type="net.miraeit.pointout.model.request.PointOutSummaryRequest"/>
+    <typeAlias  alias="PointOutSummaryRegRequest"   type="net.miraeit.pointout.model.request.PointOutSummaryRegRequest"/>
+    <typeAlias  alias="PointOutSummaryModRequest"   type="net.miraeit.pointout.model.request.PointOutSummaryModRequest"/>
+    <typeAlias  alias="PointOutDetail"              type="net.miraeit.pointout.model.PointOutDetail"/>
+    <typeAlias  alias="PointOutDetailRequest"       type="net.miraeit.pointout.model.request.PointOutDetailRequest"/>
+    <typeAlias  alias="PointOutDetailRegRequest"    type="net.miraeit.pointout.model.request.PointOutDetailRegRequest"/>
+    <typeAlias  alias="PointOutDetailModRequest"    type="net.miraeit.pointout.model.request.PointOutDetailModRequest"/>
+    <typeAlias  alias="PointOutSTS"                 type="net.miraeit.pointout.model.PointOutSTS"/>
+
+    <!-- 공통 -->
+    <typeAlias  alias="OperationPeriod"             type="net.miraeit.cmm.model.OperationPeriod"/>
+
+    <!-- 체크리스트 조회 재작성을 위한 모델 -->
+    <typeAlias  alias="ChecklistImplementItem"          type="net.miraeit.checklist.model.selection.ChecklistImplementItem"/>
+    <typeAlias  alias="ChecklistImplementManagerOrg"    type="net.miraeit.checklist.model.selection.ChecklistImplementManagerOrg"/>
+    <typeAlias  alias="ChecklistImplementStatute"       type="net.miraeit.checklist.model.selection.ChecklistImplementStatute"/>
+    <typeAlias  alias="ChecklistImplementLawMainSub"    type="net.miraeit.checklist.model.selection.ChecklistImplementLawMainSub"/>
+    <typeAlias  alias="ChecklistImplementEquipment"     type="net.miraeit.checklist.model.selection.ChecklistImplementEquipment"/>
+
+
+
+
+
+    <sqlMap resource="miraeit/sqlmap/cmm/spsc-sql-cmm-oracle.xml"/>
+	<sqlMap resource="miraeit/sqlmap/cmm/spsc-sql-file-orale.xml"/>
+    <sqlMap resource="miraeit/sqlmap/checklist/spsc-sql-checklist-oracle.xml"/>
+    <sqlMap resource="miraeit/sqlmap/checklist/spsc-sql-checklist-inspect-oracle.xml"/>
+    <sqlMap resource="miraeit/sqlmap/master/spsc-sql-master-oracle.xml"/>
+	<sqlMap resource="miraeit/sqlmap/user/spsc-sql-user-oracle.xml"/>
+	<sqlMap resource="miraeit/sqlmap/community/spsc-sql-community-oracle.xml"/>
+    <sqlMap resource="miraeit/sqlmap/pointout/spsc-sql-pointout-oracle.xml"/>
+	<sqlMap resource="miraeit/sqlmap/equipment/spsc-sql-equipment-oracle.xml"/>
+	<sqlMap resource="miraeit/sqlmap/scheduling/spsc-sql-scheduling-oracle.xml"/>
+	<sqlMap resource="miraeit/sqlmap/scheduling/spsc-sql-semiannual-oracle.xml"/>
+	<sqlMap resource="miraeit/sqlmap/organization/spsc-sql-organization-oracle.xml"/>
+
+
+
+</sqlMapConfig>

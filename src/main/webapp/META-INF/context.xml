@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context allowCasualMultipartParsing="true" path="/">
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <Resource name="spsc" auth="Container" type="javax.sql.DataSource"
+              maxActive="10" maxIdle="3" maxWait="10000"
+              username="spsc" password="roqkf1qa"
+              driverClassName="oracle.jdbc.OracleDriver"
+              url="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=14.63.58.105)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)))"
+              closeMethod="close" />
+</Context>

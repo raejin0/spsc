@@ -1,0 +1,43 @@
+{
+	"years": [
+		2019,
+		2020,
+		2021,
+		2022
+	],
+	"dataYear": 2020,
+	"entire": 88.34,
+	"orgs": [{
+		"orgName": "본사",
+		"firstHalf": 99.2,
+		"secondHalf": 66.44
+	}, {
+		"orgName": "보령화력",
+		"firstHalf": 26.06,
+		"secondHalf": 52.39
+	}, {
+		"orgName": "인천화력",
+		"firstHalf": 3.19,
+		"secondHalf": 25.53
+	}, {
+		"orgName": "서울",
+		"firstHalf": 52.28,
+		"secondHalf": 55.48
+	}, {
+		"orgName": "서천",
+		"firstHalf": 36.6,
+		"secondHalf": 66.78
+	}, {
+		"orgName": "제주",
+		"firstHalf": 33.33,
+		"secondHalf": 89.1
+	}, {
+		"orgName": "신보령",
+		"firstHalf": 50.83,
+		"secondHalf": 20.51
+	}, {
+		"orgName": "세종",
+		"firstHalf": 14.48,
+		"secondHalf": 18.19
+	}]
+}

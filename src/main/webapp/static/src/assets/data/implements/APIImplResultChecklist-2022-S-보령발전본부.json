@@ -1,0 +1,276 @@
+{
+	"success": true,
+	"data": {
+		"request": {
+			"optTimeYear": "2022",
+			"optTimeHalf": "S",
+			"orgCd": "보령발전본부",
+			"lawMainId": 1,
+			"lawSubId": -1,
+			"lawRelId": -1
+		},
+		"progressOnDepartment": {
+			"department": {
+				"orgCd": "보령발전본부",
+				"orgNm": "보령발전본부"
+			},
+			"progress": 100.00
+		},
+		"lawSubImplementsList": [{
+			"lawSub": {
+				"lawSubId": 1,
+				"lawSubNo": 1,
+				"lawSubNm": "뭐가 되었든 각호 내용",
+				"lawSubEtc": "일해라 절해라 하지 말아말이야"
+			},
+			"statuteImplementsList": [{
+				"statute": {
+					"lawRelId": 1,
+					"lawRelNm": 1,
+					"lawRelDtlId": "제 3호",
+					"lawRelAtc": "관련법령 어... 뭐?"
+				},
+				"implementList": [{
+					"content": {
+						"lawImplId": 1,
+						"lawCttsText": "법령을 무시하면 안됩니다",
+						"itmReqr": "의무사항1",
+						"itmAttn": "착안사항1",
+						"implProd": "상시",
+						"mainDepartmentsList": [{
+							"orgCd": "주관부서1",
+							"orgNm": "주관부서1"
+						}, {
+							"orgCd": "주관부서2",
+							"orgNm": "주관부서2"
+						}],
+						"statuteList": [{
+							"lawRelId": 1,
+							"lawRelNm": 1,
+							"lawRelDtlId": "제 3호",
+							"lawRelAtc": "관련법령 3... 뭐?"
+						}, {
+							"lawRelId": 1,
+							"lawRelNm": 1,
+							"lawRelDtlId": "제 4호",
+							"lawRelAtc": "관련법령 4... 뭐?"
+						}]
+					},
+					"resultList": [{
+						"lawImplId": 1,
+						"implState": "적",
+						"itmChk": "고쳐라",
+						"itmChkState": "개선",
+						"department": {
+							"orgCd": "이행부서1",
+							"orgNm": "이행부서1"
+						},
+						"attachments": {
+							"implFiles": [{
+								"name": "첨부파일1",
+								"url": "첨부주소1",
+								"type": "F"
+							}, {
+								"name": "첨부파일2",
+								"url": "첨부주소2",
+								"type": "F"
+							}],
+							"implLinks": [{
+								"name": "첨부링크1",
+								"url": "첨부주소1",
+								"type": "L"
+							}, {
+								"name": "첨부파일2",
+								"url": "첨부주소2",
+								"type": "L"
+							}],
+							"pointedFiles": [{
+								"name": "첨부파일3",
+								"url": "첨부주소3",
+								"type": "F"
+							}, {
+								"name": "첨부파일4",
+								"url": "첨부주소4",
+								"type": "F"
+							}],
+							"pointedLinks": [{
+								"name": "첨부링크3",
+								"url": "첨부주소3",
+								"type": "L"
+							}, {
+								"name": "첨부링크4",
+								"url": "첨부주소4",
+								"type": "L"
+							}]
+						}
+					}, {
+						"lawImplId": 1,
+						"implState": "부",
+						"itmChk": "잘해쓰",
+						"itmChkState": "양호",
+						"department": {
+							"orgCd": "이행부서2",
+							"orgNm": "이행부서2"
+						},
+						"attachments": {
+							"implFiles": [{
+								"name": "첨부파일1",
+								"url": "첨부주소1",
+								"type": "F"
+							}, {
+								"name": "첨부파일2",
+								"url": "첨부주소2",
+								"type": "F"
+							}],
+							"implLinks": [{
+								"name": "첨부링크1",
+								"url": "첨부주소1",
+								"type": "L"
+							}, {
+								"name": "첨부파일2",
+								"url": "첨부주소2",
+								"type": "L"
+							}],
+							"pointedFiles": [{
+								"name": "첨부파일3",
+								"url": "첨부주소3",
+								"type": "F"
+							}, {
+								"name": "첨부파일4",
+								"url": "첨부주소4",
+								"type": "F"
+							}],
+							"pointedLinks": [{
+								"name": "첨부링크3",
+								"url": "첨부주소3",
+								"type": "L"
+							}, {
+								"name": "첨부링크4",
+								"url": "첨부주소4",
+								"type": "L"
+							}]
+						}
+					}]
+				}]
+			}, {
+				"statute": {
+					"lawRelId": 2,
+					"lawRelNm": 2,
+					"lawRelDtlId": "제 5호",
+					"lawRelAtc": "글쎄..."
+				},
+				"implementList": [{
+					"content": {
+						"lawImplId": 1,
+						"lawCttsText": "법령 무시하지 마라 말이야",
+						"itmReqr": "의무사항2",
+						"itmAttn": "착안사항2",
+						"implProd": "칼같이",
+						"mainDepartmentsList": [{
+							"orgCd": "주관부서1",
+							"orgNm": "주관부서1"
+						}, {
+							"orgCd": "주관부서2",
+							"orgNm": "주관부서2"
+						}]
+					},
+					"resultList": [{
+						"lawImplId": 1,
+						"implState": "적",
+						"itmChk": "고쳐라 좀",
+						"itmChkState": "개선",
+						"department": {
+							"orgCd": "이행부서1",
+							"orgNm": "이행부서1"
+						},
+						"attachments": {
+							"implFiles": [{
+								"name": "첨부파일1",
+								"url": "첨부주소1",
+								"type": "F"
+							}, {
+								"name": "첨부파일2",
+								"url": "첨부주소2",
+								"type": "F"
+							}],
+							"implLinks": [{
+								"name": "첨부링크1",
+								"url": "첨부주소1",
+								"type": "L"
+							}, {
+								"name": "첨부파일2",
+								"url": "첨부주소2",
+								"type": "L"
+							}],
+							"pointedFiles": [{
+								"name": "첨부파일3",
+								"url": "첨부주소3",
+								"type": "F"
+							}, {
+								"name": "첨부파일4",
+								"url": "첨부주소4",
+								"type": "F"
+							}],
+							"pointedLinks": [{
+								"name": "첨부링크3",
+								"url": "첨부주소3",
+								"type": "L"
+							}, {
+								"name": "첨부링크4",
+								"url": "첨부주소4",
+								"type": "L"
+							}]
+						}
+					}, {
+						"lawImplId": 1,
+						"implState": "부",
+						"itmChk": "나이쓰",
+						"itmChkState": "양호",
+						"department": {
+							"orgCd": "이행부서2",
+							"orgNm": "이행부서2"
+						},
+						"attachments": {
+							"implFiles": [{
+								"name": "첨부파일1",
+								"url": "첨부주소1",
+								"type": "F"
+							}, {
+								"name": "첨부파일2",
+								"url": "첨부주소2",
+								"type": "F"
+							}],
+							"implLinks": [{
+								"name": "첨부링크1",
+								"url": "첨부주소1",
+								"type": "L"
+							}, {
+								"name": "첨부파일2",
+								"url": "첨부주소2",
+								"type": "L"
+							}],
+							"pointedFiles": [{
+								"name": "첨부파일3",
+								"url": "첨부주소3",
+								"type": "F"
+							}, {
+								"name": "첨부파일4",
+								"url": "첨부주소4",
+								"type": "F"
+							}],
+							"pointedLinks": [{
+								"name": "첨부링크3",
+								"url": "첨부주소3",
+								"type": "L"
+							}, {
+								"name": "첨부링크4",
+								"url": "첨부주소4",
+								"type": "L"
+							}]
+						}
+					}]
+				}]
+			}]
+		}]
+	}
+}

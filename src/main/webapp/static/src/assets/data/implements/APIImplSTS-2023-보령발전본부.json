@@ -1,0 +1,101 @@
+{
+	"success": true,
+	"data": {
+		"request": {
+			"optTimeYear": "2023",
+			"optTimeHalf": "",
+			"orgCd": "보령발전본부",
+			"disasterType": "",
+			"mainDepartmentCd": ""
+		},
+		"optTimeYear": "2023",
+		"optTimeHalf": "",
+		"progressOnTargetOrg": {
+			"department": {
+				"orgCd": "보령발전본부",
+				"orgNm": "보령발전본부 2023"
+			},
+			"progress": 33.10
+		},
+		"progressListOnMainDepartments": [{
+			"department": {
+				"orgCd": "1",
+				"orgNm": "산업안전실"
+			},
+			"progress": 60
+		}, {
+			"department": {
+				"orgCd": "2",
+				"orgNm": "재난관리부"
+			},
+			"progress": 20
+		}, {
+			"department": {
+				"orgCd": "3",
+				"orgNm": "중대재해예방부"
+			},
+			"progress": 30
+		}, {
+			"department": {
+				"orgCd": "4",
+				"orgNm": "발전운영실"
+			},
+			"progress": 60
+		}, {
+			"department": {
+				"orgCd": "5",
+				"orgNm": "환경정책실"
+			},
+			"progress": 50
+		}, {
+			"department": {
+				"orgCd": "6",
+				"orgNm": "토건기술부"
+			},
+			"progress": 60
+		}],
+		"progressListOnImplDepartments":[{
+			"department": {
+				"orgCd": "경영지원처",
+				"orgNm": "경영지원처"
+			},
+			"progress": 60
+		}, {
+			"department": {
+				"orgCd": "기술지원처",
+				"orgNm": "기술지원처"
+			},
+			"progress": 60
+		}, {
+			"department": {
+				"orgCd": "제2발전소",
+				"orgNm": "제2발전소"
+			},
+			"progress": 60
+		}, {
+			"department": {
+				"orgCd": "제3발전소",
+				"orgNm": "제3발전소"
+			},
+			"progress": 60
+		}, {
+			"department": {
+				"orgCd": "직할",
+				"orgNm": "직할"
+			},
+			"progress": 60
+		}, {
+			"department": {
+				"orgCd": "친환경발전건설소",
+				"orgNm": "친환경발전건설소"
+			},
+			"progress": 60
+		}, {
+			"department": {
+				"orgCd": "복합발전소",
+				"orgNm": "복합발전소"
+			},
+			"progress": 60
+		}]
+	}
+}
